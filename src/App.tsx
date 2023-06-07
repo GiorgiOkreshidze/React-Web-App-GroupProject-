@@ -59,8 +59,9 @@ function App() {
       });
   }
 
-  const sortCars = (product: any) => {
-    const sortedCars = products.slice();
+  const sortCars = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const product = event.currentTarget.value;
+    const sortedCars = [...products]; // Create a copy of the products array
 
     switch (product) {
       case "1.1":
@@ -81,10 +82,14 @@ function App() {
       case "6.1":
         sortedCars.sort((a, b) => b.car_run - a.car_run);
         break;
+      default:
+        // No valid sorting option selected
+        return;
     }
 
     setProducts(sortedCars);
   };
+
   
 
 
@@ -113,8 +118,8 @@ function App() {
           <option value="5.1">decreasing mileage</option>
           <option value="6.1">increasing mileage</option>
         </select> */}
-        <button value="1.1" onClick={sortCars}>decreasing date</button>
-        <button value="2.1" onClick={sortCars}>increasing date</button>
+        <button value="1.1" onClick={sortCars}>increasing date</button>
+        <button value="2.1" onClick={sortCars}>decreasing date</button>
         </div>
       </div>
       {/* <div>
