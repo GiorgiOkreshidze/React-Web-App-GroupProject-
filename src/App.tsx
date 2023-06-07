@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
+import "./App.css"
+
 
 function App() {
   const [models, setModels] = useState<Model[]>([]);
@@ -57,17 +59,73 @@ function App() {
       });
   }
 
+  const sortCars = (product: any) => {
+    const sortedCars = products.slice();
+
+    switch (product) {
+      case "1.1":
+        sortedCars.sort((a, b) => a.prod_year - b.prod_year);
+        break;
+      case "2.1":
+        sortedCars.sort((a, b) => b.prod_year - a.prod_year);
+        break;
+      case "3.1":
+        sortedCars.sort((a, b) => a.price - b.price);
+        break;
+      case "4.1":
+        sortedCars.sort((a, b) => b.price - a.price);
+        break;
+      case "5.1":
+        sortedCars.sort((a, b) => a.car_run - b.car_run);
+        break;
+      case "6.1":
+        sortedCars.sort((a, b) => b.car_run - a.car_run);
+        break;
+    }
+
+    setProducts(sortedCars);
+  };
+  
+
+
   return (
     <div style={{ background: '#E5E5E5' }}>
-      <div>
+      <div className='Periods'>
+        <div className='period'>
+          <select className='details'>
+            <option value="1">1 hour</option>
+            <option value="2">2 hour</option>
+            <option value="3">3 hour</option>
+            <option value="4">1 day</option>
+            <option value="5">2 day</option>
+            <option value="6">3 day</option>
+            <option value="7">1 week</option>
+            <option value="8">2 week</option>
+            <option value="9">3 week</option>
+          </select>
+        </div>
+        <div className='period1'>
+        {/* <select className='details1' onChange={sortCars}>
+          <option value="1.1">decreasing date</option>
+          <option value="2.1">increasing date</option>
+          <option value="3.1">decreasing price</option>
+          <option value="4.1">increasing price</option>
+          <option value="5.1">decreasing mileage</option>
+          <option value="6.1">increasing mileage</option>
+        </select> */}
+        <button value="1.1" onClick={sortCars}>decreasing date</button>
+        <button value="2.1" onClick={sortCars}>increasing date</button>
+        </div>
+      </div>
+      {/* <div>
         <h1>Manufacturer Models</h1>
         <ul>
           {models.map((model) => (
             <li key={model.model_id}>{model.model_name}</li>
           ))}
         </ul>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <h1>Manufacturer List</h1>
         <ul>
           {manufacturers.map((manufacturer) => (
@@ -81,9 +139,9 @@ function App() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
  
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <h1>Categories</h1>
         <ul>
           
@@ -101,8 +159,8 @@ function App() {
             </li>
           ))}
         </ul>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      </div> */}
+     \ <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <h1>Products</h1>
         <ul>
           {products.map((product) => (
@@ -127,9 +185,9 @@ function App() {
                   marginLeft: '220px',
                 }}
               >
-                {/* <strong>ID:</strong> {product.car_id}<br />
+                 {/* <strong>ID:</strong> {product.car_id}<br />
                 <strong>Title:</strong> {product.car_model}<br />
-                <strong>Description:</strong> {product.car_desc}<br /> */}
+                <strong>Description:</strong> {product.car_desc}<br />  */}
 
 
 
@@ -265,6 +323,8 @@ function App() {
           ))}
         </ul>
       </div>
+  
+      
     </div>
   );
   
