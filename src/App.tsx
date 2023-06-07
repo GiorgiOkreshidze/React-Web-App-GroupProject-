@@ -59,27 +59,27 @@ function App() {
       });
   }
 
-  const sortCars = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const sortCars = (event: React.MouseEvent<HTMLSelectElement>) => {
     const product = event.currentTarget.value;
     const sortedCars = [...products]; // Create a copy of the products array
 
     switch (product) {
-      case "1.1":
+      case "2.1":
         sortedCars.sort((a, b) => a.prod_year - b.prod_year);
         break;
-      case "2.1":
+      case "1.1":
         sortedCars.sort((a, b) => b.prod_year - a.prod_year);
         break;
-      case "3.1":
+      case "4.1":
         sortedCars.sort((a, b) => a.price - b.price);
         break;
-      case "4.1":
+      case "3.1":
         sortedCars.sort((a, b) => b.price - a.price);
         break;
-      case "5.1":
+      case "6.1":
         sortedCars.sort((a, b) => a.car_run - b.car_run);
         break;
-      case "6.1":
+      case "5.1":
         sortedCars.sort((a, b) => b.car_run - a.car_run);
         break;
       default:
@@ -110,16 +110,14 @@ function App() {
           </select>
         </div>
         <div className='period1'>
-        {/* <select className='details1' onChange={sortCars}>
+        <select className='details1' onClick={sortCars}>
           <option value="1.1">decreasing date</option>
           <option value="2.1">increasing date</option>
           <option value="3.1">decreasing price</option>
           <option value="4.1">increasing price</option>
           <option value="5.1">decreasing mileage</option>
           <option value="6.1">increasing mileage</option>
-        </select> */}
-        <button value="1.1" onClick={sortCars}>increasing date</button>
-        <button value="2.1" onClick={sortCars}>decreasing date</button>
+        </select> 
         </div>
       </div>
       {/* <div>
