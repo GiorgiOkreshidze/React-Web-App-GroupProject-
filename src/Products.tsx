@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
+import {getCategoryById, getManufacturerById, getModelById, fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 
 function Products() {
   const [models, setModels] = useState<Model[]>([]);
@@ -58,6 +58,22 @@ function Products() {
 
       
   }
+  const filterCarsByHours = (event: React.MouseEvent<HTMLSelectElement>) => {
+    const selectedHour = parseInt(event.currentTarget.value);
+    
+    if (selectedHour === 0) {
+      setProducts([...products]); // Reset to original list if "All" option is selected
+    } else {
+      const filteredCars = products.filter((car) => {
+        const carPublishedTime = new Date(car.order_date);
+        const currentTime = new Date();
+        const diffInHours = (currentTime.getTime() - carPublishedTime.getTime()) / (1000 * 60 * 60);
+        return diffInHours <= selectedHour;
+      });
+  
+      setProducts(filteredCars);
+    }
+  };
 
   const sortCars = (event: React.MouseEvent<HTMLSelectElement>) => {
     const product = event.currentTarget.value;
@@ -83,7 +99,6 @@ function Products() {
         sortedCars.sort((a, b) => b.car_run - a.car_run);
         break;
       default:
-        // No valid sorting option selected
         return;
     }
 
@@ -141,16 +156,17 @@ function Products() {
             background: '#FFFFFF',
             border: '1px solid #E9E9F0',
             borderRadius: '8px',
-        }}>
+        }} onClick={filterCarsByHours}>
+            <option value="0">All</option>
             <option value="1">1 hour</option>
             <option value="2">2 hour</option>
             <option value="3">3 hour</option>
-            <option value="4">1 day</option>
-            <option value="5">2 day</option>
-            <option value="6">3 day</option>
-            <option value="7">1 week</option>
-            <option value="8">2 week</option>
-            <option value="9">3 week</option>
+            <option value="24">1 day</option>
+            <option value="48">2 day</option>
+            <option value="72">3 day</option>
+            <option value="168">1 week</option>
+            <option value="336">2 week</option>
+            <option value="504">3 week</option>
           
           
           </select>
@@ -305,7 +321,9 @@ function Products() {
                                 fontSize: '14px',
                                 lineHeight: '17px',
                                 color: '#272A37',
-                              }}>{product.car_id}</span>
+                              }}>{product.model_id}
+                                {getModelById(models,product.model_id)?.model_name}
+                                </span>
                             <span className='ml-8px d-flex text-gray-500 font-medium text-nowrap' style={{
                                 
                                 width: '44px',

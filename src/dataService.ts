@@ -151,7 +151,7 @@
   }
  
   export const getModelById = (models: Model[], modelId: number): Model | undefined => {
-    return models.find((model) => model.model_id === modelId);
+    return models.find((model) => model.model_id == modelId);
   };
 
 
