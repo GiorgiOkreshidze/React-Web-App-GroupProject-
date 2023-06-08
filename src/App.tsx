@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 import "./App.css"
 import Container from './container';
+import Products from './Products';
 
 
 function App() {
@@ -104,7 +105,7 @@ function App() {
       <hr /> 
       <Container />
     {/* <div style={{ background: '#E5E5E5' }}> */}
-      <div className='Periods'>
+      {/*<div className='Periods'>
         <div className='period'>
           <select className='details'>
             <option value="1">1 hour</option>
@@ -128,7 +129,7 @@ function App() {
           <option value="6.1">increasing mileage</option>
         </select> 
         </div>
-      </div>
+      </div>*/}
       {/* <div>
         <h1>Manufacturer Models</h1>
         <ul>
@@ -171,7 +172,7 @@ function App() {
             </li>
           ))}
         </ul>
-      </div> */}
+      </div> */}{/*
      \ <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <h1>Products</h1>
         <ul>
@@ -196,10 +197,10 @@ function App() {
                 style={{
                   marginLeft: '220px',
                 }}
-              >
+              > */}
                  {/* <strong>ID:</strong> {product.car_id}<br />
                 <strong>Title:</strong> {product.car_model}<br />
-                <strong>Description:</strong> {product.car_desc}<br />  */}
+                <strong>Description:</strong> {product.car_desc}<br />  */} {/*
 
 
 
@@ -335,8 +336,12 @@ function App() {
           ))}
         </ul>
       </div>
-  
-      
+                */}
+
+                
+      <Container/>
+
+      <Products/>
     </div>
   );
   

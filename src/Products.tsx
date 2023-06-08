@@ -57,7 +57,39 @@ function Products() {
       .catch((error) => {
         console.error('Error:', error);
       });
+
+      
   }
+
+  const sortCars = (event: React.MouseEvent<HTMLSelectElement>) => {
+    const product = event.currentTarget.value;
+    const sortedCars = [...products]; // Create a copy of the products array
+
+    switch (product) {
+      case "2.1":
+        sortedCars.sort((a, b) => a.prod_year - b.prod_year);
+        break;
+      case "1.1":
+        sortedCars.sort((a, b) => b.prod_year - a.prod_year);
+        break;
+      case "4.1":
+        sortedCars.sort((a, b) => a.price - b.price);
+        break;
+      case "3.1":
+        sortedCars.sort((a, b) => b.price - a.price);
+        break;
+      case "6.1":
+        sortedCars.sort((a, b) => a.car_run - b.car_run);
+        break;
+      case "5.1":
+        sortedCars.sort((a, b) => b.car_run - a.car_run);
+        break;
+      default:
+        // No valid sorting option selected
+        return;
+    }
+
+    setProducts(sortedCars);};
 
   return(
 
@@ -78,7 +110,7 @@ function Products() {
       }}>
         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossOrigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link>
-    <h1>Products</h1>
+   {/* <h1>Products</h1> */}
 
 
 
@@ -100,6 +132,39 @@ function Products() {
 
 
         <div className="d-flex align-items-center" >
+
+          
+          <select className='d-flex align-items-center position-relative ml-4px ml-md-8px undefined' placeholder='პერიოდი'
+          style={{      
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '8px 8px 8px 12px',
+            gap: '4px',
+            position: 'absolute',
+            width: '124px',
+            height: '40px',
+            right: '10px',
+            top: '0px',
+            background: '#FFFFFF',
+            border: '1px solid #E9E9F0',
+            borderRadius: '8px',
+        }}>
+            <option value="1">1 hour</option>
+            <option value="2">2 hour</option>
+            <option value="3">3 hour</option>
+            <option value="4">1 day</option>
+            <option value="5">2 day</option>
+            <option value="6">3 day</option>
+            <option value="7">1 week</option>
+            <option value="8">2 week</option>
+            <option value="9">3 week</option>
+          
+          
+          </select>
+        {/*  
           <div className="d-flex align-items-center position-relative ml-4px ml-md-8px undefined" 
           
           style={{      
@@ -119,18 +184,49 @@ function Products() {
             border: '1px solid #E9E9F0',
             borderRadius: '8px',
         }}>
+          
             <div className="d-flex align-items-center border-solid-1 hover-border-gray-850 border-radius-8 bg-transparent cursor-pointer h-36px h-md-40px pl-6px pl-md-12px pr-0 pr-md-8px font-size-12 font-size-md-13 text-gray-650 text-nowrap cursor-pointer border-gray-750">
               პერიოდი
+              
               <span className="toggle-arrow d-flex transition-all ml-md-4px ">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="m15 11-3 3-3-3" stroke="#6F7383" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    </path>
-                    </svg>
-                    </span>
-                    </div>
-                    </div>
+                    
+                  </path>
+                </svg>
+              </span>
+            </div>
+          </div>*/}
 
-                  
+         
+          <select className='d-flex align-items-center position-relative ml-4px ml-md-8px undefined' onClick={sortCars} 
+          style={{      
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '8px 8px 8px 12px',
+            gap: '4px',
+            position: 'absolute',
+            width: '184.883px',
+            height: '40px',
+            top: '0px',
+            background: '#FFFFFF',
+            border: '1px solid #E9E9F0',
+            borderRadius: '8px',
+        }}>
+          <option value="1.1">decreasing date</option>
+          <option value="2.1">increasing date</option>
+          <option value="3.1">decreasing price</option>
+          <option value="4.1">increasing price</option>
+          <option value="5.1">decreasing mileage</option>
+          <option value="6.1">increasing mileage</option>
+        </select> 
+
+        
+          {/*
+                   
       <div className="d-flex align-items-center position-relative ml-4px ml-md-8px undefined"
       
         style={{      
@@ -158,8 +254,8 @@ function Products() {
                 </svg>
                 </span>
                 </div>
-                </div>
-                </div>
+                </div>*/}
+          </div>
         </div>
 
           {products.map((product) => (
