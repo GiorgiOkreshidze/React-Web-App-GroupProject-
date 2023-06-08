@@ -268,7 +268,7 @@ function Products() {
                 <div className='d-flex flex-m-row p-m-16px' >
 
                 <div className="list-item__thumbnail flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0" style={{
-                        background: `url(${product.photo})`,
+                        background: `url(${product.photo} )`,
                         marginRight: '20px',
                         height: '170px',
                         width: '182px',
@@ -485,7 +485,7 @@ function Products() {
                           </div>
                         </div>
                       </div>
-                      <div className="d-flex flex-lg-column align-items-center align-items-lg-end justify-content-between justify-content-lg-start p-16px p-m-0 w-100 w-lg-auto">
+                      <div className="d-flex flex-lg-column align-items-center align-items-lg-end justify-content-between justify-content-lg-start p-16px p-m-0 w-50 w-lg-auto">
                         <div className="d-flex flex-column mb-lg-12px">
                           <div className="d-flex align-items-center justify-content-m-end mt-lg-n4px">
                             <div className="d-flex align-items-center font-medium font-size-20 line-height-1 text-gray-800">

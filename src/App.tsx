@@ -98,13 +98,14 @@ function App() {
   return (
       
       
-      <div className='app-content'>
-      <header className='header'>
+      <div className='app-content' style={{
+        backgroundColor: '#E5E5E5'
+      }}>
+      <header className='header' >
       <div className='myautologo'>
         <button className='logo'></button>
         </div>
       </header>
-      <hr />
         <div className='outerContainer'>
           <div className="d-flex align-items-center justify-content-between py-0 pt-md-16px pb-md-24px px-20px px-md-0">
             <div className="d-flex align-items-center" style={{
