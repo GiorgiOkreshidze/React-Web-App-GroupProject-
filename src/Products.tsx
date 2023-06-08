@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
+import {getCategoryById, getManufacturerById, getModelById, fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 
 function Products() {
   const [models, setModels] = useState<Model[]>([]);
@@ -305,7 +305,9 @@ function Products() {
                                 fontSize: '14px',
                                 lineHeight: '17px',
                                 color: '#272A37',
-                              }}>{product.car_id}</span>
+                              }}>{product.model_id}
+                                {getModelById(models,product.model_id)?.model_name}
+                                </span>
                             <span className='ml-8px d-flex text-gray-500 font-medium text-nowrap' style={{
                                 
                                 width: '44px',
