@@ -150,7 +150,18 @@
 
   }
  
-  
+  export const getModelById = (models: Model[], modelId: number): Model | undefined => {
+    return models.find((model) => model.model_id === modelId);
+  };
+
+
+  export const getManufacturerById = (manufacturers: Manufacturer[], manufacturerlId: string): Manufacturer | undefined => {
+    return manufacturers.find((manufacturer) => manufacturer.man_id === manufacturerlId);
+  };
+
+  export const getCategoryById = (categories: Category[], categoryId: number): Category | undefined => {
+    return categories.find((category) => category.category_id === categoryId);
+  };
   
   
 export const fetchManufacturers = (): Promise<Manufacturer[]> => {
