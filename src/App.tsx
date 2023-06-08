@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 import "./App.css"
+import Container from './container';
 
 
 function App() {
@@ -94,7 +95,15 @@ function App() {
 
 
   return (
-    <div style={{ background: '#E5E5E5' }}>
+    <div className='primary'>
+      <header className='header'>
+      <div className='myautologo'>
+        <button className='logo'></button>
+        </div>
+      </header>
+      <hr /> 
+      <Container />
+    {/* <div style={{ background: '#E5E5E5' }}> */}
       <div className='Periods'>
         <div className='period'>
           <select className='details'>
