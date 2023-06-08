@@ -61,9 +61,28 @@ function App() {
       });
   }
 
+  const filterCarsByHours = (event: React.MouseEvent<HTMLSelectElement>) => {
+    const selectedHour = parseInt(event.currentTarget.value);
+    
+    if (selectedHour === 0) {
+      setProducts([...products]); // Reset to original list if "All" option is selected
+    } else {
+      const filteredCars = products.filter((car) => {
+        const carPublishedTime = new Date(car.order_date);
+        const currentTime = new Date();
+        const diffInHours = (currentTime.getTime() - carPublishedTime.getTime()) / (1000 * 60 * 60);
+        return diffInHours <= selectedHour;
+      });
+  
+      setProducts(filteredCars);
+    }
+  };
+
+
+
   const sortCars = (event: React.MouseEvent<HTMLSelectElement>) => {
     const product = event.currentTarget.value;
-    const sortedCars = [...products]; // Create a copy of the products array
+    const sortedCars = [...products]; //we are creating copies of the products
 
     switch (product) {
       case "2.1":
@@ -85,7 +104,6 @@ function App() {
         sortedCars.sort((a, b) => b.car_run - a.car_run);
         break;
       default:
-        // No valid sorting option selected
         return;
     }
 
@@ -146,16 +164,17 @@ function App() {
     {/* <div style={{ background: '#E5E5E5' }}> */}
       {/*<div className='Periods'>
         <div className='period'>
-          <select className='details'>
+          <select className='details' onClick={filterCarsByHours}>
+          <option value="0">All</option>
             <option value="1">1 hour</option>
             <option value="2">2 hour</option>
             <option value="3">3 hour</option>
-            <option value="4">1 day</option>
-            <option value="5">2 day</option>
-            <option value="6">3 day</option>
-            <option value="7">1 week</option>
-            <option value="8">2 week</option>
-            <option value="9">3 week</option>
+            <option value="24">1 day</option>
+            <option value="48">2 day</option>
+            <option value="72">3 day</option>
+            <option value="168">1 week</option>
+            <option value="336">2 week</option>
+            <option value="504">3 week</option>
           </select>
         </div>
         <div className='period1'>
