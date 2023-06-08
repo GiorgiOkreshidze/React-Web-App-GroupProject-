@@ -104,9 +104,10 @@ function Products() {
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center',   
-        justifyContent: 'center', 
         width: '780px',
-        borderRadius: '14px' 
+        marginLeft: '22%',
+        marginRight: '0px',
+        borderRadius: '14px',
       }}>
         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossOrigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link>
@@ -115,16 +116,7 @@ function Products() {
 
 
     <div className='search-content'>
-
-
-
-
-
-      
-
       <div className="d-flex justify-content-between align-items-center my-12px mt-md-0 mb-md-16px px-16px px-md-0" style={{
-        width: '780px',
-        height: '40px',
         marginBottom: '15px'
       }}>
         <span className="d-flex font-size-12 font-size-md-14 font-size-m-16 text-gray-800 text-nowrap">230902 განცხადება</span>

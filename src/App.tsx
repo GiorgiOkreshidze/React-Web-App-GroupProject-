@@ -96,14 +96,52 @@ function App() {
 
 
   return (
-    <div className='primary'>
+      
+      
+      <div className='app-content'>
       <header className='header'>
       <div className='myautologo'>
         <button className='logo'></button>
         </div>
       </header>
-      <hr /> 
-      <Container />
+      <hr />
+        <div className='outerContainer'>
+          <div className="d-flex align-items-center justify-content-between py-0 pt-md-16px pb-md-24px px-20px px-md-0">
+            <div className="d-flex align-items-center" style={{
+                  width: '52px',
+                  height: '14px',
+                  fontFamily: 'Helvetica Neue LT GEO',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '12px',
+                  lineHeight: '14px',
+                  color: '#6F7383'}}>
+              <ul className="d-flex align-items-center mr-32px">
+                <li>
+                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/">
+                    მთავარი
+                    <span className="d-flex mx-6px">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="4.414" height="6.826" viewBox="0 0 4.414 6.826">
+                        <path style={{fill: 'none', stroke: 'rgb(189, 196, 210)', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
+                        </path>
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className='d-flex justify-content-between'>
+            <Container/>
+            <Products/>
+          </div>
+          
+        </div>
+      
     {/* <div style={{ background: '#E5E5E5' }}> */}
       {/*<div className='Periods'>
         <div className='period'>
@@ -338,11 +376,7 @@ function App() {
       </div>
                 */}
 
-                
-      <Container/>
-
-      <Products/>
-    </div>
+</div>
   );
   
   

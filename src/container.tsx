@@ -73,7 +73,22 @@ const Container = () => {
     };
 
     return(
-        <div className='container-fillter'>
+        <div className='flex-shrink-0 mb-48px mr-md-20px' style={{
+          width: '250px',
+          height: '520px',
+          boxSizing: 'border-box',
+          background: '#FFFFFF',
+          border: '1px solid #E2E5EB',
+          boxShadow: '0px 4px 16px rgba(164, 174, 193, 0.1)',
+          borderRadius: '12px 12px 0px 0px',
+          flex: '1',
+          marginTop: '68px',
+          position: 'absolute',
+          left: '6%',
+          right: '0%',
+          top: '8%',
+          bottom: '0%',
+        }}>
         <div className='icons'>
           <button className={`carIcon ${activeButton === 'carIcon' ? 'active' : ''}`}onClick={() => handleButtonClick('carIcon')} >
           <svg width="50" height="64" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_473_27752)">
