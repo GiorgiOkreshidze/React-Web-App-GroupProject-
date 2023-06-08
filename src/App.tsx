@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 import "./App.css"
+import Container from './container';
+import Products from './Products';
 
 
 function App() {
@@ -112,8 +114,55 @@ function App() {
 
 
   return (
-    <div style={{ background: '#E5E5E5' }}>
-      <div className='Periods'>
+      
+      
+      <div className='app-content' style={{
+        backgroundColor: '#E5E5E5'
+      }}>
+      <header className='header' >
+      <div className='myautologo'>
+        <button className='logo'></button>
+        </div>
+      </header>
+        <div className='outerContainer'>
+          <div className="d-flex align-items-center justify-content-between py-0 pt-md-16px pb-md-24px px-20px px-md-0">
+            <div className="d-flex align-items-center" style={{
+                  width: '52px',
+                  height: '14px',
+                  fontFamily: 'Helvetica Neue LT GEO',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '12px',
+                  lineHeight: '14px',
+                  color: '#6F7383'}}>
+              <ul className="d-flex align-items-center mr-32px">
+                <li>
+                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/">
+                    მთავარი
+                    <span className="d-flex mx-6px">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="4.414" height="6.826" viewBox="0 0 4.414 6.826">
+                        <path style={{fill: 'none', stroke: 'rgb(189, 196, 210)', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
+                        </path>
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className='d-flex justify-content-between'>
+            <Container/>
+            <Products/>
+          </div>
+          
+        </div>
+      
+    {/* <div style={{ background: '#E5E5E5' }}> */}
+      {/*<div className='Periods'>
         <div className='period'>
           <select className='details' onClick={filterCarsByHours}>
           <option value="0">All</option>
@@ -138,7 +187,7 @@ function App() {
           <option value="6.1">increasing mileage</option>
         </select> 
         </div>
-      </div>
+      </div>*/}
       {/* <div>
         <h1>Manufacturer Models</h1>
         <ul>
@@ -181,7 +230,7 @@ function App() {
             </li>
           ))}
         </ul>
-      </div> */}
+      </div> */}{/*
      \ <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <h1>Products</h1>
         <ul>
@@ -206,10 +255,10 @@ function App() {
                 style={{
                   marginLeft: '220px',
                 }}
-              >
+              > */}
                  {/* <strong>ID:</strong> {product.car_id}<br />
                 <strong>Title:</strong> {product.car_model}<br />
-                <strong>Description:</strong> {product.car_desc}<br />  */}
+                <strong>Description:</strong> {product.car_desc}<br />  */} {/*
 
 
 
@@ -345,9 +394,9 @@ function App() {
           ))}
         </ul>
       </div>
-  
-      
-    </div>
+                */}
+
+</div>
   );
   
   

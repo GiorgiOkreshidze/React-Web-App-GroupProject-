@@ -1,0 +1,237 @@
+.manufacturer{
+    width: 202px;
+    height: hug;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px 12px 12px;
+    gap: 110px;
+    background: #FFFFFF;
+    border: 1px solid #C2C9D8;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin-left: 24px;
+    cursor: pointer;
+  }
+  .category{
+      width: 202px;
+    height: hug;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px 12px 12px;
+    gap: 110px;
+    background: #FFFFFF;
+    border: 1px solid #C2C9D8;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin-left: 24px;
+    cursor: pointer;
+}
+.dealType{
+    width: 202px;
+    height: hug;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px 12px 12px;
+    gap: 110px;
+    background: #FFFFFF;
+    border: 1px solid #C2C9D8;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin-left: 24px;
+    cursor: pointer;
+}
+.deal{
+    margin-left: 24px;
+}
+.manu{
+  margin-left: 24px;
+  /* margin-top: 151px; */
+}
+.cate{
+    margin-left: 24px;
+}
+.carIcon{
+    display: flex;
+    flex-direction: column;
+    padding: 9px 16px;
+    gap: 10px;
+    width: 83px;
+    height: 48px;
+    left: 446px;
+    top: 156px;
+    border-radius: 12px 0px 0px 0px;
+    cursor: pointer;
+    border: 1px solid #D8DBE2;
+  }
+  .tracktorIcon{
+    display: flex;
+    flex-direction: column;
+    padding: 9px 16px;
+    gap: 10px;
+    width: 83px;
+    height: 48px;
+    left: 446px;
+    top: 156px;
+    border-radius: 0px 0px 0px 0px;
+    cursor: pointer;
+    border: 1px solid #D8DBE2;
+  }
+  .bikeIcon{
+    display: flex;
+    flex-direction: column;
+    padding: 9px 16px;
+    gap: 10px;
+    width: 83px;
+    height: 48px;
+    left: 446px;
+    top: 156px;
+    border-radius: 0px 12px 0px 0px;
+    cursor: pointer;
+    border: 1px solid #D8DBE2;
+  }
+  .icons{
+    display: flex;
+    align-items: center;
+  }
+  .icons button{
+    background-color: #F9F9FB;;
+  }
+  .icons button:hover {
+    background-color: white;
+  }
+  .container-fillter{
+    width: 250px;
+    height: 520px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 1px solid #E2E5EB;
+    box-shadow: 0px 4px 16px rgba(164, 174, 193, 0.1);
+    border-radius: 12px 12px 0px 0px;
+    flex: 1;
+    margin-top: 68px;
+    position: absolute;
+    left: 6%;
+    right: 0%;
+    top: 5%;
+    bottom: 0%;
+  }
+
+  .price-inputs{
+    display: inline;
+    margin-left: 24px;
+  }
+  .max-price{
+    width: 85px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #D8DBE2;
+    margin-left: 5px;
+  }
+  
+  .min-price{
+    width: 80px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #D8DBE2;
+    margin-right: 5px;
+    padding-right: 10px;
+  }
+  .search{
+    width: 248px;
+    height: 68px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 16px rgba(39, 42, 55, 0.13);
+    display: flex;
+    margin-top: 40px;
+  }
+  .search-btn{
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* gap: 4px; */
+  margin-top: 20px;
+  margin-left: 24px;
+  margin-bottom: 20px;
+  /* position: absolute; */
+  /* left: 9.27%; */
+  /* right: 9.27%; */
+  /* top: 80.53%; */
+  /* bottom: 29.41%; */
+  
+  width: 202px;
+  height: 32px;
+  color: white;
+  background-color: #FD4100;
+  border-color: #FD4100;
+  border-radius: 6px;
+  cursor: pointer;
+  }
+  .price{
+    margin-left: 24px;
+  }
+  .currency-switch-btn {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    border-radius: 12px;
+    /* width: 24px;
+    height: 24px; */
+  }
+  .currency-switch-btn.active {
+    background-color: black;
+    color: white;
+  }
+  
+ .currency-switch{
+   position: absolute;
+   width: 46px;
+   height: 24px;
+   left: 179px;
+   top: 372px;
+   /* bottom: 164px; */
+   border: 1px solid #E2E5EB;
+   border-radius: 12px;
+
+  }
+  .price-filter{
+    margin-top: 24px;
+    border-top: 1px solid #D8DBE2;
+  }
+  .carIcon.active,
+.tracktorIcon.active,
+.bikeIcon.active {
+  background-color: white;
+  border-bottom-color: orange;
+  border-bottom: 3px solid orange;
+  fill: orange;
+}
+.carIcon.active svg {
+  fill: orange; /* Change color for active car icon */
+}
+
+.tracktorIcon.active svg {
+  fill: orange; /* Change color for active tractor icon */
+}
+
+.bikeIcon.active svg {
+  fill: orange; /* Change color for active bike icon */
+}

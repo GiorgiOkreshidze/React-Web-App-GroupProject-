@@ -1,38 +1,55 @@
+body{
+  background-color: #E5E5E5;;
+}
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.primary{
   display: flex;
-  flex-direction: column;
+}
+
+/* Styles for the box */
+.box {
+  height: 233px;
+  width: 780px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+/* Styles for the box content */
+.box span {
+  display: block;
+  margin-bottom: 5px;
+}
+.myautologo {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo {
+  background-image: url(./images/myAutoLogo.png);
+  background-size: 161px 46px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 46px;
+  width: 161px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 80px;
+  background: #FFFFFF;
 }
