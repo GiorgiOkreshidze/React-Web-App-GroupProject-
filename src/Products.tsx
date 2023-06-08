@@ -1,5 +1,3 @@
-import { SiSpeedtest } from 'react-icons/si';
-import { TbSteeringWheel, TbEngine, TbManualGearbox, TbCurrencyLari } from 'react-icons/tb';
 import React, { useEffect, useState } from 'react';
 import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 
