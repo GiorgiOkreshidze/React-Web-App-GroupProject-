@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
+import {fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 import './container.css'
 
 const Container = () => {
