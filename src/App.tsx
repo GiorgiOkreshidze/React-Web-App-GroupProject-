@@ -125,7 +125,7 @@ function App() {
         </div>
       </header>
         <div className='outerContainer'>
-          <div className="d-flex align-items-center justify-content-between py-0 pt-md-16px pb-md-24px px-20px px-md-0">
+          <div className="d-flex align-items-center justify-content-between" style={{paddingTop:'32px', paddingBottom:'22px'}}>
             <div className="d-flex align-items-center" style={{
                   width: '52px',
                   height: '14px',
@@ -135,8 +135,12 @@ function App() {
                   fontSize: '12px',
                   lineHeight: '14px',
                   color: '#6F7383'}}>
-              <ul className="d-flex align-items-center mr-32px">
-                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" style={{color: '#6F7383', textDecoration: 'none', justifyContent: 'flex-end', paddingLeft: '5px', marginTop: '80px'}}>
+                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" 
+                  style={{
+                    color: '#6F7383', 
+                    textDecoration: 'none',
+                    marginLeft: '24px',
+                  }}>
                     მთავარი
                     <span className="d-flex mx-6px">
                       <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
@@ -147,7 +151,6 @@ function App() {
                   </a>
                   <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
                   </span>
-              </ul>
             </div>
           </div>
           <div className='d-flex justify-content-between'>
