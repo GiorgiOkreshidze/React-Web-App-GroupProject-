@@ -143,7 +143,6 @@ function Products() {
             alignItems: 'center',
             padding: '8px 8px 8px 12px',
             gap: '4px',
-            position: 'absolute',
             width: '124px',
             height: '40px',
             right: '10px',
@@ -316,7 +315,9 @@ function Products() {
                                 fontSize: '25px',
                                 lineHeight: '17px',
                                 color: '#272A37',
-                              }}>{product.model_id}
+                              }}>
+                             {getManufacturerById(manufacturers,product.man_id)?.man_name}
+                             
                                 {getModelById(models,product.model_id)?.model_name}
                                 &nbsp;&nbsp;</span>
                             <span className='ml-8px d-flex text-gray-500 font-medium text-nowrap' style={{
