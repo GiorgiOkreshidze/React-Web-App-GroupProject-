@@ -136,7 +136,7 @@ function App() {
                   lineHeight: '14px',
                   color: '#6F7383'}}>
               <ul className="d-flex align-items-center mr-32px">
-                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" style={{color: '#6F7383', textDecoration: 'none', justifyContent: 'flex-end', paddingLeft: '5px', marginTop: '80px'}}>
+                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" style={{color: '#6F7383', textDecoration: 'none', justifyContent: 'flex-end', paddingLeft: '5px', marginTop: '20px'}}>
                     მთავარი
                     <span className="d-flex mx-6px">
                       <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">

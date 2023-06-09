@@ -82,7 +82,7 @@ const Container = () => {
           boxShadow: '0px 4px 16px rgba(164, 174, 193, 0.1)',
           borderRadius: '12px 12px 0px 0px',
           flex: '1',
-          marginTop: '52px',
+          marginTop: '6px',
           marginLeft: '24px',
           left: '6%',
           right: '0%',
