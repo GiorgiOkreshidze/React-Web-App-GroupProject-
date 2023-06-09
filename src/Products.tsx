@@ -97,13 +97,8 @@ function Products() {
 
 
     
-  <div className='container' 
+  <div className='container d-inline-block' 
       style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center',   
-        width: '780px',
-        marginLeft: '22%',
         marginRight: '0px',
         borderRadius: '14px',
       }}>
@@ -113,7 +108,7 @@ function Products() {
 
 
 
-    <div className='search-content'>
+    <div className='search-content w-100'>
       <div className="d-flex justify-content-between align-items-center my-12px mt-md-0 mb-md-16px px-16px px-md-0" style={{
         marginBottom: '15px'
       }}>
@@ -302,12 +297,12 @@ function Products() {
                                 fontFamily: 'Helvetica Neue LT GEO',
                                 fontStyle: 'normal',
                                 fontWeight: '500',
-                                fontSize: '14px',
+                                fontSize: '25px',
                                 lineHeight: '17px',
                                 color: '#272A37',
                               }}>{product.model_id}
                                 {getModelById(models,product.model_id)?.model_name}
-                                </span>
+                                &nbsp;&nbsp;</span>
                             <span className='ml-8px d-flex text-gray-500 font-medium text-nowrap' style={{
                                 
                                 width: '44px',
@@ -315,7 +310,7 @@ function Products() {
                                 fontFamily: 'Helvetica Neue LT GEO',
                                 fontStyle: 'normal',
                                 fontWeight: '500',
-                                fontSize: '14px',
+                                fontSize: '25px',
                                 lineHeight: '17px',
                                 color: '#8C929B',
                                 flex: 'none',
@@ -334,10 +329,10 @@ function Products() {
                                         fontFamily: 'TBC Sailec',
                                         fontStyle: 'normal',
                                         fontWeight: '500',
-                                        fontSize: '11px',
+                                        // fontSize: '11px',
                                         color: '#FF3B30'}}>
                           <div className='ml-lg-16px mr-24px' style={{
-                            width: "50%"
+                            width: "100%"
                           }}>
                             <div className='font-size-12 text-green-250 d-flex align-items-center' >
                               <div className='font-size-12 text-red-800 text-nowrap'>
@@ -354,14 +349,14 @@ function Products() {
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div>&nbsp;&nbsp;
                         <div className='d-flex align-items-center font-size-12 text-gray-500 text-nowrap' style={{
                                 width: '95px',
                                 height: '14px',
                                 fontFamily: 'Helvetica',
                                 fontStyle: 'normal',
                                 fontWeight: '400',
-                                fontSize: '12px',
+                                // fontSize: '12px',
                                 lineHeight: '14px',
                                 color: '#6F7383',
                                 flex: 'none',
@@ -394,19 +389,19 @@ function Products() {
                     </div>
                     
                     
-                    <div className='d-flex flex-m-row justify-content-between'>
-                      <div className="d-block d-m-none d-lg-block w-lg-70 border-radius-8 border-solid-1 border-solid-m-0 px-12px p-m-0 mx-16px mx-m-0 mt-8px mt-m-0 border-gray-100">
+                    <div className='d-flex flex-md-row justify-content-between'>
+                      <div className="d-block d-sm-none d-lg-block w-lg-70 border-radius-8 border-solid-1 border-solid-m-0 px-12px p-m-0 mx-16px mx-m-0 mt-8px mt-m-0 border-gray-100">
                         <div className="row justify-content-between justify-content-md-start mx-n8px mx-md-n12px my-m-n10px">
-                          <div className="w-50 px-8px px-md-12px py-10px" style={{marginBottom: '10px'}}>
+                          <div className="w-50 px-8px px-md-12px py-10px mb-10px ">
                             <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800" style={{
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
                                       fontWeight: '500',
-                                      fontSize: '12px',
+                                      // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
                               <span className="d-flex mr-8px mr-md-12px">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="16" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.525 2c-.388 0-.703.35-.703.783 0 .433.315.783.703.783h1.808v1.707H5.686a.662.662 0 0 0-.465.19L4.004 6.665h-.667a.654.654 0 0 0-.658.65v1.23H1.5V7.134a.76.76 0 0 0-.75-.77.76.76 0 0 0-.75.77v4.95c0 .425.336.77.75.77a.76.76 0 0 0 .75-.77v-1.998H2.68v1.871c0 .36.294.65.658.65h.667l1.217 1.203c.124.121.29.19.465.19h5.17c.142 0 .28-.046.395-.13l1.88-1.393a.648.648 0 0 0 .263-.52v-1.871H14.5v1.998c0 .425.336.77.75.77a.76.76 0 0 0 .75-.77v-4.95a.76.76 0 0 0-.75-.77.76.76 0 0 0-.75.77v1.411h-1.106v-1.23a.646.646 0 0 0-.193-.46l-1.41-1.392a.662.662 0 0 0-.465-.19H8.74V3.566h1.807c.389 0 .704-.35.704-.783 0-.432-.315-.783-.704-.783H5.525zm-.783 5.775 1.217-1.202h5.094l1.025 1.011v4.049L10.637 12.7H5.959l-1.217-1.202a.662.662 0 0 0-.465-.19h-.282V7.964h.282a.662.662 0 0 0 .465-.19z" fill="#9CA2AA">
                                   </path>
                                 </svg>
@@ -414,12 +409,12 @@ function Products() {
                               &nbsp;&nbsp;{product.engine_volume/1000.}&nbsp;{product.fuel_type_id}
                             </div>
                           </div>
-                          <div className="w-50 px-8px px-md-12px py-10px" style={{marginBottom: '10px'}}>
+                          <div className="w-50 px-8px px-md-12px py-10px mb-10px">
                             <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800" style={{
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
                                       fontWeight: '500',
-                                      fontSize: '12px',
+                                      // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
                               <span className="d-flex mr-8px mr-md-12px">
@@ -442,7 +437,7 @@ function Products() {
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
                                       fontWeight: '500',
-                                      fontSize: '12px',
+                                      // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
                               <span className="d-flex mr-8px mr-md-12px">
@@ -467,7 +462,7 @@ function Products() {
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
                                       fontWeight: '500',
-                                      fontSize: '12px',
+                                      // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
                               <span className="d-flex mr-8px mr-md-12px">
@@ -488,7 +483,10 @@ function Products() {
                       <div className="d-flex flex-lg-column align-items-center align-items-lg-end justify-content-between justify-content-lg-start p-16px p-m-0 w-50 w-lg-auto">
                         <div className="d-flex flex-column mb-lg-12px">
                           <div className="d-flex align-items-center justify-content-m-end mt-lg-n4px">
-                            <div className="d-flex align-items-center font-medium font-size-20 line-height-1 text-gray-800">
+                            <div className="d-flex align-items-center font-medium font-size-20 line-height-1 text-gray-800" 
+                            style={{
+                              fontSize: '26px'
+                            }}>
                               <div className="d-inline-flex align-items-center undefined">
                                 {product.price}&nbsp;
                                 <span className="d-flex ml-8px">
@@ -534,7 +532,7 @@ function Products() {
                                     fontFamily: 'Helvetica Neue LT GEO',
                                     fontStyle: 'normal',
                                     fontWeight: '400',
-                                    fontSize: '12px',
+                                    // fontSize: '12px',
                                     color: '#6F7383',
                                 }}>
                           {product.views}&nbsp;ნახვა&nbsp;&nbsp;
