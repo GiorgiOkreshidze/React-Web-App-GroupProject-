@@ -136,21 +136,17 @@ function App() {
                   lineHeight: '14px',
                   color: '#6F7383'}}>
               <ul className="d-flex align-items-center mr-32px">
-                <li>
-                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/">
+                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" style={{color: '#6F7383', textDecoration: 'none', justifyContent: 'flex-end', paddingLeft: '5px', marginTop: '80px'}}>
                     მთავარი
                     <span className="d-flex mx-6px">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="4.414" height="6.826" viewBox="0 0 4.414 6.826">
-                        <path style={{fill: 'none', stroke: 'rgb(189, 196, 210)', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
+                        <path style={{fill: 'none', stroke: '#6F7383', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
                         </path>
                       </svg>
                     </span>
                   </a>
-                </li>
-                <li>
                   <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
                   </span>
-                </li>
               </ul>
             </div>
           </div>
@@ -192,10 +188,32 @@ function App() {
         <h1>Manufacturer Models</h1>
         <ul>
           {models.map((model) => (
-            <li key={model.model_id}>{model.model_name}</li>
+            <li key={model.model_id}>
+              <strong>ID : </strong>{model.model_id}
+              <strong> name :</strong>{model.model_name}
+              <strong> model_group :</strong>{model.model_group}
+              <strong> sort_order :</strong>{model.sort_order}
+             
+              
+              </li>
           ))}
         </ul>
       </div> */}
+      {/* export interface Model {
+    model_id: number;
+    man_id:number;
+    model_name: string;
+    model_group: string;
+    sort_order: number;
+    cat_man_id: number;
+    cat_model_id: number;
+    cat_modif_id: number;
+    is_car: boolean;
+    is_moto: boolean;
+    is_spec: boolean;
+    show_in_salons:number;
+    shown_in_slider:number;
+  } */}
       {/* <div>
         <h1>Manufacturer List</h1>
         <ul>
@@ -203,9 +221,6 @@ function App() {
             <li key={manufacturer.man_id}>
               <strong>ID:</strong> {manufacturer.man_id}<br />
               <strong>Name:</strong> {manufacturer.man_name}<br />
-              <strong>Is Car:</strong> {manufacturer.is_car ? 'Yes' : 'No'}<br />
-              <strong>Is Special:</strong> {manufacturer.is_spec ? 'Yes' : 'No'}<br />
-              <strong>Is Moto:</strong> {manufacturer.is_moto ? 'Yes' : 'No'}<br />
               <hr />
             </li>
           ))}

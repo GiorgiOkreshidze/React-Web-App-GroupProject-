@@ -155,8 +155,8 @@
   };
 
 
-  export const getManufacturerById = (manufacturers: Manufacturer[], manufacturerlId: string): Manufacturer | undefined => {
-    return manufacturers.find((manufacturer) => manufacturer.man_id === manufacturerlId);
+  export const getManufacturerById = (manufacturers: Manufacturer[], manufacturerlId: number): Manufacturer | undefined => {
+    return manufacturers.find((manufacturer) => manufacturer.man_id === String(manufacturerlId));
   };
 
   export const getCategoryById = (categories: Category[], categoryId: number): Category | undefined => {
