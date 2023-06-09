@@ -276,7 +276,9 @@ function Products() {
                 <div className='d-flex flex-m-row p-m-16px' >
 
                 <div className="list-item__thumbnail flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0" style={{
-                        background: `url(${product.photo} )`,
+                        backgroundImage: `url(${product.photo} )`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                         marginRight: '20px',
                         height: '170px',
                         width: '182px',
