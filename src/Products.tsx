@@ -321,7 +321,9 @@ function Products() {
                                 fontSize: '14px',
                                 lineHeight: '17px',
                                 color: '#272A37',
-                              }}>{product.model_id}
+                              }}>
+                             {getManufacturerById(manufacturers,product.man_id)?.man_name}
+                             
                                 {getModelById(models,product.model_id)?.model_name}
                                 </span>
                             <span className='ml-8px d-flex text-gray-500 font-medium text-nowrap' style={{
