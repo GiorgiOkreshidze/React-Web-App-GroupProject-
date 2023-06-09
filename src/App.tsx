@@ -136,21 +136,17 @@ function App() {
                   lineHeight: '14px',
                   color: '#6F7383'}}>
               <ul className="d-flex align-items-center mr-32px">
-                <li>
-                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/">
+                  <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" style={{color: '#6F7383', textDecoration: 'none', justifyContent: 'flex-end', paddingLeft: '60px', marginTop: '50px'}}>
                     მთავარი
                     <span className="d-flex mx-6px">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="4.414" height="6.826" viewBox="0 0 4.414 6.826">
-                        <path style={{fill: 'none', stroke: 'rgb(189, 196, 210)', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
+                        <path style={{fill: 'none', stroke: '#6F7383', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
                         </path>
                       </svg>
                     </span>
                   </a>
-                </li>
-                <li>
                   <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
                   </span>
-                </li>
               </ul>
             </div>
           </div>

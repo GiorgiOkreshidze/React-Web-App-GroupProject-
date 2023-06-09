@@ -31,6 +31,7 @@ body{
   display: flex;
   align-items: center;
   margin-right: auto;
+  margin-left: 80px;
 }
 
 .logo {
