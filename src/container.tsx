@@ -73,7 +73,7 @@ const Container = () => {
     };
 
     return(
-        <div className='flex-shrink-0 mb-48px mr-md-20px' style={{
+        <div className='d-none d-md-block d-inline-block flex-shrink-0 mb-48px mr-md-20px' style={{
           width: '250px',
           height: '520px',
           boxSizing: 'border-box',
@@ -82,8 +82,8 @@ const Container = () => {
           boxShadow: '0px 4px 16px rgba(164, 174, 193, 0.1)',
           borderRadius: '12px 12px 0px 0px',
           flex: '1',
-          marginTop: '68px',
-          position: 'absolute',
+          marginTop: '52px',
+          marginLeft: '24px',
           left: '6%',
           right: '0%',
           top: '8%',

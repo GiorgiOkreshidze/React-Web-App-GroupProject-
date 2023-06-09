@@ -15,10 +15,12 @@
     order: 1;
     flex-grow: 0;
     margin-left: 24px;
+    margin-top: -5px;
+    margin-bottom: 25px;
     cursor: pointer;
   }
   .category{
-      width: 202px;
+    width: 202px;
     height: hug;
     border-radius: 8px;
     box-sizing: border-box;
@@ -34,6 +36,8 @@
     order: 1;
     flex-grow: 0;
     margin-left: 24px;
+    margin-top: -5px;
+    margin-bottom: 25px;
     cursor: pointer;
 }
 .dealType{
@@ -53,10 +57,13 @@
     order: 1;
     flex-grow: 0;
     margin-left: 24px;
+    margin-top: -5px;
+    margin-bottom: 25px;
     cursor: pointer;
 }
 .deal{
     margin-left: 24px;
+    margin-top: 10px;
 }
 .manu{
   margin-left: 24px;
@@ -184,6 +191,7 @@
   }
   .price{
     margin-left: 24px;
+    margin-top: 10px;
   }
   .currency-switch-btn {
     background-color: transparent;
@@ -205,8 +213,8 @@
    position: absolute;
    width: 46px;
    height: 24px;
-   left: 179px;
-   top: 342px;
+   left: 208px;
+   top: 542px;
    /* bottom: 164px; */
    border: 1px solid #E2E5EB;
    border-radius: 12px;
