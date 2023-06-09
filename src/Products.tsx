@@ -143,7 +143,6 @@ function Products() {
             alignItems: 'center',
             padding: '8px 8px 8px 12px',
             gap: '4px',
-            position: 'absolute',
             width: '124px',
             height: '40px',
             right: '10px',
