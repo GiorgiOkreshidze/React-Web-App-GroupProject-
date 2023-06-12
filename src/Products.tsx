@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {getCategoryById, getManufacturerById, getModelById, fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
 
 function Products() {
@@ -117,16 +118,15 @@ function Products() {
         marginRight: '0px',
         borderRadius: '14px',
       }}>
-        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossOrigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link>
-   {/* <h1>Products</h1> */}
+        {/* <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossOrigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link> */}
+   
+{/* <h1>Products</h1> */}
 
 
 
     <div className='search-content w-100'>
-      <div className="d-flex justify-content-between align-items-center my-12px mt-md-0 mb-md-16px px-16px px-md-0" style={{
-        marginBottom: '15px'
-      }}>
+      <div className="d-flex justify-content-between align-items-center mt-md-0 mb-md-3 px-3 px-md-0">
         <span className="d-flex font-size-12 font-size-md-14 font-size-m-16 text-gray-800 text-nowrap">230902 განცხადება</span>
 
 
@@ -134,7 +134,7 @@ function Products() {
         <div className="d-flex align-items-center" >
 
           
-          <select className='d-flex align-items-center position-relative ml-4px ml-md-8px undefined' placeholder='პერიოდი'
+          <select className='d-flex align-items-center position-relative mx-1 mx-md-2 undefined'
           style={{      
             boxSizing: 'border-box',
             display: 'flex',
@@ -144,9 +144,6 @@ function Products() {
             padding: '8px 8px 8px 12px',
             gap: '4px',
             width: '124px',
-            height: '40px',
-            right: '10px',
-            top: '0px',
             background: '#FFFFFF',
             border: '1px solid #E9E9F0',
             borderRadius: '8px',
@@ -199,7 +196,7 @@ function Products() {
           </div>*/}
 
          
-          <select className='d-flex align-items-center position-relative ml-4px ml-md-8px undefined' onClick={sortCars} 
+          <select className='d-flex align-items-center position-relative ml-1 ml-md-2 undefined' onClick={sortCars} 
           style={{      
             boxSizing: 'border-box',
             display: 'flex',
@@ -262,20 +259,19 @@ function Products() {
 
 
 
-              <div className='px-16px px-md-0 position-relative'>
-              <div className="rounded mb-10px bg-white"  
+              <div className='px-3 px-md-0 position-relative'>
+              <div className="rounded mb-3 bg-white"  /*mb-10px*/
                 style={{
                   borderRadius: '14px',
                   background: '#FFFFFF',
                   padding: '10px',
-                  marginBottom: '20px',
                 }}>
 
 
 
                 <div className='d-flex flex-m-row p-m-16px' >
 
-                <div className="list-item__thumbnail flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0" style={{
+                <div className="list-item__thumbnail flex-shrink-0 w-m-200px mb-3 mb-m-0 px-3 px-m-0" /* mb-12px mb-m-0 px-16px px-m-0*/ style={{
                         backgroundImage: `url(${product.photo} )`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
@@ -304,7 +300,7 @@ function Products() {
 
 
                   <div className='pl-m-14px d-flex flex-column justify-content-between w-100'>
-                    <div className='d-flex flex-column flex-lg-row align-items-start justify-content-between mb-lg-12px px-16px px-m-0' 
+                    <div className='d-flex flex-column flex-lg-row align-items-start justify-content-between mb-lg-3 px-3 px-m-0' /*mb-lg-12px px-16px*/
                     style={{
                     }}>
                        
@@ -322,7 +318,7 @@ function Products() {
                              
                                 {getModelById(models,product.model_id)?.model_name}
                                 &nbsp;&nbsp;</span>
-                            <span className='ml-8px d-flex text-gray-500 font-medium text-nowrap' style={{
+                            <span className='ml-2 d-flex text-gray-500 font-medium text-nowrap' /*ml-8px*/ style={{
                                 
                                 width: '44px',
                                 height: '17px',
@@ -341,7 +337,7 @@ function Products() {
                         </div>
                         
                         
-                        <div className='d-m-flex align-items-center mt-m-8px mt-lg-0'style={{
+                        <div className='d-m-flex align-items-center mt-m-2 mt-lg-0' /*mt-m-8px*/style={{
                                         display: 'flex',
                                         justifyContent: 'center',
                                         width: '200px',
@@ -350,15 +346,15 @@ function Products() {
                                         fontWeight: '500',
                                         // fontSize: '11px',
                                         color: '#FF3B30'}}>
-                          <div className='ml-lg-16px mr-24px' style={{
+                          <div className='ml-lg-3 mr-4' /*ml-lg-16px mr-24px*/ style={{
                             width: "100%"
                           }}>
                             <div className='font-size-12 text-green-250 d-flex align-items-center' >
                               <div className='font-size-12 text-red-800 text-nowrap'>
                                 განბაჟება&nbsp;
-                                <div className='d-inline-flex align-items-center icon-red-800 icon-w-8px'>
+                                <div className='d-inline-flex align-items-center icon-red-800 icon-w-2' /*icon-w-8px*/> 
                                   1000&nbsp;
-                                  <span className="d-flex ml-8px">
+                                  <span className="d-flex ml-2" /*ml-8px*/>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="8px" height="9px" viewBox="0 0 10 11">
                                       <path id="GEL" d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z" 
                                       transform="translate(-305 29)" fill="#FF3B30">
@@ -384,7 +380,7 @@ function Products() {
                               }}>
                             <svg xmlns="http://www.w3.org/2000/svg" 
                                 viewBox="0 0 512 512" 
-                                className="w-24px h-24px" style={{
+                                className="w-3 h-3" /*w-24px h-24px*/ style={{
                                   width: '13px',
                                   height: '13px'
                                 }}>
@@ -409,9 +405,11 @@ function Products() {
                     
                     
                     <div className='d-flex flex-md-row justify-content-between'>
-                      <div className="d-block d-sm-none d-lg-block w-lg-70 border-radius-8 border-solid-1 border-solid-m-0 px-12px p-m-0 mx-16px mx-m-0 mt-8px mt-m-0 border-gray-100">
+                      <div className="d-block d-sm-none d-lg-block w-lg-70 border-radius-8 border-solid-1 border-solid-m-0 
+                      px-2 p-m-0 mx-3 mx-m-0 mt-2 mt-m-0 border-gray-100"
+                      /*px-12px p-m-0 mx-16px mx-m-0 mt-8px mt-m-0*/>
                         <div className="row justify-content-between justify-content-md-start mx-n8px mx-md-n12px my-m-n10px">
-                          <div className="w-50 px-8px px-md-12px py-10px mb-10px ">
+                          <div className="w-50 px-2 px-md-2 py-2 mb-2 " /*px-8px px-md-12px py-10px mb-10px*/> 
                             <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800" style={{
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
@@ -419,7 +417,7 @@ function Products() {
                                       // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
-                              <span className="d-flex mr-8px mr-md-12px">
+                              <span className="d-flex mr-2 mr-md-2" /*mr-8px mr-md-12px*/> 
                                 <svg width="16" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.525 2c-.388 0-.703.35-.703.783 0 .433.315.783.703.783h1.808v1.707H5.686a.662.662 0 0 0-.465.19L4.004 6.665h-.667a.654.654 0 0 0-.658.65v1.23H1.5V7.134a.76.76 0 0 0-.75-.77.76.76 0 0 0-.75.77v4.95c0 .425.336.77.75.77a.76.76 0 0 0 .75-.77v-1.998H2.68v1.871c0 .36.294.65.658.65h.667l1.217 1.203c.124.121.29.19.465.19h5.17c.142 0 .28-.046.395-.13l1.88-1.393a.648.648 0 0 0 .263-.52v-1.871H14.5v1.998c0 .425.336.77.75.77a.76.76 0 0 0 .75-.77v-4.95a.76.76 0 0 0-.75-.77.76.76 0 0 0-.75.77v1.411h-1.106v-1.23a.646.646 0 0 0-.193-.46l-1.41-1.392a.662.662 0 0 0-.465-.19H8.74V3.566h1.807c.389 0 .704-.35.704-.783 0-.432-.315-.783-.704-.783H5.525zm-.783 5.775 1.217-1.202h5.094l1.025 1.011v4.049L10.637 12.7H5.959l-1.217-1.202a.662.662 0 0 0-.465-.19h-.282V7.964h.282a.662.662 0 0 0 .465-.19z" fill="#9CA2AA">
                                   </path>
@@ -428,7 +426,7 @@ function Products() {
                               &nbsp;&nbsp;{product.engine_volume/1000.}&nbsp;{product.fuel_type_id}
                             </div>
                           </div>
-                          <div className="w-50 px-8px px-md-12px py-10px mb-10px">
+                          <div className="w-50 px-2 px-md-2 py-2 mb-2 " /*px-8px px-md-12px py-10px mb-10px*/>
                             <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800" style={{
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
@@ -436,7 +434,7 @@ function Products() {
                                       // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
-                              <span className="d-flex mr-8px mr-md-12px">
+                              <span className="d-flex mr-2 mr-md-2" /*mr-8px mr-md-12px*/>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <circle cx="8" cy="8" r="6.3" stroke="#9CA2AA" stroke-width="1.4">
                                   </circle>
@@ -451,7 +449,7 @@ function Products() {
                               &nbsp;&nbsp;{product.car_run_km} კმ
                             </div>
                           </div>
-                          <div className="w-50 px-8px px-md-12px py-10px">
+                          <div className="w-50 px-2 px-md-2 py-2 " /*px-8px px-md-12px py-10px */>
                             <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800" style={{
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
@@ -459,7 +457,7 @@ function Products() {
                                       // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
-                              <span className="d-flex mr-8px mr-md-12px">
+                              <span className="d-flex mr-2 mr-md-2" /*mr-8px mr-md-12px*/>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <rect x="2.6" y="7.6" width="10.8" height="7.8" rx="1.2" stroke="#8C929B" stroke-width="1.2">
                                   </rect>
@@ -476,7 +474,7 @@ function Products() {
                               &nbsp;&nbsp;{product.gear_type_id}
                             </div>
                           </div>
-                          <div className="w-50 px-8px px-md-12px py-10px">
+                          <div className="w-50 px-2 px-md-2 py-2 " /*px-8px px-md-12px py-10px*/>
                             <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800" style={{
                                       fontFamily: 'TBC Sailec',
                                       fontStyle: 'normal',
@@ -484,7 +482,7 @@ function Products() {
                                       // fontSize: '12px',
                                       color: '#1B1D25',
                                     }}>
-                              <span className="d-flex mr-8px mr-md-12px">
+                              <span className="d-flex mr-2 mr-md-2" /*mr-8px mr-md-12px*/>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <circle cx="8" cy="8" r="6.3" stroke="#9CA2AA" stroke-width="1.4">
                                   </circle>
@@ -499,16 +497,16 @@ function Products() {
                           </div>
                         </div>
                       </div>
-                      <div className="d-flex flex-lg-column align-items-center align-items-lg-end justify-content-between justify-content-lg-start p-16px p-m-0 w-50 w-lg-auto">
-                        <div className="d-flex flex-column mb-lg-12px">
-                          <div className="d-flex align-items-center justify-content-m-end mt-lg-n4px">
+                      <div className="d-flex flex-lg-column align-items-center align-items-lg-end justify-content-between justify-content-lg-start p-3 p-m-0 w-50 w-lg-auto" /*p-16px*/> 
+                        <div className="d-flex flex-column mb-lg-3"/*mb-lg-12px*/>
+                          <div className="d-flex align-items-center justify-content-m-end mt-lg-n1" /*mt-lg-n4px*/> 
                             <div className="d-flex align-items-center font-medium font-size-20 line-height-1 text-gray-800" 
                             style={{
                               fontSize: '26px'
                             }}>
                               <div className="d-inline-flex align-items-center undefined">
                                 {product.price}&nbsp;
-                                <span className="d-flex ml-8px">
+                                <span className="d-flex ml-2" /*ml-8px*/ >
                                 </span>
                               </div>
                             </div>
@@ -518,7 +516,8 @@ function Products() {
                                       borderRadius: '12px',
                                       background: '#F2F3F6',
                                     }}>
-                              <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800">
+                              <span className="d-flex align-items-center justify-content-center w-3 h-3 rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800" 
+                              /*w-24px h-24px*/>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="11px" viewBox="0 0 10 11" >
                                   <path id="GEL" d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z" 
                                   transform="translate(-305 29)" 
@@ -533,11 +532,12 @@ function Products() {
                     </div>
                     
                     
-                    <div className="d-flex justify-content-between align-items-center border-solid-1 border-solid-m-0 py-12px px-16px p-m-0 border-gray-100" style={{
+                    <div className="d-flex justify-content-between align-items-center border-solid-1 border-solid-m-0 py-3 px-3 p-m-0 border-gray-100" /*py-12px px-16px*/ style={{
                       marginTop: '5px'
                     }}>
                       <div className="d-flex align-items-center">
-                        <span className="bg-orange d-flex align-items-center justify-content-center rounded font-bold font-size-10 text-white text-uppercase h-20px px-10px mr-16px text-nowrap" style={{
+                        <span className="bg-orange d-flex align-items-center justify-content-center rounded font-bold font-size-10 text-white text-uppercase
+                         h-3 px-2 mr-3 text-nowrap" /*h-20px px-10px mr-16px*/ style={{
                               background: '#4A6CFA',
                               height: '20px',
                               width: '32px',
@@ -555,7 +555,7 @@ function Products() {
                                     color: '#6F7383',
                                 }}>
                           {product.views}&nbsp;ნახვა&nbsp;&nbsp;
-                          <span className="d-inline-flex w-2px h-2px round-circle bg-gray-500 mx-10px " style={{
+                          <span className="d-inline-flex w-1 h-1 round-circle bg-gray-500 mx-2 " /*w-2px h-2px mx-10px*/ style={{
                                   width: '3px',
                                   height: '3px',
                                   background: '#8C929B',

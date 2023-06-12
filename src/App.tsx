@@ -116,7 +116,7 @@ function App() {
   return (
       
       
-      <div className='app-content' style={{
+      <div className='app-content ' style={{
         backgroundColor: '#E5E5E5'
       }}>
       <header className='header' >
@@ -142,7 +142,7 @@ function App() {
                     marginLeft: '24px',
                   }}>
                     მთავარი
-                    <span className="d-flex mx-6px">
+                    <span className="d-flex" style={{marginLeft: '6px', marginRight: '6px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
                         <path style={{fill: 'none', stroke: '#6F7383', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
                         </path>
