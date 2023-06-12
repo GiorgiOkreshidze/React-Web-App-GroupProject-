@@ -104,6 +104,16 @@ function Products() {
 
     setProducts(sortedCars);};
 
+    const getTimePassed = (product: Item) => {
+      const orderDate = new Date(product.order_date);
+      const currentDate = new Date();
+    
+      const timeDiff = Math.floor((currentDate.getTime() - orderDate.getTime()) / (1000 * 60));
+    
+      return `${timeDiff} წუთის წინ`;
+    };
+    // დავამატე რამდენი ხნის წინ დაიდო მანქანა.
+
   return(
 
 
@@ -561,7 +571,7 @@ function Products() {
                                   background: '#8C929B',
                                   }}>
                           </span>&nbsp;
-                          13 წუთის წინ 
+                          {getTimePassed(product)}
                         </div>
                       </div>
                       <div className="d-flex">

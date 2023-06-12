@@ -104,7 +104,7 @@
     special_persons:boolean;
     back_camera:boolean;
     car_desc:string;
-    order_date: string; // could be date type there?
+    order_date: number; // could be date type there?
     video_url:string;
     hp:number;
     hours_used:number;
