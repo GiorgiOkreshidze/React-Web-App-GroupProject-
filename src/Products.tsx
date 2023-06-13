@@ -121,6 +121,44 @@ function Products() {
       <path fill-rule="evenodd" clip-rule="evenodd" d="M8.68574 2.1679C8.51267 2.29346 8.3477 2.43458 8.19095 2.5894L8.0626 2.72088L8 2.78989L7.9374 2.72088L7.80905 2.5894C7.6523 2.43458 7.48733 2.29346 7.31426 2.1679C6.73288 1.74614 6.06008 1.5 5.3 1.5C2.58473 1.5 1 3.87655 1 6.304C1 8.67851 2.19139 10.7406 4.13701 12.4002C5.50533 13.5673 7.2954 14.5 8 14.5C8.705 14.5 10.495 13.5674 11.8633 12.4002C13.8088 10.7406 15 8.67852 15 6.304C15 3.87655 13.4153 1.5 10.7 1.5C9.93992 1.5 9.26711 1.74614 8.68574 2.1679Z" fill=" #FD4100"></path>
     };
 
+    function ProductModelName({ product }: { product: Item }) {
+      const [modelName, setModelName] = useState<string | undefined>(undefined);
+    
+      useEffect(() => {
+        async function fetchModelName() {
+          try {
+            const models = await fetchModels(product.man_id.toString());
+            const modelName = getModelById(models, product.model_id)?.model_name;
+            setModelName(modelName);
+          } catch (error) {
+            console.error(error);
+            // Handle error if necessary
+          }
+        }
+    
+        fetchModelName();
+      }, [product.man_id, product.model_id]);
+    
+      return (
+        <div
+          style={{
+            height: '17px',
+            fontFamily: 'Helvetica Neue LT GEO',
+            fontStyle: 'normal',
+            fontWeight: '500',
+            fontSize: '14px',
+            lineHeight: '17px',
+            flex: 'none',
+            order: '1',
+            flexGrow: '0',
+            marginLeft:'5px'
+          }}
+        >
+          {modelName}
+        </div>
+      );
+    }
+
   return(
       <div className='container d-inline-block' 
           style={{ 
@@ -185,6 +223,7 @@ function Products() {
 
 
             {products.map((product) => (
+             
               <div className='product px-3 px-md-0 position-relative'>
                 <div className="rounded mb-3 bg-white"  /*mb-10px*/
                   style={{
@@ -222,8 +261,33 @@ function Products() {
                                     lineHeight: '17px',
                                     color: '#272A37',
                                   }}>
-                                {getManufacturerById(manufacturers,product.man_id)?.man_name}
-                                {getModelById(models,product.model_id)?.model_name}
+                                    <div         style={{
+          display:'flex',
+          flexDirection:'row',
+          justifyContent:'space-between'}}>
+                                    <div
+        style={{
+          display:'flex',
+          justifyContent:'space-between',
+          height: '17px',
+          fontFamily: 'Helvetica Neue LT GEO',
+          fontStyle: 'normal',
+          fontWeight: '500',
+          fontSize: '14px',
+          lineHeight: '17px',
+          flex: 'none',
+          order: '1',
+          flexGrow: '0',
+
+        }}
+      >
+        {getManufacturerById(manufacturers, product.man_id)?.man_name}
+        
+      </div>
+      <ProductModelName product={product}/>    
+                                    </div>
+
+               
                                 &nbsp;&nbsp;
                                 </span>
                                 <span className='ml-2 d-flex text-gray-500 font-medium text-nowrap' /*ml-8px*/ style={{
@@ -232,12 +296,13 @@ function Products() {
                                     fontFamily: 'Helvetica Neue LT GEO',
                                     fontStyle: 'normal',
                                     fontWeight: '500',
-                                    fontSize: '25px',
+                                    fontSize: '14px',
                                     lineHeight: '17px',
                                     color: '#8C929B',
                                     flex: 'none',
                                     order: '1',
                                     flexGrow: '0',
+                                    marginLeft:'5px'
                                   }}>{product.prod_year}&nbsp;წ
                                 </span>
                               </h2>
