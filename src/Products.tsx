@@ -8,6 +8,7 @@ function Products() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Item[]>([]);
   const [like, setLike] = useState<string|null>(null);
+  const [productCount, setProductCount] = useState(0);
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
@@ -49,17 +50,17 @@ function Products() {
   }
 
   function fetchProductsAndDisplay() {
-    const searchParams = {}; // Add any necessary search parameters
-    fetchData(searchParams)
-      .then((products) => {
-        setProducts(products);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-      
-  }
+      const searchParams = {
+      }; // Add any necessary search parameters
+      fetchData(searchParams)
+        .then((products) => {
+          setProducts(products);
+          setProductCount(products.length); // Update the product count
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
   const filterCarsByHours = (event: React.MouseEvent<HTMLSelectElement>) => {
     const selectedHour = parseInt(event.currentTarget.value);
     
@@ -130,7 +131,7 @@ function Products() {
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link>
         <div className='search-content w-100'>
           <div className="d-sm-flex d-none justify-content-between align-items-center mt-md-0 mb-2 mb-md-3 px-3 px-md-0">
-            <span className="d-flex font-size-12 font-size-md-14 font-size-m-16 text-gray-800 text-nowrap">230902 განცხადება</span>
+            <span className="d-flex font-size-12 font-size-md-14 font-size-m-16 text-gray-800 text-nowrap">{productCount} განცხადება</span>
             <div className="d-flex align-items-center" >
               <select className='d-flex align-items-center position-relative mx-1 mx-md-2 undefined'
               style={{      
