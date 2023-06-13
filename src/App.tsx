@@ -129,7 +129,9 @@ function App() {
               backgroundColor: '#E5E5E5',
             }}>
               <div className='ragaca'> 
-              <div className="mtavari d-flex align-items-center justify-content-between" style={{
+              <div className='mtavariContainer2' style={{display:'flex', justifyContent:'center'}}>
+                <div className='mtavariContainer1' style={{justifyContent:'left'}}>
+                <div className="mtavari" style={{
                 marginLeft: '30px',paddingTop:'32px', paddingBottom:'22px'}}>
                   
                   <div className="d-flex align-items-center" style={{
@@ -158,9 +160,13 @@ function App() {
                             <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
                             </span>
                       </div>
-                    </div>
-              <div className='outerContainer d-flex justify-content-center' >
-                <div className='d-flex justify-content-between '>
+                    </div> 
+                </div>
+
+              </div>
+
+              <div style={{display:'flex',justifyContent:'center'}}>
+                <div style={{display:'flex' ,width:'10%', justifyContent:'center'}}>
                   <Container/>
                   <Products/>
                 </div>
