@@ -11,7 +11,6 @@ const Container = () => {
     const [productCount, setProductCount] = useState(0);
     const [activeButton, setActiveButton] = useState<string | null>(null);
     const [selectedManufacturer, setSelectedManufacturer] = useState('');
-    const [selectedModel, setSelectedModel] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     
     useEffect(() => {
@@ -19,7 +18,7 @@ const Container = () => {
       fetchManufacturersAndDisplay();
       fetchCategoriesAndDisplay();
       fetchProductsAndDisplay();
-    }, [selectedManufacturer, selectedModel, selectedCategory]);
+    }, []);
   
     function fetchManufacturerModelsAndDisplay() {
       const manufacturerId = '10'; // Example manufacturer ID
@@ -56,7 +55,6 @@ const Container = () => {
     function fetchProductsAndDisplay() {
       const searchParams = {
         manufacturer: selectedManufacturer,
-        model: selectedModel,
         category: selectedCategory
       }; // Add any necessary search parameters
       fetchData(searchParams)
@@ -139,11 +137,40 @@ const Container = () => {
         </div>
         <div>
             <p className='deal'>გარიგების ტიპი</p>
-            <select className="dealType">
+            <select className="dealType"  >
                 <option value="1">იყიდება</option>
                 <option value="0">ქირავდება</option>
             </select>
+           
+{/* <div className="dropdown-button d-flex align-items-center justify-content-between position-relative w-100 border-radius-8 border-solid-1 border-gray-300 hover-bg-white hover-border-gray-520 focus-bg-white bg-white undefined border-gray-520">
+  <div className="cursor-pointer w-100 h-44px h-md-40px pl-12px pr-8px d-flex align-items-center justify-content-between">
+    <span className="dropdown-text font-size-13 text-line-1 text-gray-850">გარიგების ტიპი</span>
+    <span className="d-flex z-index-1 rotate rotate-180">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="m15 11-3 3-3-3" stroke="#6F7383" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path>
+      </svg>
+    </span>
+  </div>
+  <div className="position-absolute overflow-hidden z-index-2 top-100 left-0 w-100 bg-white border-radius-8 mt-8px py-8px border-solid-1 border-gray-300 box-shadow-md">
+    <div className="scroll-box max-height-306px">
+      <label className="checkbox-wrapper d-flex position-relative cursor-pointer mb-0 filter-checkbox dropdown-checkbox">
+        <input type="checkbox" className="opacity-0 position-absolute w-0 h-0" value="0" />
+        <div className="checkbox-item d-flex align-items-center w-100">
+          <span className="checkbox flex-shrink-0 d-flex w-16px h-16px border-solid-1 border-radius-4 position-relative mr-12px"></span>
+          <span className="checkbox-text d-flex font-size-14 transition-all">იყიდება</span>
         </div>
+      </label>
+      <label className="checkbox-wrapper d-flex position-relative cursor-pointer mb-0 filter-checkbox dropdown-checkbox">
+        <input type="checkbox" className="opacity-0 position-absolute w-0 h-0" value="1" />
+        <div className="checkbox-item d-flex align-items-center w-100">
+          <span className="checkbox flex-shrink-0 d-flex w-16px h-16px border-solid-1 border-radius-4 position-relative mr-12px"></span>
+          <span className="checkbox-text d-flex font-size-14 transition-all">ქირავდება</span>
+        </div>
+      </label>
+    </div>
+  </div>
+</div> */}
+
         <div>
         <p className='manu'>მწარმოებელი</p>
         <select className='manufacturer'  onChange={(e) => handleManufacturerChange(e.target.value)}>
@@ -181,6 +208,7 @@ const Container = () => {
       </div>
       <div className='search'>
         <button className='search-btn' onClick={fetchProductsAndDisplay}>ძებნა {productCount}</button>
+      </div>
       </div>
       </div>
     )
