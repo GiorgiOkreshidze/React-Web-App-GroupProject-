@@ -117,9 +117,9 @@ function App() {
       
       
       <div className='app-content ' style={{
-        backgroundColor: '#E5E5E5'
+        backgroundColor: '#E5E5E5',
       }}>
-      <header className='header' >
+      <header className='header shadow-sm' >
       <div className='myautologo'>
         <button className='logo'></button>
         </div>
