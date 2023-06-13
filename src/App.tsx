@@ -118,11 +118,18 @@ function App() {
           <div className='app-wraper' >
               <header className='header shadow-sm position-sticky top-0 left-0 w-100 
               z-index-1 box-shadow-none box-shadow-sm-sm' style={{
+                display:'flex',
+                justifyContent:'center',
                 zIndex: '10'
-              }}>           
-              <div className='myautologo'>
-                <button className='logo'></button>
+              }}>   
+              <div className='myautologoContainer'>
+
+                <div className='myautologo' style={{ display: 'flex', justifyContent: 'center' }}>
+                <button className='logo' style={{ marginLeft: '-865px',display: 'flex',alignItems: 'flex-start' }}></button>
                 </div>
+                
+                </div>        
+              
               </header>
 
             <div className='app-content ' style={{
