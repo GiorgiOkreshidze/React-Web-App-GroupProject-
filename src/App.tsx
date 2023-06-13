@@ -109,6 +109,9 @@ function App() {
 
     setProducts(sortedCars);
   };
+  const handleClick = () => {
+    window.location.href = '/ka/';
+  };
 
   
 
@@ -123,9 +126,9 @@ function App() {
                 zIndex: '10'
               }}>   
               <div className='myautologoContainer'>
-                <a href="/ka/">
-                <div className='myautologo'  style={{ display: 'flex', justifyContent: 'center' }}>
-                <button className='logo' style={{ marginLeft: '-865px',display: 'flex',alignItems: 'flex-start' }}></button>
+
+                <div className='myautologo' style={{ display: 'flex', justifyContent: 'center' }}>
+                <button className='logo' onClick={handleClick} style={{ marginLeft: '-865px',display: 'flex',alignItems: 'flex-start' }}></button>
                 </div>
                 </a>
                 </div>        

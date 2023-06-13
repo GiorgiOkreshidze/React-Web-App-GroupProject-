@@ -10,13 +10,16 @@ const Container = () => {
     const [currency, setCurrency] = useState('$');
     const [productCount, setProductCount] = useState(0);
     const [activeButton, setActiveButton] = useState<string | null>(null);
-  
+    const [selectedManufacturer, setSelectedManufacturer] = useState('');
+    const [selectedModel, setSelectedModel] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
+    
     useEffect(() => {
       fetchManufacturerModelsAndDisplay();
       fetchManufacturersAndDisplay();
       fetchCategoriesAndDisplay();
       fetchProductsAndDisplay();
-    }, []);
+    }, [selectedManufacturer, selectedModel, selectedCategory]);
   
     function fetchManufacturerModelsAndDisplay() {
       const manufacturerId = '10'; // Example manufacturer ID
@@ -51,7 +54,11 @@ const Container = () => {
     }
   
     function fetchProductsAndDisplay() {
-      const searchParams = {}; // Add any necessary search parameters
+      const searchParams = {
+        manufacturer: selectedManufacturer,
+        model: selectedModel,
+        category: selectedCategory
+      }; // Add any necessary search parameters
       fetchData(searchParams)
         .then((products) => {
           setProducts(products);
@@ -71,6 +78,15 @@ const Container = () => {
     const handleButtonClick = (buttonName: string) => {
       setActiveButton(buttonName);
     };
+    
+    const handleManufacturerChange = (manufacturerId: string) => {
+      setSelectedManufacturer(manufacturerId);
+    };
+    
+    const handleCategoryChange = (categoryId: string) => {
+      setSelectedCategory(categoryId);
+    };
+    
 
     return(
         <div className='d-none d-md-block d-inline-block flex-shrink-0 mb-4 mr-md-2' style={{
@@ -130,7 +146,7 @@ const Container = () => {
         </div>
         <div>
         <p className='manu'>მწარმოებელი</p>
-        <select className='manufacturer'>
+        <select className='manufacturer'  onChange={(e) => handleManufacturerChange(e.target.value)}>
             <option  value="all" >ყველა მწარმოებელი</option>
             {manufacturers.map((manufacturer) => (
             <option key={manufacturer.man_id}>{manufacturer.man_name}</option>
@@ -139,7 +155,7 @@ const Container = () => {
       </div>
       <div >
         <p className='cate'>კატეგორია</p>
-        <select className='category' >
+        <select className='category' value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
             <option value="all">ყველა კატეგორია</option>
           {categories.map((category) => (
             <option key={category.category_id}>
@@ -164,7 +180,7 @@ const Container = () => {
      </div>
       </div>
       <div className='search'>
-        <button className='search-btn'>ძებნა {productCount}</button>
+        <button className='search-btn' onClick={fetchProductsAndDisplay}>ძებნა {productCount}</button>
       </div>
       </div>
     )
