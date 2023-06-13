@@ -73,7 +73,7 @@ const Container = () => {
     };
 
     return(
-        <div className='d-none d-md-block d-inline-block flex-shrink-0 mb-48px mr-md-20px' style={{
+        <div className='d-none d-md-block d-inline-block flex-shrink-0 mb-4 mr-md-2' style={{
           width: '250px',
           height: '520px',
           boxSizing: 'border-box',
@@ -149,12 +149,14 @@ const Container = () => {
         </select>
       </div>
 
-      <div className="price-filter">
-      <p className='price'>ფასი</p>
-      <div className='currency-switch'>
-      <button className={`currency-switch-btn ${currency === '₾' ? 'active' : ''}`}onClick={() => setCurrency('₾')}>₾</button>
-      <button className={`currency-switch-btn ${currency === '$' ? 'active' : ''}`}onClick={() => setCurrency('$')}>$</button>
-      </div>
+      <div className="price-filter d-block">
+            <div className='fasi d-flex'>
+              <p className='price'>ფასი</p>
+            <div className='currency-switch'>
+            <button className={`currency-switch-btn ${currency === '₾' ? 'active' : ''}`}onClick={() => setCurrency('₾')}>₾</button>
+            <button className={`currency-switch-btn ${currency === '$' ? 'active' : ''}`}onClick={() => setCurrency('$')}>$</button>
+          </div>
+        </div>
       <div className="price-inputs">
       <input type="text" className="min-price" placeholder="დან" />
       <span>-</span>

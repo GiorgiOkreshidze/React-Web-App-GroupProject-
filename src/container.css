@@ -208,21 +208,27 @@
     background-color: black;
     color: white;
   }
+  .fasi{
+    height: 50px;
+  }
   
  .currency-switch{
-   position: absolute;
+   display: flex;
+   flex-direction: row;
+   margin-left: 130px;
+   margin-bottom: 164px;
+   margin-top: 10px;
    width: 46px;
    height: 24px;
-   left: 208px;
-   top: 542px;
    /* bottom: 164px; */
    border: 1px solid #E2E5EB;
    border-radius: 12px;
-
   }
   .price-filter{
+    display: flex;
     margin-top: 24px;
     border-top: 1px solid #D8DBE2;
+    
   }
   .carIcon.active,
 .tracktorIcon.active,
