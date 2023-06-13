@@ -129,41 +129,42 @@ function App() {
               backgroundColor: '#E5E5E5',
             }}>
               <div className='ragaca'> 
-              <div className='mtavariContainer2' style={{display:'flex', justifyContent:'center'}}>
-                <div className='mtavariContainer1' style={{justifyContent:'left'}}>
-                <div className="mtavari" style={{
-                marginLeft: '30px',paddingTop:'32px', paddingBottom:'22px'}}>
-                  
-                  <div className="d-flex align-items-center" style={{
-                            width: '52px',
-                            height: '14px',
-                            fontFamily: 'Helvetica Neue LT GEO',
-                            fontStyle: 'normal',
-                            fontWeight: '400',
-                            fontSize: '12px',
-                            lineHeight: '14px',
-                            color: '#6F7383'}}>
-                            <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/" 
-                            style={{
-                              color: '#6F7383', 
-                              textDecoration: 'none',
-                              // marginLeft: '24px',
-                            }}>
-                              მთავარი
-                              <span className="d-flex" style={{marginLeft: '6px', marginRight: '6px'}}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
-                                  <path style={{fill: 'none', stroke: '#6F7383', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',}} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
-                                  </path>
-                                </svg>
-                              </span>
-                            </a>
-                            <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
-                            </span>
-                      </div>
-                    </div> 
-                </div>
+              <div className='mtavariContainer2' style={{ display: 'flex', justifyContent: 'center' }}>
+  <div className='mtavariContainer1' style={{ display: 'flex',alignItems: 'flex-start' }}>
+    <div className="mtavari" style={{ marginLeft: '-498px', paddingTop: '32px', paddingBottom: '22px' }}>
+      <div className="d-flex align-items-center" style={{
+        width: '52px',
+        height: '14px',
+        fontFamily: 'Helvetica Neue LT GEO',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        fontSize: '12px',
+        lineHeight: '14px',
+        color: '#6F7383'
+      }}>
+        <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/"
+          style={{
+            color: '#6F7383',
+            textDecoration: 'none',
+            // marginLeft: '24px',
+          }}>
+          მთავარი
+          <span className="d-flex" style={{ marginLeft: '6px', marginRight: '6px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
+              <path style={{
+                fill: 'none', stroke: '#6F7383', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',
+              }} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
+              </path>
+            </svg>
+          </span>
+        </a>
+        <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-              </div>
 
               <div style={{display:'flex',justifyContent:'center'}}>
                 <div style={{display:'flex' ,width:'10%', justifyContent:'center'}}>
