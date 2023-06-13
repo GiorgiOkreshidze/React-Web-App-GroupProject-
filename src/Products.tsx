@@ -146,12 +146,13 @@ function Products() {
             fontFamily: 'Helvetica Neue LT GEO',
             fontStyle: 'normal',
             fontWeight: '500',
-            fontSize: '14px',
-            lineHeight: '17px',
+            fontSize: '17px',
+            lineHeight: '1.2',
             flex: 'none',
             order: '1',
             flexGrow: '0',
-            marginLeft:'5px'
+            marginLeft:'5px',
+       
           }}
         >
           {modelName}
@@ -264,7 +265,8 @@ function Products() {
                                     <div         style={{
           display:'flex',
           flexDirection:'row',
-          justifyContent:'space-between'}}>
+          justifyContent:'space-between',
+          cursor:'pointer'}}>
                                     <div
         style={{
           display:'flex',
@@ -273,11 +275,12 @@ function Products() {
           fontFamily: 'Helvetica Neue LT GEO',
           fontStyle: 'normal',
           fontWeight: '500',
-          fontSize: '14px',
+          fontSize: '17px',
           lineHeight: '17px',
           flex: 'none',
           order: '1',
           flexGrow: '0',
+         
 
         }}
       >
@@ -285,18 +288,14 @@ function Products() {
         
       </div>
       <ProductModelName product={product}/>    
-                                    </div>
 
-               
-                                &nbsp;&nbsp;
-                                </span>
-                                <span className='ml-2 d-flex text-gray-500 font-medium text-nowrap' /*ml-8px*/ style={{
+      <span className='ml-2 d-flex text-gray-500 font-medium text-nowrap' /*ml-8px*/ style={{
                                     width: '44px',
                                     height: '17px',
                                     fontFamily: 'Helvetica Neue LT GEO',
                                     fontStyle: 'normal',
                                     fontWeight: '500',
-                                    fontSize: '14px',
+                                    fontSize: '17px',
                                     lineHeight: '17px',
                                     color: '#8C929B',
                                     flex: 'none',
@@ -305,6 +304,12 @@ function Products() {
                                     marginLeft:'5px'
                                   }}>{product.prod_year}&nbsp;წ
                                 </span>
+                                    </div>
+
+               
+                                &nbsp;&nbsp;
+                                </span>
+                                
                               </h2>
                             </div>
                             

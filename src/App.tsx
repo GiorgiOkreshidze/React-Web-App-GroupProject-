@@ -183,8 +183,15 @@ function App() {
                 
               </div>
               </div>
-            
-            
+      </div>
+    </div>
+</div>
+  );
+            }
+
+export default App;
+
+
           {/* <div style={{ background: '#E5E5E5' }}> */}
             {/*<div className='Periods'>
               <div className='period'>
@@ -437,15 +444,4 @@ function App() {
                 ))}
               </ul>
             </div>
-                      */}
-
-      </div>
-    </div>
-</div>
-  );
-  
-  
-  
-}
-
-export default App;
+                    */}
