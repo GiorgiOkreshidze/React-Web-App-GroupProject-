@@ -123,11 +123,11 @@ function App() {
                 zIndex: '10'
               }}>   
               <div className='myautologoContainer'>
-
-                <div className='myautologo' style={{ display: 'flex', justifyContent: 'center' }}>
+                <a href="/ka/">
+                <div className='myautologo'  style={{ display: 'flex', justifyContent: 'center' }}>
                 <button className='logo' style={{ marginLeft: '-865px',display: 'flex',alignItems: 'flex-start' }}></button>
                 </div>
-                
+                </a>
                 </div>        
               
               </header>
