@@ -143,6 +143,44 @@ function Products() {
     ></path>;
   };
 
+  function ProductModelName({ product }: { product: Item }) {
+    const [modelName, setModelName] = useState<string | undefined>(undefined);
+
+    useEffect(() => {
+      async function fetchModelName() {
+        try {
+          const models = await fetchModels(product.man_id.toString());
+          const modelName = getModelById(models, product.model_id)?.model_name;
+          setModelName(modelName);
+        } catch (error) {
+          console.error(error);
+          // Handle error if necessary
+        }
+      }
+
+      fetchModelName();
+    }, [product.man_id, product.model_id]);
+
+    return (
+      <div
+        style={{
+          height: "17px",
+          fontFamily: "Helvetica Neue LT GEO",
+          fontStyle: "normal",
+          fontWeight: "500",
+          fontSize: "17px",
+          lineHeight: "1.2",
+          flex: "none",
+          order: "1",
+          flexGrow: "0",
+          marginLeft: "5px",
+        }}
+      >
+        {modelName}
+      </div>
+    );
+  }
+
   return (
     <div className="search-content">
       {/* <script
