@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { fetchModels, fetchManufacturers, fetchCategories, fetchData, Manufacturer, Model, Category, Item } from './dataService';
-import "./App.css"
-import Container from './container';
-import Products from './Products';
-
+import React, { useEffect, useState } from "react";
+import {
+  fetchModels,
+  fetchManufacturers,
+  fetchCategories,
+  fetchData,
+  Manufacturer,
+  Model,
+  Category,
+  Item,
+} from "./dataService";
+import "./App.css";
+import Container from "./container";
+import Products from "./Products";
 
 function App() {
   const [models, setModels] = useState<Model[]>([]);
@@ -19,14 +27,14 @@ function App() {
   }, []);
 
   function fetchManufacturerModelsAndDisplay() {
-    const manufacturerId = '10'; // Example manufacturer ID
+    const manufacturerId = "10"; // Example manufacturer ID
 
     fetchModels(manufacturerId)
       .then((models) => {
         setModels(models);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }
 
@@ -36,7 +44,7 @@ function App() {
         setManufacturers(manufacturers);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }
 
@@ -46,7 +54,7 @@ function App() {
         setCategories(categories);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }
 
@@ -57,28 +65,28 @@ function App() {
         setProducts(products);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   }
 
   const filterCarsByHours = (event: React.MouseEvent<HTMLSelectElement>) => {
     const selectedHour = parseInt(event.currentTarget.value);
-    
+
     if (selectedHour === 0) {
       setProducts([...products]); // Reset to original list if "All" option is selected
     } else {
       const filteredCars = products.filter((car) => {
         const carPublishedTime = new Date(car.order_date);
         const currentTime = new Date();
-        const diffInHours = (currentTime.getTime() - carPublishedTime.getTime()) / (1000 * 60 * 60);
+        const diffInHours =
+          (currentTime.getTime() - carPublishedTime.getTime()) /
+          (1000 * 60 * 60);
         return diffInHours <= selectedHour;
       });
-  
+
       setProducts(filteredCars);
     }
   };
-
-
 
   const sortCars = (event: React.MouseEvent<HTMLSelectElement>) => {
     const product = event.currentTarget.value;
@@ -110,84 +118,80 @@ function App() {
     setProducts(sortedCars);
   };
   const handleClick = () => {
-    window.location.href = '/ka/';
+    window.location.href = "/ka/";
   };
 
-  
-
-
   return (
-      <div id='app'>
-          <div className='app-wraper' >
-              <header className='header shadow-sm position-sticky top-0 left-0 w-100 
-              z-index-1 box-shadow-none box-shadow-sm-sm' style={{
-                display:'flex',
-                justifyContent:'center',
-                zIndex: '10'
-              }}>   
-              <div className='myautologoContainer'>
+    <div id="app">
+      <div className="app-wraper">
+        <header className="header shadow-sm position-sticky top-0 left-0 w-100 z-index-1111 mb-16px mb-md-20px box-shadow-none box-shadow-sm-sm">
+          <div className="container">
+            <div className="d-flex align-items-center justify-content-between h-80px px-16px px-md-0">
+              <div className="myautologo d-flex align-items-center justify-content-between justify-content-sm-start w-100 w-md-auto">
+                <button className="logo" onClick={handleClick}></button>
+              </div>
+            </div>
+          </div>
+        </header>
 
-                <div className='myautologo' style={{ display: 'flex', justifyContent: 'center' }}>
-                <button className='logo' onClick={handleClick} style={{ marginLeft: '-865px',display: 'flex',alignItems: 'flex-start' }}></button>
-                </div>
-                
-                </div>        
-              
-              </header>
+        <div className="app-content " style={{ backgroundColor: "#E5E5E5" }}>
+          <div className="container">
+            <div className="d-flex align-items-center justify-content-between py-0 pt-md-16 pb-md-24px px-20px px-md-0">
+              <div className="d-flex align-items-center">
+                <a
+                  className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer"
+                  href="/ka/"
+                  // style={{
+                  //   color: "#6F7383",
+                  //   textDecoration: "none",
+                  // marginLeft: '24px',
+                  // }}
+                >
+                  მთავარი
+                  <span className="d-flex mx-6px ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="6"
+                      height="8"
+                      viewBox="0 0 4.414 6.826"
+                    >
+                      <path
+                        // style={{
+                        //   fill: "none",
+                        //   stroke: "#6F7383",
+                        //   strokeLinecap: "round",
+                        //   strokeLinejoin: "round",
+                        //   strokeWidth: "2px",
+                        // }}
+                        d="M0,4,2,2,0,0"
+                        transform="translate(1.414 1.414)"
+                      ></path>
+                    </svg>
+                  </span>
+                </a>
+              </div>
 
-            <div className='app-content ' style={{
-              backgroundColor: '#E5E5E5',
-            }}>
-              <div className='ragaca'> 
-              <div className='mtavariContainer2' style={{ display: 'flex', justifyContent: 'center' }}>
-  <div className='mtavariContainer1' style={{ display: 'flex',alignItems: 'flex-start' }}>
-    <div className="mtavari" style={{ marginLeft: '-498px', paddingTop: '32px', paddingBottom: '22px' }}>
-      <div className="d-flex align-items-center" style={{
-        width: '52px',
-        height: '14px',
-        fontFamily: 'Helvetica Neue LT GEO',
-        fontStyle: 'normal',
-        fontWeight: '400',
-        fontSize: '12px',
-        lineHeight: '14px',
-        color: '#6F7383'
-      }}>
-        <a className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer" href="/ka/"
-          style={{
-            color: '#6F7383',
-            textDecoration: 'none',
-            // marginLeft: '24px',
-          }}>
-          მთავარი
-          <span className="d-flex" style={{ marginLeft: '6px', marginRight: '6px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 4.414 6.826">
-              <path style={{
-                fill: 'none', stroke: '#6F7383', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '2px',
-              }} d="M0,4,2,2,0,0" transform="translate(1.414 1.414)">
-              </path>
-            </svg>
-          </span>
-        </a>
-        <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default">
-        </span>
+              <span className="d-flex align-items-center text-gray-850 font-size-12 cursor-default"></span>
+            </div>
+
+            <div className="d-flex justify-content-between">
+              <Container />
+              <Products />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  );
+}
 
+export default App;
 
-              <div style={{display:'flex',justifyContent:'center'}}>
-                <div style={{display:'flex' ,width:'10%', justifyContent:'center'}}>
-                  <Container/>
-                  <Products/>
-                </div>
-                
-              </div>
-              </div>
-            
-            
-          {/* <div style={{ background: '#E5E5E5' }}> */}
-            {/*<div className='Periods'>
+{
+  /* <div style={{ background: '#E5E5E5' }}> */
+}
+{
+  /*<div className='Periods'>
               <div className='period'>
                 <select className='details' onClick={filterCarsByHours}>
                 <option value="0">All</option>
@@ -212,8 +216,10 @@ function App() {
                 <option value="6.1">increasing mileage</option>
               </select> 
               </div>
-            </div>*/}
-            {/* <div>
+            </div>*/
+}
+{
+  /* <div>
               <h1>Manufacturer Models</h1>
               <ul>
                 {models.map((model) => (
@@ -227,8 +233,10 @@ function App() {
                     </li>
                 ))}
               </ul>
-            </div> */}
-            {/* export interface Model {
+            </div> */
+}
+{
+  /* export interface Model {
           model_id: number;
           man_id:number;
           model_name: string;
@@ -242,8 +250,10 @@ function App() {
           is_spec: boolean;
           show_in_salons:number;
           shown_in_slider:number;
-        } */}
-            {/* <div>
+        } */
+}
+{
+  /* <div>
               <h1>Manufacturer List</h1>
               <ul>
                 {manufacturers.map((manufacturer) => (
@@ -254,9 +264,11 @@ function App() {
                   </li>
                 ))}
               </ul>
-            </div> */}
-      
-            {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            </div> */
+}
+
+{
+  /* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <h1>Categories</h1>
               <ul>
                 
@@ -274,7 +286,10 @@ function App() {
                   </li>
                 ))}
               </ul>
-            </div> */}{/*
+            </div> */
+}
+{
+  /*
           \ <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <h1>Products</h1>
               <ul>
@@ -299,10 +314,15 @@ function App() {
                       style={{
                         marginLeft: '220px',
                       }}
-                    > */}
-                      {/* <strong>ID:</strong> {product.car_id}<br />
+                    > */
+}
+{
+  /* <strong>ID:</strong> {product.car_id}<br />
                       <strong>Title:</strong> {product.car_model}<br />
-                      <strong>Description:</strong> {product.car_desc}<br />  */} {/*
+                      <strong>Description:</strong> {product.car_desc}<br />  */
+}
+{
+  /*
 
 
 
@@ -438,15 +458,5 @@ function App() {
                 ))}
               </ul>
             </div>
-                      */}
-
-      </div>
-    </div>
-</div>
-  );
-  
-  
-  
+                      */
 }
-
-export default App;
