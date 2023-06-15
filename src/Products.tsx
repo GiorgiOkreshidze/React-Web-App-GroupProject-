@@ -134,12 +134,14 @@ function Products() {
   };
   // დავამატე რამდენი ხნის წინ დაიდო მანქანა.
 
+  // ლაიქი გასასწორებელია. არ მუშაობს სწორად.
   const likeClick = (buttonName: string) => {
+    setLike(like);
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M8.68574 2.1679C8.51267 2.29346 8.3477 2.43458 8.19095 2.5894L8.0626 2.72088L8 2.78989L7.9374 2.72088L7.80905 2.5894C7.6523 2.43458 7.48733 2.29346 7.31426 2.1679C6.73288 1.74614 6.06008 1.5 5.3 1.5C2.58473 1.5 1 3.87655 1 6.304C1 8.67851 2.19139 10.7406 4.13701 12.4002C5.50533 13.5673 7.2954 14.5 8 14.5C8.705 14.5 10.495 13.5674 11.8633 12.4002C13.8088 10.7406 15 8.67852 15 6.304C15 3.87655 13.4153 1.5 10.7 1.5C9.93992 1.5 9.26711 1.74614 8.68574 2.1679Z"
-      fill=" #FD4100"
+      fill="red"
     ></path>;
   };
 
@@ -261,23 +263,94 @@ function Products() {
             <div
               className="photoAndInfo d-flex flex-column flex-m-row p-m-16px" /*p-md-16px*/
             >
-              <div
-                className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0"
-                /* mb-12px mb-m-0 px-16px px-m-0*/ style={{
-                  backgroundImage: `url(${product.photo} )`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  // marginRight: "20px",
-                  // // height: "170px",
-                  // // width: "182px",
-                  // left: "-4px",
-                  // top: "-3px",
-                  borderRadius: "8px",
-                }}
-              ></div>
+              <div className="d-flex d-m-none justify-content-between align-items-center py-12px px-16px">
+                <div className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap">
+                  რუსთავი
+                </div>
+                <div className="font-size-12 text-green-250 d-flex align-items-center">
+                  <span className="d-flex mr-4px">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="7.258"
+                      height="5.927"
+                      viewBox="0 0 7.258 5.927"
+                    >
+                      <g transform="translate(0.131 0.127)">
+                        <g transform="translate(-227 -865)">
+                          <g transform="translate(0 808)">
+                            <g transform="translate(219 48)">
+                              <path
+                                d="M9,12.286,10.667,14,14,10"
+                                style={{
+                                  fill: "none",
+                                  stroke: "rgb(2, 204, 89)",
+                                  strokeLinecap: "round",
+                                  strokeLinejoin: "round",
+                                  strokeWidth: "1.6px",
+                                  fillRule: "evenodd",
+                                }}
+                              ></path>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </span>
+                  განბაჟებული
+                </div>
+              </div>
+              {/* განუბაჟებლის გამოტანა 
+               <div className="font-size-12 text-green-250 d-flex align-items-center">
+                        <div className="font-size-12 text-red-800 text-nowrap">
+                          განბაჟება&nbsp;
+                          <div
+                            className="d-inline-flex align-items-center icon-red-800 icon-w-2"
+                          >
+                            1000
+                            <span className="d-flex ml-8px">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="8px"
+                                height="9px"
+                                viewBox="0 0 10 11"
+                              >
+                                <path
+                                  id="GEL"
+                                  d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
+                                  transform="translate(-305 29)"
+                                  fill="#FF3B30"
+                                ></path>
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </div> */}
 
               <div
-                className="info pl-m-14px d-flex flex-column justify-content-between w-100 h-150px" /*pl-m-14px*/
+                className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0"
+                // /* mb-12px mb-m-0 px-16px px-m-0*/ style={{
+                //   // backgroundImage: `url(${product.photo})`,
+                //   // backgroundSize: "cover",
+                //   // backgroundPosition: "center",
+                //   // marginRight: "20px",
+                //   // // height: "170px",
+                //   // // width: "182px",
+                //   // left: "-4px",
+                //   // top: "-3px",
+                //   borderRadius: "8px",
+                // }}
+              >
+                <div className="ratio-4-3 w-100">
+                  <img
+                    className="items__image"
+                    src={"" + product.photo}
+                    alt=""
+                  ></img>
+                </div>
+              </div>
+
+              <div
+                className="info pl-m-14px d-flex flex-column justify-content-between w-100 h-m-150px" /*pl-m-14px*/
               >
                 <div
                   className="d-flex flex-column flex-lg-row align-items-start justify-content-between mb-lg-12px px-16px px-m-0" /*mb-lg-12px px-16px*/
@@ -324,7 +397,7 @@ function Products() {
                   </div>
 
                   <div
-                    className="d-none d-md-flex align-items-center mt-m-8px mt-lg-0"
+                    className="d-none d-m-flex align-items-center mt-m-8px mt-lg-0"
                     // /*mt-m-8px*/ style={{
                     //   display: "flex",
                     //   justifyContent: "center",
@@ -341,13 +414,45 @@ function Products() {
                       /*ml-lg-16px mr-24px*/
                     >
                       <div className="font-size-12 text-green-250 d-flex align-items-center">
+                        <span className="d-flex mr-4px">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="7.258"
+                            height="5.927"
+                            viewBox="0 0 7.258 5.927"
+                          >
+                            <g transform="translate(0.131 0.127)">
+                              <g transform="translate(-227 -865)">
+                                <g transform="translate(0 808)">
+                                  <g transform="translate(219 48)">
+                                    <path
+                                      d="M9,12.286,10.667,14,14,10"
+                                      style={{
+                                        fill: "none",
+                                        stroke: "rgb(2, 204, 89)",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        strokeWidth: "1.6px",
+                                        fillRule: "evenodd",
+                                      }}
+                                    ></path>
+                                  </g>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
+                        </span>
+                        განბაჟებული
+                      </div>
+                      {/* განუბაჟებლის გამოტანა 
+                       <div className="font-size-12 text-green-250 d-flex align-items-center">
                         <div className="font-size-12 text-red-800 text-nowrap">
                           განბაჟება&nbsp;
                           <div
-                            className="d-inline-flex align-items-center icon-red-800 icon-w-2" /*icon-w-8px*/
+                            className="d-inline-flex align-items-center icon-red-800 icon-w-2"
                           >
                             1000
-                            <span className="d-flex ml-8px" /*ml-8px*/>
+                            <span className="d-flex ml-8px">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="8px"
@@ -364,7 +469,7 @@ function Products() {
                             </span>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div
                       className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap"
@@ -422,7 +527,7 @@ function Products() {
                 <div className="d-flex flex-column flex-m-row justify-content-between">
                   <div
                     className="d-block d-m-none d-lg-block w-lg-70 border-radius-8 border-solid-1 border-solid-m-0 
-                          px-12 p-m-0 mx-16 mx-m-0 mt-8px mt-m-0 border-gray-100"
+                          px-12px p-m-0 mx-16px mx-m-0 mt-8px mt-m-0 border-gray-100"
                     /*px-12px p-m-0 mx-16px mx-m-0 mt-8px mt-m-0*/
                   >
                     <div
@@ -662,6 +767,50 @@ function Products() {
                           //   background: "#F2F3F6",
                           // }}
                         >
+                          {/* დოლარის ნიშანი როცა მონიშნული არ არის*/}
+
+                          <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="9px"
+                              height="14px"
+                              viewBox="0 0 9 14"
+                            >
+                              <path
+                                id="_"
+                                data-name="$"
+                                d="M1.974-3.248H0A3.8,3.8,0,0,0,1.022-.742a3.783,3.783,0,0,0,2.45.966v1.19H4.3V.224A4.359,4.359,0,0,0,6.02-.2a3.707,3.707,0,0,0,1.071-.8,2.62,2.62,0,0,0,.553-.917A2.6,2.6,0,0,0,7.8-2.688a7.425,7.425,0,0,0-.049-.8,2.226,2.226,0,0,0-.315-.9,3.024,3.024,0,0,0-.826-.861,4.839,4.839,0,0,0-1.6-.693q-.2-.056-.371-.1L4.3-6.118V-8.6A1.033,1.033,0,0,1,5.11-8.2a1.472,1.472,0,0,1,.35.952H7.448a3.209,3.209,0,0,0-.308-1.26A2.783,2.783,0,0,0,6.454-9.4a3.178,3.178,0,0,0-.973-.56A5.033,5.033,0,0,0,4.3-10.234v-1.078H3.472v1.078a4.667,4.667,0,0,0-1.218.245,3.291,3.291,0,0,0-1.036.574A2.8,2.8,0,0,0,.5-8.5a2.782,2.782,0,0,0-.273,1.26A2.569,2.569,0,0,0,.462-6.069a2.325,2.325,0,0,0,.637.784,3.337,3.337,0,0,0,.9.5q.5.189,1.022.329.14.028.259.063t.189.063V-1.4a1.955,1.955,0,0,1-1.078-.588A1.72,1.72,0,0,1,1.974-3.248ZM4.3-1.4V-4.088a3.381,3.381,0,0,1,1.169.5.983.983,0,0,1,.343.819,1.152,1.152,0,0,1-.14.581,1.385,1.385,0,0,1-.357.413,1.641,1.641,0,0,1-.49.259A2.555,2.555,0,0,1,4.3-1.4ZM3.472-8.6v2.282a2.3,2.3,0,0,1-.966-.406.889.889,0,0,1-.294-.714,1.162,1.162,0,0,1,.1-.511A1.048,1.048,0,0,1,2.6-8.309a1.219,1.219,0,0,1,.406-.217A1.54,1.54,0,0,1,3.472-8.6Z"
+                                transform="translate(0.544 11.812)"
+                                fill="#272a37"
+                                stroke="rgba(0,0,0,0)"
+                                stroke-width="1"
+                              ></path>
+                            </svg>
+                          </span>
+
+                          {/* დოლარის ნიშანი როცა მონიშნულია 
+                          
+                          <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="9px"
+                              height="14px"
+                              viewBox="0 0 9 14"
+                            >
+                              <path
+                                id="_"
+                                data-name="$"
+                                d="M1.974-3.248H0A3.8,3.8,0,0,0,1.022-.742a3.783,3.783,0,0,0,2.45.966v1.19H4.3V.224A4.359,4.359,0,0,0,6.02-.2a3.707,3.707,0,0,0,1.071-.8,2.62,2.62,0,0,0,.553-.917A2.6,2.6,0,0,0,7.8-2.688a7.425,7.425,0,0,0-.049-.8,2.226,2.226,0,0,0-.315-.9,3.024,3.024,0,0,0-.826-.861,4.839,4.839,0,0,0-1.6-.693q-.2-.056-.371-.1L4.3-6.118V-8.6A1.033,1.033,0,0,1,5.11-8.2a1.472,1.472,0,0,1,.35.952H7.448a3.209,3.209,0,0,0-.308-1.26A2.783,2.783,0,0,0,6.454-9.4a3.178,3.178,0,0,0-.973-.56A5.033,5.033,0,0,0,4.3-10.234v-1.078H3.472v1.078a4.667,4.667,0,0,0-1.218.245,3.291,3.291,0,0,0-1.036.574A2.8,2.8,0,0,0,.5-8.5a2.782,2.782,0,0,0-.273,1.26A2.569,2.569,0,0,0,.462-6.069a2.325,2.325,0,0,0,.637.784,3.337,3.337,0,0,0,.9.5q.5.189,1.022.329.14.028.259.063t.189.063V-1.4a1.955,1.955,0,0,1-1.078-.588A1.72,1.72,0,0,1,1.974-3.248ZM4.3-1.4V-4.088a3.381,3.381,0,0,1,1.169.5.983.983,0,0,1,.343.819,1.152,1.152,0,0,1-.14.581,1.385,1.385,0,0,1-.357.413,1.641,1.641,0,0,1-.49.259A2.555,2.555,0,0,1,4.3-1.4ZM3.472-8.6v2.282a2.3,2.3,0,0,1-.966-.406.889.889,0,0,1-.294-.714,1.162,1.162,0,0,1,.1-.511A1.048,1.048,0,0,1,2.6-8.309a1.219,1.219,0,0,1,.406-.217A1.54,1.54,0,0,1,3.472-8.6Z"
+                                transform="translate(0.544 11.812)"
+                                fill="#272a37"
+                                stroke="rgba(0,0,0,0)"
+                                stroke-width="1"
+                              ></path>
+                            </svg>
+                          </span> */}
+
+                          {/* ლარის ნიშანი როცა მონიშნული არის*/}
+
                           <span
                             className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800"
                             /*w-24px h-24px*/
@@ -680,6 +829,24 @@ function Products() {
                               ></path>
                             </svg>
                           </span>
+
+                          {/* ლარის ნიშანი როცა მონიშნული არ არის
+                          
+                          <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="10px"
+                              height="11px"
+                              viewBox="0 0 10 11"
+                            >
+                              <path
+                                id="GEL"
+                                d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
+                                transform="translate(-305 29)"
+                                fill="#272a37"
+                              ></path>
+                            </svg>
+                          </span> */}
                         </div>
                       </div>
                     </div>
@@ -779,7 +946,7 @@ function Products() {
                     </button>
                     <button
                       type="button"
-                      className="{`carIcon ${activeButton === 'carIcon' ? 'active' : ''}`}action-icon tooltip-parent border-0 bg-transparent ml-8px w-24px h-24px 
+                      className="{`carIcon ${like === 'carIcon' ? 'active' : ''}`}action-icon tooltip-parent border-0 bg-transparent ml-8px w-24px h-24px 
                             rounded-xs d-flex align-items-center justify-content-center hover-icon-orange cursor-pointer transition-all "
                       onClick={() =>
                         likeClick("likeClick")
@@ -803,7 +970,8 @@ function Products() {
                 </div>
               </div>
             </div>
-            {/*<div className="d-flex align-items-center justify-content-between px-16px py-8px border  border-top border-gray-100">
+            {/* დილერის ბოქსი
+            <div className="d-flex align-items-center justify-content-between px-16px py-8px border  border-top border-gray-100">
                         <div className="d-flex align-items-center">
                           <div className="h-40px mr-12px">
                             <a href="https://myauto.ge/ka/dealers/dealerbox/4694514">

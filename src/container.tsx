@@ -98,7 +98,7 @@ const Container = () => {
 
   return (
     <div
-      className="d-none d-md-block d-inline-block flex-shrink-0 mb-48px mr-md-20px"
+      className="d-none d-md-block flex-shrink-0 mb-48px mr-md-20px"
       style={{
         width: "250px",
         height: "520px",
