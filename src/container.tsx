@@ -20,7 +20,6 @@ const Container = () => {
   const [productCount, setProductCount] = useState(0);
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [selectedManufacturer, setSelectedManufacturer] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const Container = () => {
     fetchManufacturersAndDisplay();
     fetchCategoriesAndDisplay();
     fetchProductsAndDisplay();
-  }, [selectedManufacturer, selectedModel, selectedCategory]);
+  }, [selectedManufacturer, selectedCategory]);
 
   function fetchManufacturerModelsAndDisplay() {
     const manufacturerId = "10"; // Example manufacturer ID
@@ -65,7 +64,6 @@ const Container = () => {
   function fetchProductsAndDisplay() {
     const searchParams = {
       manufacturer: selectedManufacturer,
-      model: selectedModel,
       category: selectedCategory,
     }; // Add any necessary search parameters
     fetchData(searchParams)

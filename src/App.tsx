@@ -231,10 +231,10 @@ function fetchPageAndDisplay() {
 
 export default App;
 
-{
-  /* <div style={{ background: '#E5E5E5' }}> */
-}
-{
+// {
+//   /* <div style={{ background: '#E5E5E5' }}> */
+// }
+// {
   /*<div className='Periods'>
               <div className='period'>
                 <select className='details' onClick={filterCarsByHours}>
@@ -261,8 +261,8 @@ export default App;
               </select> 
               </div>
             </div>*/
-}
-{
+// }
+// {
   /* <div>
               <h1>Manufacturer Models</h1>
               <ul>
@@ -278,8 +278,8 @@ export default App;
                 ))}
               </ul>
             </div> */
-}
-{
+// }
+// {
   /* export interface Model {
           model_id: number;
           man_id:number;
@@ -295,8 +295,8 @@ export default App;
           show_in_salons:number;
           shown_in_slider:number;
         } */
-}
-{
+// }
+// {
   /* <div>
               <h1>Manufacturer List</h1>
               <ul>
@@ -309,9 +309,9 @@ export default App;
                 ))}
               </ul>
             </div> */
-}
+// }
 
-{
+// {
   /* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <h1>Categories</h1>
               <ul>
@@ -331,8 +331,8 @@ export default App;
                 ))}
               </ul>
             </div> */
-}
-{
+// }
+// {
   /*
           \ <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <h1>Products</h1>
@@ -359,13 +359,13 @@ export default App;
                         marginLeft: '220px',
                       }}
                     > */
-}
-{
+// }
+// {
   /* <strong>ID:</strong> {product.car_id}<br />
                       <strong>Title:</strong> {product.car_model}<br />
                       <strong>Description:</strong> {product.car_desc}<br />  */
-}
-{
+// }
+// {
   /*
 
 
@@ -504,4 +504,4 @@ export default App;
             </div>
             </div>
                     */
-}
+// }

@@ -114818,7 +114818,7 @@ a.bg-dark:hover,a.bg-dark:focus,button.bg-dark:hover,button.bg-dark:focus {
 }
 
 .op-player__play:-moz-focusing,.op-settings__back,.op-controls button:-moz-focusing {
-  outline: 1px dotted ButtonText
+  outline: 1px dotted ButtonText;
 }
 
 .op-controls button:before {
