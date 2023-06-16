@@ -1,3 +1,54 @@
+export const fetchPageData = (page: number = 1): Promise<Page> => {
+  const url = `https://api2.myauto.ge/ka/products/?Page=${page}`;
+
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Error fetching page data');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data as Page;
+    });
+};
+
+
+  
+  export interface Page{
+    statusCode:number;
+    statusMessage: string;
+    data: CarsData;
+  }
+
+  export interface versioning{
+    app_data_version:string;
+    langs_version: string;
+    app_store_version: string;
+    play_store_version: string;
+    endPoints:Endpoint;
+    application: string;
+    androidVersion:string;
+    iosVersion: string;
+  }
+
+  export interface Endpoint{
+    appDataGenerator: string;
+    langGenerator: string;
+  }
+
+  export interface CarsData{
+    items: Item[];
+    meta: Meta;
+  }
+
+  export interface Meta{
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+  }
+
   export interface Manufacturer {
     man_id: string;
     man_name: string;

@@ -4,10 +4,16 @@ import {
   fetchManufacturers,
   fetchCategories,
   fetchData,
+  fetchPageData,
   Manufacturer,
   Model,
   Category,
   Item,
+  Page,
+  versioning,
+  Endpoint,
+  CarsData,
+  Meta
 } from "./dataService";
 import "./App.css";
 import Container from "./container";
@@ -18,13 +24,27 @@ function App() {
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Item[]>([]);
+  const [page, setPage] = useState<Page | null>(null);
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
     fetchManufacturersAndDisplay();
     fetchCategoriesAndDisplay();
     fetchProductsAndDisplay();
+    fetchPageAndDisplay();
   }, []);
+
+function fetchPageAndDisplay() {
+  const page = 2; // Change the page number as needed
+  fetchPageData(page)
+    .then((fetchedPage) => {
+      setPage(fetchedPage);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
 
   function fetchManufacturerModelsAndDisplay() {
     const manufacturerId = "10"; // Example manufacturer ID
@@ -178,9 +198,33 @@ function App() {
               <Container />
               <Products />
             </div>
+            <div>
+            {page && (
+        <div>
+          <h1>Status Code: {page.statusCode}</h1>
+          <h2>Status Message: {page.statusMessage}</h2>
+          <div>
+            {page.data.items.map((item) => (
+              <div key={item.car_id}>
+                {/* Render each item */}
+                <p>{item.car_id}</p>
+                {/* Add more item properties as needed */}
+              </div>
+            ))}
+          </div>
+          <div>
+           <div>current page:{page.data.meta.current_page}</div> 
+           <div>last page: {page.data.meta.last_page}</div>
+           <div>per page:{page.data.meta.per_page}</div> 
+           <div>total cars: {page.data.meta.total}</div>
+          </div>
+        </div>
+      )}
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 }
