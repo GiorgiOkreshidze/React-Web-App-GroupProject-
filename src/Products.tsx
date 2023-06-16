@@ -22,6 +22,9 @@ function Products() {
   const [products, setProducts] = useState<Item[]>([]);
   const [like, setLike] = useState<string | null>(null);
   const [productCount, setProductCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState<number>(1); // Initial page is set to 1, you can change it if needed
+  const [itemsPerPage, setItemsPerPage] = useState<number>(15); // Number of items to display per page
+
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
@@ -89,6 +92,8 @@ function Products() {
       });
 
       setProducts(filteredCars);
+      setProductCount(filteredCars.length); // Update the product count
+      setCurrentPage(1); // Reset to the first page
     }
   };
 
@@ -120,6 +125,7 @@ function Products() {
     }
 
     setProducts(sortedCars);
+    setCurrentPage(1); // Reset to the first page
   };
 
   const getTimePassed = (product: Item) => {
@@ -145,6 +151,40 @@ function Products() {
     ></path>;
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  
+
+  const getPageNumbers = () => {
+    const totalPages = Math.ceil(productCount / itemsPerPage);
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <li key={i}>
+        <span
+          className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+            currentPage === i ? 'active pointer-events-none' : ''
+          }`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </span>
+      </li>
+      );
+    }
+
+    return pageNumbers;
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  
   function ProductModelName({ product }: { product: Item }) {
     const [modelName, setModelName] = useState<string | undefined>(undefined);
 
@@ -257,6 +297,9 @@ function Products() {
         </div>
       </div>
 
+{/* <ul>
+        {currentItems.map((product, index) => (
+          <li key={index}>{ */}
       {products.map((product) => (
         <div className="product px-16px px-md-0 position-relative">
           <div className="rounded mb-10px bg-white" /*mb-10px*/>
@@ -998,133 +1041,222 @@ function Products() {
         </div>
       ))}
 
-      <div className="bg-white border-radius-md-10 h-56px h-md-40px d-flex align-items-center justify-content-center mt-16px">
-        <ul className="pagination d-flex align-items-center list-unstyled">
-          <li>
-            {/* <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13.414"
-                height="8.829"
-                viewBox="0 0 13.414 8.829"
-              >
-                <g transform="translate(1 1.414)">
-                  <path
-                    d="M12,12,9,9l3-3"
-                    transform="translate(-1 -6)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <path
-                    d="M12,12,9,9l3-3"
-                    transform="translate(-6 -6)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <line
-                    y2="6"
-                    transform="translate(0)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px'}}
-                  ></line>
-                </g>
-              </svg>
-            </span> */}
-          </li>
-          <li>
-            {/* <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="5.414"
-                height="8.829"
-                viewBox="0 0 5.414 8.829"
-              >
-                <path
-                  d="M12,12,9,9l3-3"
-                  transform="translate(-8 -4.586)"
-                  style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                ></path>
-              </svg>
-            </span> */}
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer active pointer-events-none">
-              1
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              2
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              3
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              4
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              5
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              6
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              7
-            </span>
-          </li>
-          <li>
-            <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="5.414"
-                height="8.829"
-                viewBox="0 0 5.414 8.829"
-              >
-                <path
-                  d="M9,12l3-3L9,6"
-                  transform="translate(-7.586 -4.586)"
-                  style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                ></path>
-              </svg>
-            </span>
-          </li>
-          <li>
-            <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13.414"
-                height="8.829"
-                viewBox="0 0 13.414 8.829"
-              >
-                <g transform="translate(-1134.586 -2682.586)">
-                  <path
-                    d="M9,12l3-3L9,6"
-                    transform="translate(1127 2678)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <path
-                    d="M9,12l3-3L9,6"
-                    transform="translate(1132 2678)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <line
-                    y2="6"
-                    transform="translate(1147 2684)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', }}
-                  ></line>
-                </g>
-              </svg>
-            </span>
-          </li>
-        </ul>
-      </div>
+<div className="bg-white border-radius-md-10 h-56px h-md-40px d-flex align-items-center justify-content-center mt-16px">
+  <ul className="pagination d-flex align-items-center list-unstyled">
+    <li>
+      {currentPage > 1 && (
+        <span className="d-flex p-12px cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13.414"
+            height="8.829"
+            viewBox="0 0 13.414 8.829"
+          >
+            <g transform="translate(1 1.414)">
+              <path
+                d="M12,12,9,9l3-3"
+                transform="translate(-1 -6)"
+                fill="none"
+                stroke="rgb(253, 65, 0)"
+                strokeLinecap="round"
+                strokeWidth="2px"
+                strokeLinejoin="round"
+              ></path>
+              <path
+                d="M12,12,9,9l3-3"
+                transform="translate(-6 -6)"
+                fill="none"
+                stroke="rgb(253, 65, 0)"
+                strokeLinecap="round"
+                strokeWidth="2px"
+                strokeLinejoin="round"
+              ></path>
+              <line
+                y2="6"
+                transform="translate(0)"
+                fill="none"
+                stroke="rgb(253, 65, 0)"
+                strokeLinecap="round"
+                strokeWidth="2px"
+              ></line>
+            </g>
+          </svg>
+        </span>
+      )}
+    </li>
+    <li>
+      {currentPage > 1 && (
+        <span
+          className="d-flex p-12px cursor-pointer"
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="5.414"
+            height="8.829"
+            viewBox="0 0 5.414 8.829"
+          >
+            <path
+              d="M12,12,9,9l3-3"
+              transform="translate(-8 -4.586)"
+              fill="none"
+              stroke="rgb(253, 65, 0)"
+              strokeLinecap="round"
+              strokeWidth="2px"
+              strokeLinejoin="round"
+            ></path>
+          </svg>
+        </span>
+      )}
+    </li>
+    {/* {getPageNumbers()} */}
+    <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 1 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(1)}
+          >
+            1
+          </span>
+        </li>
+        <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 2 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(2)}
+          >
+            2
+          </span>
+        </li>
+        <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 3 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(3)}
+          >
+            3
+          </span>
+        </li>
+        <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 4 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(4)}
+          >
+            4
+          </span>
+        </li>
+        <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 5 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(5)}
+          >
+            5
+          </span>
+        </li>
+        <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 6 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(6)}
+          >
+            6
+          </span>
+        </li>
+        <li>
+          <span
+            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              currentPage === 7 ? 'active pointer-events-none' : ''
+            }`}
+            onClick={() => handlePageChange(7)}
+          >
+            7
+          </span>
+        </li>
+    <li>
+      <span
+        className="d-flex p-12px cursor-pointer"
+        onClick={() => handlePageChange(currentPage + 1)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="5.414"
+          height="8.829"
+          viewBox="0 0 5.414 8.829"
+        >
+          <path
+            d="M9,12l3-3L9,6"
+            transform="translate(-7.586 -4.586)"
+            fill="none"
+            stroke="rgb(253, 65, 0)"
+            strokeLinecap="round"
+            strokeWidth="2px"
+            strokeLinejoin="round"
+          ></path>
+        </svg>
+      </span>
+    </li>
+    <li>
+      <span className="d-flex p-12px cursor-pointer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="13.414"
+          height="8.829"
+          viewBox="0 0 13.414 8.829"
+        >
+          <g transform="translate(-1134.586 -2682.586)">
+            <path
+              d="M9,12l3-3L9,6"
+              transform="translate(1127 2678)"
+              fill="none"
+              stroke="rgb(253, 65, 0)"
+              strokeLinecap="round"
+              strokeWidth="2px"
+              strokeLinejoin="round"
+            ></path>
+            <path
+              d="M9,12l3-3L9,6"
+              transform="translate(1132 2678)"
+              fill="none"
+              stroke="rgb(253, 65, 0)"
+              strokeLinecap="round"
+              strokeWidth="2px"
+              strokeLinejoin="round"
+            ></path>
+            <line
+              y2="6"
+              transform="translate(1147 2684)"
+              fill="none"
+              stroke="rgb(253, 65, 0)"
+              strokeLinecap="round"
+              strokeWidth="2px"
+            ></line>
+          </g>
+        </svg>
+      </span>
+    </li>
+  </ul>
+</div>
+
+      
+
+      <div>
+      <ul>
+        {currentItems.map((product, index) => (
+          <li key={index}>{
+            /* Render item */
+            }</li>
+        ))}
+      </ul>
+    </div>
+
     </div>
   );
 }
