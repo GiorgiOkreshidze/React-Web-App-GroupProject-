@@ -14,6 +14,27 @@ import {
   Item,
 } from "./dataService";
 import "./App.css";
+// დავამატე საწვავის ინფოდა გადაცემათა კოლოფის ინფო.
+interface FuelTypeMapping {
+  [key: number]: string;
+}
+
+interface GearTypeMapping {
+  [key: number]: string;
+}
+const fuelTypeMapping: FuelTypeMapping = {
+  2: 'ბენზინი',
+  3: 'დიზელი',
+  6: 'ჰიბრიდი',
+  7: 'ელქტრო'
+};
+
+const gearTypeMapping: GearTypeMapping = {
+  1: 'მექანიკა',
+  2: 'ავტომატიკა',
+  3: 'ტიპტრონიკი',
+  4: 'ვარიატორი',
+}
 
 function Products() {
   const [models, setModels] = useState<Model[]>([]);
@@ -162,6 +183,7 @@ function Products() {
 
       fetchModelName();
     }, [product.man_id, product.model_id]);
+
 
     return (
       <div
@@ -565,7 +587,8 @@ function Products() {
                             </svg>
                           </span>
                           &nbsp;&nbsp;{product.engine_volume / 1000}&nbsp;
-                          {product.fuel_type_id}
+                          {/* {product.fuel_type_id + "ბენ,დიზ?"} */}
+                          {fuelTypeMapping[product.fuel_type_id]}
                         </div>
                       </div>
                       <div
@@ -683,7 +706,9 @@ function Products() {
                               ></path>
                             </svg>
                           </span>
-                          &nbsp;&nbsp;{product.gear_type_id}
+                          &nbsp;&nbsp;
+                          {/* {product.gear_type_id} */}
+                          {gearTypeMapping[product.gear_type_id]}
                         </div>
                       </div>
                       <div
