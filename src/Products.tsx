@@ -47,7 +47,11 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Item[]>([]);
+
   const [like, setLike] = useState<string | null>(null);
+  const [likes, setLikes] = useState<any>([]);
+  const [liked, setLiked] = useState<Record<number, boolean>>({}); // object state for liked or not
+
   const [productCount, setProductCount] = useState(0);
 
   const [pageCount, setPageCount] = useState(0);
@@ -249,15 +253,17 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
   };
   // დავამატე რამდენი ხნის წინ დაიდო მანქანა.
 
-  // ლაიქი გასასწორებელია. არ მუშაობს სწორად.
-  const likeClick = (buttonName: string) => {
-    setLike(like);
-    <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      d="M8.68574 2.1679C8.51267 2.29346 8.3477 2.43458 8.19095 2.5894L8.0626 2.72088L8 2.78989L7.9374 2.72088L7.80905 2.5894C7.6523 2.43458 7.48733 2.29346 7.31426 2.1679C6.73288 1.74614 6.06008 1.5 5.3 1.5C2.58473 1.5 1 3.87655 1 6.304C1 8.67851 2.19139 10.7406 4.13701 12.4002C5.50533 13.5673 7.2954 14.5 8 14.5C8.705 14.5 10.495 13.5674 11.8633 12.4002C13.8088 10.7406 15 8.67852 15 6.304C15 3.87655 13.4153 1.5 10.7 1.5C9.93992 1.5 9.26711 1.74614 8.68574 2.1679Z"
-      fill="red"
-    ></path>;
+  // ლაიქი მუშაობს
+  const handleLikeEvent = (id: any) => {
+    if (liked[id]) {
+      // if already liked, remove the id from likes and set liked to false
+      setLikes(likes.filter((item: any) => item !== id));
+      setLiked({ ...liked, [id]: false }); // use spread operator to update the object
+    } else {
+      // if not liked, add the id to likes and set liked to true
+      setLikes(likes.concat(id));
+      setLiked({ ...liked, [id]: true }); // use spread operator to update the object
+    }
   };
 
   const handlePageChange = (pageNumber: number) => {
@@ -409,7 +415,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
         <div className="product px-16px px-md-0 position-relative">
           <div className="rounded mb-10px bg-white" /*mb-10px*/>
             <div
-              className="photoAndInfo d-flex flex-column flex-m-row p-m-16px" /*p-md-16px*/
+              className="photoAndInfo d-flex flex-column flex-m-row p-m-16px"
+              key={product.car_id} /*p-md-16px*/
             >
               <div className="d-flex d-m-none justify-content-between align-items-center py-12px px-16px">
                 <div className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap">
@@ -893,8 +900,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                         >
                           <div className="d-inline-flex align-items-center undefined">
                             {currency === "none"
-                              ? Math.ceil(product.price * 2.8)
-                              : product.price}
+                              ? product.price
+                              : Math.ceil(product.price * 2.8)}
                             &nbsp;
                             <span className="d-flex ml-2" /*ml-8px*/></span>
                           </div>
@@ -909,47 +916,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                           // }}
                         >
                           {currency === "none" ? (
-                            <>
-                              {/*უფერული დოლარის ნიშანი */}
-                              <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="9px"
-                                  height="14px"
-                                  viewBox="0 0 9 14"
-                                >
-                                  <path
-                                    id="_"
-                                    data-name="$"
-                                    d="M1.974-3.248H0A3.8,3.8,0,0,0,1.022-.742a3.783,3.783,0,0,0,2.45.966v1.19H4.3V.224A4.359,4.359,0,0,0,6.02-.2a3.707,3.707,0,0,0,1.071-.8,2.62,2.62,0,0,0,.553-.917A2.6,2.6,0,0,0,7.8-2.688a7.425,7.425,0,0,0-.049-.8,2.226,2.226,0,0,0-.315-.9,3.024,3.024,0,0,0-.826-.861,4.839,4.839,0,0,0-1.6-.693q-.2-.056-.371-.1L4.3-6.118V-8.6A1.033,1.033,0,0,1,5.11-8.2a1.472,1.472,0,0,1,.35.952H7.448a3.209,3.209,0,0,0-.308-1.26A2.783,2.783,0,0,0,6.454-9.4a3.178,3.178,0,0,0-.973-.56A5.033,5.033,0,0,0,4.3-10.234v-1.078H3.472v1.078a4.667,4.667,0,0,0-1.218.245,3.291,3.291,0,0,0-1.036.574A2.8,2.8,0,0,0,.5-8.5a2.782,2.782,0,0,0-.273,1.26A2.569,2.569,0,0,0,.462-6.069a2.325,2.325,0,0,0,.637.784,3.337,3.337,0,0,0,.9.5q.5.189,1.022.329.14.028.259.063t.189.063V-1.4a1.955,1.955,0,0,1-1.078-.588A1.72,1.72,0,0,1,1.974-3.248ZM4.3-1.4V-4.088a3.381,3.381,0,0,1,1.169.5.983.983,0,0,1,.343.819,1.152,1.152,0,0,1-.14.581,1.385,1.385,0,0,1-.357.413,1.641,1.641,0,0,1-.49.259A2.555,2.555,0,0,1,4.3-1.4ZM3.472-8.6v2.282a2.3,2.3,0,0,1-.966-.406.889.889,0,0,1-.294-.714,1.162,1.162,0,0,1,.1-.511A1.048,1.048,0,0,1,2.6-8.309a1.219,1.219,0,0,1,.406-.217A1.54,1.54,0,0,1,3.472-8.6Z"
-                                    transform="translate(0.544 11.812)"
-                                    fill="#272a37"
-                                    stroke="rgba(0,0,0,0)"
-                                    stroke-width="1"
-                                  ></path>
-                                </svg>
-                              </span>
-                              {/* ლარის ნიშანი */}
-                              <span
-                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800"
-                                /*w-24px h-24px*/
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="10px"
-                                  height="11px"
-                                  viewBox="0 0 10 11"
-                                >
-                                  <path
-                                    id="GEL"
-                                    d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
-                                    transform="translate(-305 29)"
-                                    fill="#272a37"
-                                  ></path>
-                                </svg>
-                              </span>{" "}
-                            </>
-                          ) : (
                             <>
                               {/* დოლარის ნიშანი */}
                               <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800">
@@ -969,7 +935,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                                     stroke-width="1"
                                   ></path>
                                 </svg>
-                              </span>{" "}
+                              </span>
                               {/*უფერული ლარის ნიშანი */}
                               <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
                                 <svg
@@ -986,6 +952,47 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                                   ></path>
                                 </svg>
                               </span>
+                            </>
+                          ) : (
+                            <>
+                              {/*უფერული დოლარის ნიშანი */}
+                              <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="9px"
+                                  height="14px"
+                                  viewBox="0 0 9 14"
+                                >
+                                  <path
+                                    id="_"
+                                    data-name="$"
+                                    d="M1.974-3.248H0A3.8,3.8,0,0,0,1.022-.742a3.783,3.783,0,0,0,2.45.966v1.19H4.3V.224A4.359,4.359,0,0,0,6.02-.2a3.707,3.707,0,0,0,1.071-.8,2.62,2.62,0,0,0,.553-.917A2.6,2.6,0,0,0,7.8-2.688a7.425,7.425,0,0,0-.049-.8,2.226,2.226,0,0,0-.315-.9,3.024,3.024,0,0,0-.826-.861,4.839,4.839,0,0,0-1.6-.693q-.2-.056-.371-.1L4.3-6.118V-8.6A1.033,1.033,0,0,1,5.11-8.2a1.472,1.472,0,0,1,.35.952H7.448a3.209,3.209,0,0,0-.308-1.26A2.783,2.783,0,0,0,6.454-9.4a3.178,3.178,0,0,0-.973-.56A5.033,5.033,0,0,0,4.3-10.234v-1.078H3.472v1.078a4.667,4.667,0,0,0-1.218.245,3.291,3.291,0,0,0-1.036.574A2.8,2.8,0,0,0,.5-8.5a2.782,2.782,0,0,0-.273,1.26A2.569,2.569,0,0,0,.462-6.069a2.325,2.325,0,0,0,.637.784,3.337,3.337,0,0,0,.9.5q.5.189,1.022.329.14.028.259.063t.189.063V-1.4a1.955,1.955,0,0,1-1.078-.588A1.72,1.72,0,0,1,1.974-3.248ZM4.3-1.4V-4.088a3.381,3.381,0,0,1,1.169.5.983.983,0,0,1,.343.819,1.152,1.152,0,0,1-.14.581,1.385,1.385,0,0,1-.357.413,1.641,1.641,0,0,1-.49.259A2.555,2.555,0,0,1,4.3-1.4ZM3.472-8.6v2.282a2.3,2.3,0,0,1-.966-.406.889.889,0,0,1-.294-.714,1.162,1.162,0,0,1,.1-.511A1.048,1.048,0,0,1,2.6-8.309a1.219,1.219,0,0,1,.406-.217A1.54,1.54,0,0,1,3.472-8.6Z"
+                                    transform="translate(0.544 11.812)"
+                                    fill="#272a37"
+                                    stroke="rgba(0,0,0,0)"
+                                    stroke-width="1"
+                                  ></path>
+                                </svg>
+                              </span>{" "}
+                              {/* ლარის ნიშანი */}
+                              <span
+                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800"
+                                /*w-24px h-24px*/
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="10px"
+                                  height="11px"
+                                  viewBox="0 0 10 11"
+                                >
+                                  <path
+                                    id="GEL"
+                                    d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
+                                    transform="translate(-305 29)"
+                                    fill="#272a37"
+                                  ></path>
+                                </svg>
+                              </span>{" "}
                             </>
                           )}
                         </div>
@@ -1087,25 +1094,39 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                     </button>
                     <button
                       type="button"
-                      className="{`carIcon ${like === 'carIcon' ? 'active' : ''}`}action-icon tooltip-parent border-0 bg-transparent ml-8px w-24px h-24px 
-                            rounded-xs d-flex align-items-center justify-content-center hover-icon-orange cursor-pointer transition-all "
-                      onClick={() =>
-                        likeClick("likeClick")
-                      } /** ml-8px w-24px h-24px */
+                      className="action-icon tooltip-parent border-0 bg-transparent ml-8px w-24px h-24px 
+                            rounded-xs d-flex align-items-center justify-content-center hover-icon-red cursor-pointer transition-all"
+                      onClick={() => handleLikeEvent(product.car_id)}
                     >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M8.68574 2.1679C8.51267 2.29346 8.3477 2.43458 8.19095 2.5894L8.0626 2.72088L8 2.78989L7.9374 2.72088L7.80905 2.5894C7.6523 2.43458 7.48733 2.29346 7.31426 2.1679C6.73288 1.74614 6.06008 1.5 5.3 1.5C2.58473 1.5 1 3.87655 1 6.304C1 8.67851 2.19139 10.7406 4.13701 12.4002C5.50533 13.5673 7.2954 14.5 8 14.5C8.705 14.5 10.495 13.5674 11.8633 12.4002C13.8088 10.7406 15 8.67852 15 6.304C15 3.87655 13.4153 1.5 10.7 1.5C9.93992 1.5 9.26711 1.74614 8.68574 2.1679ZM6.67538 3.71857C6.23895 3.2911 5.78989 3.1 5.3 3.1C3.75142 3.1 2.6 4.44771 2.6 6.304C2.6 8.08759 3.48098 9.73759 5.17536 11.1829C5.76665 11.6872 6.46051 12.1489 7.07374 12.4778C7.37967 12.6419 7.64224 12.7605 7.84224 12.8338C7.91231 12.8595 7.96436 12.8758 8.00009 12.886C8.03585 12.8758 8.08795 12.8595 8.1581 12.8338C8.35812 12.7605 8.62069 12.6419 8.92662 12.4778C9.53983 12.1489 10.2337 11.6873 10.825 11.1829C12.5191 9.73772 13.4 8.08768 13.4 6.304C13.4 4.44771 12.2486 3.1 10.7 3.1C10.2101 3.1 9.76105 3.29109 9.32462 3.71857L9.228 3.81755L8 5.17143L6.77199 3.81755L6.67538 3.71857Z"
-                          fill="#6F7383"
-                        ></path>
-                      </svg>
+                      {liked[product.car_id] ? (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.68574 2.1679C8.51267 2.29346 8.3477 2.43458 8.19095 2.5894L8.0626 2.72088L8 2.78989L7.9374 2.72088L7.80905 2.5894C7.6523 2.43458 7.48733 2.29346 7.31426 2.1679C6.73288 1.74614 6.06008 1.5 5.3 1.5C2.58473 1.5 1 3.87655 1 6.304C1 8.67851 2.19139 10.7406 4.13701 12.4002C5.50533 13.5673 7.2954 14.5 8 14.5C8.705 14.5 10.495 13.5674 11.8633 12.4002C13.8088 10.7406 15 8.67852 15 6.304C15 3.87655 13.4153 1.5 10.7 1.5C9.93992 1.5 9.26711 1.74614 8.68574 2.1679Z"
+                            fill="red"
+                          ></path>
+                        </svg>
+                      ) : (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.68574 2.1679C8.51267 2.29346 8.3477 2.43458 8.19095 2.5894L8.0626 2.72088L8 2.78989L7.9374 2.72088L7.80905 2.5894C7.6523 2.43458 7.48733 2.29346 7.31426 2.1679C6.73288 1.74614 6.06008 1.5 5.3 1.5C2.58473 1.5 1 3.87655 1 6.304C1 8.67851 2.19139 10.7406 4.13701 12.4002C5.50533 13.5673 7.2954 14.5 8 14.5C8.705 14.5 10.495 13.5674 11.8633 12.4002C13.8088 10.7406 15 8.67852 15 6.304C15 3.87655 13.4153 1.5 10.7 1.5C9.93992 1.5 9.26711 1.74614 8.68574 2.1679ZM6.67538 3.71857C6.23895 3.2911 5.78989 3.1 5.3 3.1C3.75142 3.1 2.6 4.44771 2.6 6.304C2.6 8.08759 3.48098 9.73759 5.17536 11.1829C5.76665 11.6872 6.46051 12.1489 7.07374 12.4778C7.37967 12.6419 7.64224 12.7605 7.84224 12.8338C7.91231 12.8595 7.96436 12.8758 8.00009 12.886C8.03585 12.8758 8.08795 12.8595 8.1581 12.8338C8.35812 12.7605 8.62069 12.6419 8.92662 12.4778C9.53983 12.1489 10.2337 11.6873 10.825 11.1829C12.5191 9.73772 13.4 8.08768 13.4 6.304C13.4 4.44771 12.2486 3.1 10.7 3.1C10.2101 3.1 9.76105 3.29109 9.32462 3.71857L9.228 3.81755L8 5.17143L6.77199 3.81755L6.67538 3.71857Z"
+                            fill="#6F7383"
+                          ></path>
+                        </svg>
+                      )}
                     </button>
                   </div>
                 </div>
