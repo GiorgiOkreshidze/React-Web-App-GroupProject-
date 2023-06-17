@@ -57,6 +57,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(1); // Initial page is set to 1, you can change it if needed
   const [itemsPerPage, setItemsPerPage] = useState<number>(15); // Number of items to display per page
+  const [filteredProducts, setFilteredProducts] = useState<Item[]>([]);
+
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
@@ -72,11 +74,13 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
         setProducts(items);
         setProductCount(meta.total); // Update the product count using the total value from the meta
         setPageCount(meta.last_page);
+        setFilteredProducts(items); 
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }
+  
 
   function Pagination() {
     const pageNumbers = [];
@@ -206,13 +210,14 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
 
       setProducts(filteredCars);
       setProductCount(filteredCars.length); // Update the product count
-      setCurrentPage(1); // Reset to the first page
+      setPageCount(Math.ceil(filteredCars.length / itemsPerPage));
+      // setCurrentPage(1); // Reset to the first page
     }
   };
 
   const sortCars = (event: React.MouseEvent<HTMLSelectElement>) => {
     const product = event.currentTarget.value;
-    const sortedCars = [...products]; // Create a copy of the products array
+    const sortedCars = [...filteredProducts]; // Create a copy of the products array
 
     switch (product) {
       case "2.1":
@@ -238,7 +243,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
     }
 
     setProducts(sortedCars);
-    setCurrentPage(1); // Reset to the first page
+    // setCurrentPage(1); // Reset to the first page
   };
 
   const getTimePassed = (product: Item) => {
