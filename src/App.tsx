@@ -13,7 +13,7 @@ import {
   versioning,
   Endpoint,
   CarsData,
-  Meta
+  Meta,
 } from "./dataService";
 import "./App.css";
 import Container from "./container";
@@ -25,6 +25,7 @@ function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Item[]>([]);
   const [page, setPage] = useState<Page | null>(null);
+  const [currency, setCurrency] = useState("none");
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
@@ -34,17 +35,16 @@ function App() {
     fetchPageAndDisplay();
   }, []);
 
-function fetchPageAndDisplay() {
-  const page = 2; // Change the page number as needed
-  fetchPageData(page)
-    .then((fetchedPage) => {
-      setPage(fetchedPage);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-
+  function fetchPageAndDisplay() {
+    const page = 2; // Change the page number as needed
+    fetchPageData(page)
+      .then((fetchedPage) => {
+        setPage(fetchedPage);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 
   function fetchManufacturerModelsAndDisplay() {
     const manufacturerId = "10"; // Example manufacturer ID
@@ -141,6 +141,9 @@ function fetchPageAndDisplay() {
     window.location.href = "/ka/";
   };
 
+  const toggleVisibility = () =>
+    setCurrency((value) => (value === "none" ? "block" : "none"));
+
   return (
     <div id="app">
       <div className="app-wraper">
@@ -161,7 +164,6 @@ function fetchPageAndDisplay() {
                 <a
                   className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer"
                   href="/ka/"
-
                 >
                   მთავარი
                   <span className="d-flex mx-6px ">
@@ -184,16 +186,14 @@ function fetchPageAndDisplay() {
             </div>
 
             <div className="d-flex justify-content-between">
-              <Container />
-              <Products />
+              <Container onclick={toggleVisibility} />
+              <Products currency={currency} />
             </div>
           </div>
         </div>
       </div>
-
     </div>
   );
 }
 
 export default App;
-

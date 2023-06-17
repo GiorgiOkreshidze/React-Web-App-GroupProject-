@@ -11,7 +11,11 @@ import {
 } from "./dataService";
 import "./container.css";
 
-const Container = () => {
+interface onClickProp {
+  onclick: any;
+}
+
+const Container: React.FC<onClickProp> = ({ onclick }) => {
   const [models, setModels] = useState<Model[]>([]);
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -248,7 +252,13 @@ const Container = () => {
               className={`currency-switch-btn ${
                 currency === "₾" ? "active" : ""
               }`}
-              onClick={() => setCurrency("₾")}
+              onClick={() => {
+                if (currency === "₾") {
+                } else {
+                  setCurrency("₾");
+                  onclick();
+                }
+              }}
             >
               ₾
             </button>
@@ -256,7 +266,13 @@ const Container = () => {
               className={`currency-switch-btn ${
                 currency === "$" ? "active" : ""
               }`}
-              onClick={() => setCurrency("$")}
+              onClick={() => {
+                if (currency === "$") {
+                } else {
+                  setCurrency("$");
+                  onclick();
+                }
+              }}
             >
               $
             </button>
