@@ -148,7 +148,7 @@ fetchDefaultProductsAndDisplay();
         <ul className="pagination d-flex align-items-center list-unstyled">
           <li>
             <span
-              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-18 font-weight-bold font-medium cursor-pointer ${
                 currentPage === 1 ? "active pointer-events-none" : ""
               }`}
               onClick={() => handlePageClick(1)}
@@ -158,7 +158,7 @@ fetchDefaultProductsAndDisplay();
           </li>
           <li>
             <span
-              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-18 font-weight-bold font-medium cursor-pointer ${
                 currentPage === 1 ? "active pointer-events-none" : ""
               }`}
               onClick={() => handlePageClick(currentPage - 1)}
@@ -169,7 +169,7 @@ fetchDefaultProductsAndDisplay();
           {numbersToShow.map((number) => (
             <li key={number}>
               <span
-                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-18 font-weight-bold font-medium cursor-pointer ${
                   currentPage === number ? "active" : ""
                 }`}
                 onClick={() => handlePageClick(number)}
@@ -180,7 +180,7 @@ fetchDefaultProductsAndDisplay();
           ))}
           <li>
             <span
-              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-18 font-weight-bold font-medium cursor-pointer ${
                 currentPage === pageCount ? "active pointer-events-none" : ""
               }`}
               onClick={() => handlePageClick(currentPage + 1)}
@@ -190,7 +190,7 @@ fetchDefaultProductsAndDisplay();
           </li>
           <li>
             <span
-              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-18 font-weight-bold font-medium cursor-pointer ${
                 currentPage === pageCount ? "active pointer-events-none" : ""
               }`}
               onClick={() => handlePageClick(pageCount)}
@@ -321,29 +321,7 @@ fetchDefaultProductsAndDisplay();
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-  const getPageNumbers = () => {
-    const totalPages = Math.ceil(productCount / itemsPerPage);
-    const pageNumbers = [];
-
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <li key={i}>
-          <span
-            className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
-              currentPage === i ? "active pointer-events-none" : ""
-            }`}
-            onClick={() => handlePageChange(i)}
-          >
-            {i}
-          </span>
-        </li>
-      );
-    }
-
-    return pageNumbers;
-  };
-
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
@@ -1022,6 +1000,8 @@ fetchDefaultProductsAndDisplay();
       ))}
 
       <Pagination />
+
+
       <div>
         <ul>
           {currentItems.map((product, index) => (
