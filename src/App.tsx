@@ -147,7 +147,7 @@ function App() {
   return (
     <div id="app">
       <div className="app-wraper">
-        <header className="header shadow-sm position-sticky top-0 left-0 w-100 z-index-1111 mb-16px mb-md-20px box-shadow-none box-shadow-sm-sm">
+        <header className="header shadow-sm position-sticky top-0 left-0 w-100 z-index-1111 box-shadow-none box-shadow-sm-sm">
           <div className="container">
             <div className="d-flex align-items-center justify-content-between h-80px px-16px px-md-0">
               <div className="myautologo d-flex align-items-center justify-content-between justify-content-sm-start w-100 w-md-auto">
@@ -159,7 +159,7 @@ function App() {
 
         <div className="app-content " style={{ backgroundColor: "#E5E5E5" }}>
           <div className="container">
-            <div className="d-flex align-items-center justify-content-between py-0 pt-md-16 pb-md-24px px-20px px-md-0">
+            <div className="d-flex align-items-center justify-content-between py-0 pt-md-16 pb-md-24px px-20px px-md-0 pt-16px pt-md-20px">
               <div className="d-flex align-items-center">
                 <a
                   className="d-flex align-items-center text-gray-850 hover-text-gray-800 font-size-12 cursor-pointer"

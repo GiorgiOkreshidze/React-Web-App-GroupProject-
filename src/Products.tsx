@@ -16,7 +16,7 @@ import {
   fetchPageData,
 } from "./dataService";
 import "./App.css";
-// დავამატე საწვავის ინფოდა გადაცემათა კოლოფის ინფო.
+// დავამატე საწვავის ინფო და გადაცემათა კოლოფის ინფო.
 interface FuelTypeMapping {
   [key: number]: string;
 }
@@ -654,7 +654,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                           ></path>
                         </g>
                       </svg>
-                      &nbsp;ადგილი
+                      &nbsp; {product.location_id} ადგილი
                     </div>
                   </div>
                 </div>
