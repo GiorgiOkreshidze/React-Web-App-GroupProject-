@@ -14,6 +14,7 @@ import {
   Item,
   Page,
   fetchPageData,
+  fetchAllItems
 } from "./dataService";
 import "./App.css";
 // დავამატე საწვავის ინფო და გადაცემათა კოლოფის ინფო.
@@ -47,17 +48,21 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Item[]>([]);
-
   const [like, setLike] = useState<string | null>(null);
   const [likes, setLikes] = useState<any>([]);
   const [liked, setLiked] = useState<Record<number, boolean>>({}); // object state for liked or not
-
   const [productCount, setProductCount] = useState(0);
-
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(1); // Initial page is set to 1, you can change it if needed
   const [itemsPerPage, setItemsPerPage] = useState<number>(15); // Number of items to display per page
   const [filteredProducts, setFilteredProducts] = useState<Item[]>([]);
+  const [allItems, setAllItems] = useState<Item[]>([]); // State variable for all items
+
+ const [searchParams, setSearchParams] = useState<string>(""); // Define the type of searchParams based on your specific requirements
+ const [sortParams, setsortParams] = useState<string>("");// Define the type of sortParams based on your specific requirements
+ const [isInitial, setisInitial] = useState<boolean>(true);
+ const [moveToDefault, setmoveToDefault] = useState<boolean>(false);
+ const [moveToSorted, setmoveToSorted] = useState<boolean>(true);
 
 
   useEffect(() => {
@@ -67,7 +72,39 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
     fetchProductsAndDisplay();
   }, [currentPage]);
 
+  useEffect(() => {
+    fetchAllItemsAndDisplay(); // Fetch all items and update the state only once
+  }); // Empty dependency array to run this effect only once
+
+
+
+
   function fetchProductsAndDisplay() {
+    if (isInitial) {
+      if(moveToDefault){setCurrentPage(1);}
+      setmoveToSorted(true)
+fetchDefaultProductsAndDisplay();
+    } else {
+      if(moveToSorted){setCurrentPage(1)}
+      setmoveToDefault(true)
+  fetchSortedProductsAndDisplay();
+    }
+  
+  }
+  
+
+  async function fetchSortedProductsAndDisplay() {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const slicedItems = allItems.slice(startIndex, endIndex);
+
+  setProducts(slicedItems);
+  setProductCount(allItems.length);
+  setPageCount(Math.ceil(allItems.length / itemsPerPage));
+  setFilteredProducts(slicedItems);
+}
+ 
+  function fetchDefaultProductsAndDisplay() {
     fetchPageData(currentPage)
       .then((page) => {
         const { items, meta } = page.data;
@@ -81,6 +118,16 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
       });
   }
   
+  function fetchAllItemsAndDisplay() {
+    fetchAllItems()
+      .then((items) => {
+        setAllItems(items);
+        setProductCount(items.length); // Update the product count with the length of all items
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 
   function Pagination() {
     const pageNumbers = [];
@@ -341,19 +388,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
 
   return (
     <div className="search-content">
-      {/* <script
-        defer
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossOrigin="anonymous"
-      ></script>
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-        crossOrigin="anonymous"
-      ></link> */}
-
       <div className="d-flex justify-content-between align-items-center my-12px mt-md-0 mb-md-16px px-16px px-md-0">
         <span className="d-flex font-size-12 font-size-md-14 font-size-m-16 text-gray-800 text-nowrap">
           {productCount} განცხადება
@@ -362,9 +396,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
           <select
             className="d-flex align-items-center position-relative ml-4px ml-md-8px undefined"
             style={{
-              // boxSizing: "border-box",
-              // flexDirection: "row",
-              // justifyContent: "space-between",
               padding: "8px 8px 8px 12px",
               gap: "4px",
               width: "124px",
@@ -390,9 +421,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
             className="d-flex align-items-center position-relative ml-4px ml-md-8px undefined"
             onClick={sortCars}
             style={{
-              // boxSizing: "border-box",
-              // flexDirection: "row",
-              // justifyContent: "space-between",
               padding: "8px 8px 8px 12px",
               gap: "4px",
               width: "184.883px",
@@ -410,12 +438,9 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
             <option value="5.1">გარბენი კლებადი</option>
             <option value="6.1">გარბენი ზრდადი</option>
           </select>
-        </div>
+        </div>   
       </div>
 
-      {/* <ul>
-        {currentItems.map((product, index) => (
-          <li key={index}>{ */}
       {products.map((product) => (
         <div className="product px-16px px-md-0 position-relative">
           <div className="rounded mb-10px bg-white" /*mb-10px*/>
@@ -459,32 +484,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                   განბაჟებული
                 </div>
               </div>
-              {/* განუბაჟებლის გამოტანა 
-               <div className="font-size-12 text-green-250 d-flex align-items-center">
-                        <div className="font-size-12 text-red-800 text-nowrap">
-                          განბაჟება&nbsp;
-                          <div
-                            className="d-inline-flex align-items-center icon-red-800 icon-w-2"
-                          >
-                            1000
-                            <span className="d-flex ml-8px">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="8px"
-                                height="9px"
-                                viewBox="0 0 10 11"
-                              >
-                                <path
-                                  id="GEL"
-                                  d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
-                                  transform="translate(-305 29)"
-                                  fill="#FF3B30"
-                                ></path>
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div> */}
 
               <div className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0">
                 <div className="ratio-4-3 w-100">
@@ -506,14 +505,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                     <h2 className="d-flex font-medium text-gray-800 font-size-14">
                       <span
                         className="text-gray-800"
-                        // style={{
-                        //   fontFamily: "Helvetica Neue LT GEO",
-                        //   fontStyle: "normal",
-                        //   fontWeight: "500",
-                        //   fontSize: "25px",
-                        //   lineHeight: "17px",
-                        //   color: "#272A37",
-                        // }}
+
                       >
                         {
                           getManufacturerById(manufacturers, product.man_id)
@@ -524,19 +516,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                       </span>
                       <span
                         className="ml-8px d-flex text-gray-500 font-medium text-nowrap"
-                        // /*ml-8px*/ style={{
-                        //   width: "44px",
-                        //   height: "17px",
-                        //   fontFamily: "Helvetica Neue LT GEO",
-                        //   fontStyle: "normal",
-                        //   fontWeight: "500",
-                        //   fontSize: "25px",
-                        //   lineHeight: "17px",
-                        //   color: "#8C929B",
-                        //   flex: "none",
-                        //   order: "1",
-                        //   flexGrow: "0",
-                        // }}
+
                       >
                         {product.prod_year}&nbsp;წ
                       </span>
@@ -545,20 +525,10 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
 
                   <div
                     className="d-none d-m-flex align-items-center mt-m-8px mt-lg-0"
-                    // /*mt-m-8px*/ style={{
-                    //   display: "flex",
-                    //   justifyContent: "center",
-                    //   width: "200px",
-                    //   fontFamily: "TBC Sailec",
-                    //   fontStyle: "normal",
-                    //   fontWeight: "500",
-                    //   // fontSize: '11px',
-                    //   color: "#FF3B30",
-                    // }}
+
                   >
                     <div
                       className="ml-lg-16px mr-24px"
-                      /*ml-lg-16px mr-24px*/
                     >
                       <div className="font-size-12 text-green-250 d-flex align-items-center">
                         <span className="d-flex mr-4px">
@@ -591,54 +561,15 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                         </span>
                         განბაჟებული
                       </div>
-                      {/* განუბაჟებლის გამოტანა 
-                       <div className="font-size-12 text-green-250 d-flex align-items-center">
-                        <div className="font-size-12 text-red-800 text-nowrap">
-                          განბაჟება&nbsp;
-                          <div
-                            className="d-inline-flex align-items-center icon-red-800 icon-w-2"
-                          >
-                            1000
-                            <span className="d-flex ml-8px">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="8px"
-                                height="9px"
-                                viewBox="0 0 10 11"
-                              >
-                                <path
-                                  id="GEL"
-                                  d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
-                                  transform="translate(-305 29)"
-                                  fill="#FF3B30"
-                                ></path>
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                     <div
                       className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap"
-                      // style={{
-                      //   width: "95px",
-                      //   height: "14px",
-                      //   fontFamily: "Helvetica",
-                      //   fontStyle: "normal",
-                      //   fontWeight: "400",
-                      //   // fontSize: '12px',
-                      //   lineHeight: "14px",
-                      //   color: "#6F7383",
-                      //   flex: "none",
-                      //   order: "1",
-                      //   flexGrow: "0",
-                      // }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         className="w-3 h-3"
-                        /*w-24px h-24px*/ style={{
+                        style={{
                           width: "13px",
                           height: "13px",
                         }}
@@ -685,13 +616,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                       >
                         <div
                           className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-                          // style={{
-                          //   fontFamily: "TBC Sailec",
-                          //   fontStyle: "normal",
-                          //   fontWeight: "500",
-                          //   // fontSize: '12px',
-                          //   color: "#1B1D25",
-                          // }}
                         >
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
@@ -721,13 +645,6 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                       >
                         <div
                           className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-                          // style={{
-                          //   fontFamily: "TBC Sailec",
-                          //   fontStyle: "normal",
-                          //   fontWeight: "500",
-                          //   // fontSize: '12px',
-                          //   color: "#1B1D25",
-                          // }}
                         >
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
@@ -776,13 +693,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                       >
                         <div
                           className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-                          // style={{
-                          //   fontFamily: "TBC Sailec",
-                          //   fontStyle: "normal",
-                          //   fontWeight: "500",
-                          //   // fontSize: '12px',
-                          //   color: "#1B1D25",
-                          // }}
+
                         >
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
@@ -841,13 +752,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                       >
                         <div
                           className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-                          // style={{
-                          //   fontFamily: "TBC Sailec",
-                          //   fontStyle: "normal",
-                          //   fontWeight: "500",
-                          //   // fontSize: '12px',
-                          //   color: "#1B1D25",
-                          // }}
+
                         >
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
@@ -913,12 +818,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                         </div>
                         <div
                           className="d-flex"
-                          // style={{
-                          //   height: "24px",
-                          //   width: "26px",
-                          //   borderRadius: "12px",
-                          //   background: "#F2F3F6",
-                          // }}
+
                         >
                           {currency === "none" ? (
                             <>
@@ -1008,45 +908,25 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
 
                 <div
                   className="d-flex justify-content-between align-items-center border-top border-solid-1 border-solid-m-0 py-12px px-16px p-m-0 border-gray-100"
-                  // /*py-12px px-16px*/ style={{
-                  //   marginTop: "5px",
-                  // }}
+ 
                 >
                   <div className="d-flex align-items-center">
                     <span
                       className="bg-orange d-flex align-items-center justify-content-center rounded font-bold font-size-10 text-white text-uppercase
                             h-20px px-10px mr-16px text-nowrap"
-                      // /*h-20px px-10px mr-16px*/ style={{
-                      //   background: "#4A6CFA",
-                      //   height: "20px",
-                      //   width: "32px",
-                      //   left: "0px",
-                      //   top: "0px",
-                      //   borderRadius: "100px",
-                      //   padding: "3px 8px 3px 8px",
-                      // }}
+
                     >
                       VIP
                     </span>
                     &nbsp;
                     <div
                       className="d-flex align-items-center font-size-12 text-gray-500"
-                      // style={{
-                      //   fontFamily: "Helvetica Neue LT GEO",
-                      //   fontStyle: "normal",
-                      //   fontWeight: "400",
-                      //   // fontSize: '12px',
-                      //   color: "#6F7383",
-                      // }}
+
                     >
                       {product.views}&nbsp;ნახვა&nbsp;&nbsp;
                       <span
                         className="d-inline-flex w-2px h-2px round-circle bg-gray-500 mx-10px "
-                        // /*w-2px h-2px mx-10px*/ style={{
-                        //   width: "3px",
-                        //   height: "3px",
-                        //   background: "#8C929B",
-                        // }}
+
                       ></span>
                       &nbsp;
                       {getTimePassed(product)}
@@ -1137,142 +1017,11 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                 </div>
               </div>
             </div>
-            {/* დილერის ბოქსი
-            <div className="d-flex align-items-center justify-content-between px-16px py-8px border  border-top border-gray-100">
-                        <div className="d-flex align-items-center">
-                          <div className="h-40px mr-12px">
-                            <a href="https://myauto.ge/ka/dealers/dealerbox/4694514">
-                              <img className="mw-100 mh-100" src="https://static.my.ge/myauto/dealers/logos/4694514.jpg?v=1"/>
-                            </a>
-                          </div>
-                          <div className="d-flex flex-column justify-content-between">
-                            <p className="text-gray-800 font-medium font-size-12">კავკასიის სატრანსპორტო კომპანია 2019
-                            </p>
-                            <a className="d-flex align-items-center text-gray-500 font-base font-size-11 cursor-pointer" href="https://myauto.ge/ka/dealers/dealerbox/4694514">
-                              <span className="d-flex mr-8px">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
-                                  <path fill="#8996ae" d="M5.5,3.75H12v1H5.5ZM3,3.5H4.5V5H3ZM3,7H4.5V8.5H3Zm0,3.5H4.5V12H3ZM5.5,7.25H12v1H5.5Zm0,3.5H12v1H5.5Z" transform="translate(-1.5 -1.75)">
-                                  </path>
-                                </svg>
-                              </span>ყველა განცხადება 
-                              <span className="ml-4px">(1223)
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                    </div>*/}
           </div>
         </div>
       ))}
 
       <Pagination />
-
-      {/* <div className="bg-white border-radius-md-10 h-56px h-md-40px d-flex align-items-center justify-content-center mt-16px">
-        <ul className="pagination d-flex align-items-center list-unstyled">
-
-          <li>
-          
-          <span 
-          className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 1 ? "active pointer-events-none" : ""}`}
-    onClick={() => handlePageClick(1)}>
-    1
-  </span>
-          </li>
-          <li>
-          <span
-    className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 2 ? "active" : ""}`}
-    onClick={() => handlePageClick(2)}
-  >
-    2
-  </span>
-          </li>
-          <li>
-            <span 
-    className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 3 ? "active" : ""}`}
-    onClick={() => handlePageClick(3)}
-            >
-              3
-            </span>
-          </li>
-          <li>
-            <span 
-                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 4 ? "active" : ""}`}
-                onClick={() => handlePageClick(4)}
-            >
-              4
-            </span>
-          </li>
-          <li>
-            <span 
-                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 5 ? "active" : ""}`}
-                onClick={() => handlePageClick(5)}
-            >
-              5
-            </span>
-          </li>
-          <li>
-            <span 
-                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 6 ? "active" : ""}`}
-                onClick={() => handlePageClick(6)}
-            >
-              6
-            </span>
-          </li>
-          <li>
-            <span 
-               className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 7 ? "active" : ""}`}
-               onClick={() => handlePageClick(7)} 
-            >
-              7
-            </span>
-          </li>
-          <li>
-            <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="5.414"
-                height="8.829"
-                viewBox="0 0 5.414 8.829"
-              >
-                <path
-                  d="M9,12l3-3L9,6"
-                  transform="translate(-7.586 -4.586)"
-                  style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                ></path>
-              </svg>
-            </span>
-          </li>
-          <li>
-            <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13.414"
-                height="8.829"
-                viewBox="0 0 13.414 8.829"
-              >
-                <g transform="translate(-1134.586 -2682.586)">
-                  <path
-                    d="M9,12l3-3L9,6"
-                    transform="translate(1127 2678)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <path
-                    d="M9,12l3-3L9,6"
-                    transform="translate(1132 2678)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <line
-                    y2="6"
-                    transform="translate(1147 2684)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', }}
-                  ></line>
-                </g>
-              </svg>
-            </span>
-          </li>
-        </ul>
-      </div> */}
-
       <div>
         <ul>
           {currentItems.map((product, index) => (

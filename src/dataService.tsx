@@ -1,17 +1,8 @@
-export const fetchPageData = (page: number = 1): Promise<Page> => {
-  const url = `https://api2.myauto.ge/ka/products/?Page=${page}`;
+import { useState } from "react";
 
-  return fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Error fetching page data');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      return data as Page;
-    });
-};
+
+
+
 
 
   
@@ -214,7 +205,48 @@ export const fetchPageData = (page: number = 1): Promise<Page> => {
     return categories.find((category) => category.category_id === categoryId);
   };
   
+export async function fetchAllItems(): Promise<Item[]> {
+  const allItems: Item[] = [];
+  let currentPage = 1;
+  let totalPages = 1;
+
+  while (currentPage <= totalPages) {
+    try {
+      const page = await fetchPageData(currentPage);
+      const { items, meta } = page.data;
+
+      allItems.push(...items);
+      totalPages = meta.last_page;
+
+      currentPage++;
+    } catch (error) {
+      console.error("Error: cannot fetch all the data", error);
+      break;
+    }
+  }
+
+  return allItems;
+}
+
   
+
+  
+
+  export const fetchPageData = (page: number = 1): Promise<Page> => {
+    const url = `https://api2.myauto.ge/ka/products/?Page=${page}`;
+  
+    return fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error fetching page data');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        return data as Page;
+      });
+  };
+
 export const fetchManufacturers = (): Promise<Manufacturer[]> => {
   return fetch('https://static.my.ge/myauto/js/mans.json')
     .then((response) => response.json())
