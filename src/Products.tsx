@@ -12,6 +12,8 @@ import {
   Model,
   Category,
   Item,
+  Page,
+  fetchPageData
 } from "./dataService";
 import "./App.css";
 // დავამატე საწვავის ინფოდა გადაცემათა კოლოფის ინფო.
@@ -43,13 +45,115 @@ function Products() {
   const [products, setProducts] = useState<Item[]>([]);
   const [like, setLike] = useState<string | null>(null);
   const [productCount, setProductCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount]=useState(0);
+ 
+
+
+
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
     fetchManufacturersAndDisplay();
     fetchCategoriesAndDisplay();
     fetchProductsAndDisplay();
-  }, []);
+
+  }, [currentPage]);
+
+  function fetchProductsAndDisplay() {
+    fetchPageData(currentPage)
+      .then((page) => {
+        const { items, meta } = page.data;
+        setProducts(items);
+        setProductCount(meta.total); // Update the product count using the total value from the meta
+        setPageCount(meta.last_page)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  function Pagination() {
+    const pageNumbers = [];
+    for (let i = 1; i <= pageCount; i++) {
+      pageNumbers.push(i);
+    }
+  
+    const maxPageNumbersToShow = 7;
+    let numbersToShow = pageNumbers.slice(0, maxPageNumbersToShow);
+  
+    if (currentPage > maxPageNumbersToShow) {
+      const index = pageNumbers.indexOf(currentPage);
+      numbersToShow = pageNumbers.slice(index - 3, index + 4);
+    }
+  
+    return (
+      <div className="bg-white border-radius-md-10 h-56px h-md-40px d-flex align-items-center justify-content-center mt-16px">
+        <ul className="pagination d-flex align-items-center list-unstyled">
+          <li>
+            <span
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+                currentPage === 1 ? "active pointer-events-none" : ""
+              }`}
+              onClick={() => handlePageClick(1)}
+            >
+              {"<<"}
+            </span>
+          </li>
+          <li>
+            <span
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+                currentPage === 1 ? "active pointer-events-none" : ""
+              }`}
+              onClick={() => handlePageClick(currentPage - 1)}
+            >
+              {"<"}
+            </span>
+          </li>
+          {numbersToShow.map((number) => (
+            <li key={number}>
+              <span
+                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+                  currentPage === number ? "active" : ""
+                }`}
+                onClick={() => handlePageClick(number)}
+              >
+                {number}
+              </span>
+            </li>
+          ))}
+          <li>
+            <span
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+                currentPage === pageCount ? "active pointer-events-none" : ""
+              }`}
+              onClick={() => handlePageClick(currentPage + 1)}
+            >
+              {">"}
+            </span>
+          </li>
+          <li>
+            <span
+              className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+                currentPage === pageCount ? "active pointer-events-none" : ""
+              }`}
+              onClick={() => handlePageClick(pageCount)}
+            >
+              {">>"}
+            </span>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+  
+
+  const handlePageClick = (pageNumber: number) => {
+  setCurrentPage(pageNumber);
+  // Perform any other actions or data fetching based on the clicked page number
+  
+};
+
 
   function fetchManufacturerModelsAndDisplay() {
     const manufacturerId = "10"; // Example manufacturer ID
@@ -83,17 +187,8 @@ function Products() {
       });
   }
 
-  function fetchProductsAndDisplay() {
-    const searchParams = {}; // Add any necessary search parameters
-    fetchData(searchParams)
-      .then((products) => {
-        setProducts(products);
-        setProductCount(products.length); // Update the product count
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+
+  
   const filterCarsByHours = (event: React.MouseEvent<HTMLSelectElement>) => {
     const selectedHour = parseInt(event.currentTarget.value);
 
@@ -348,28 +443,17 @@ function Products() {
                         </div>
                       </div> */}
 
-              <div
-                className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0"
-                // /* mb-12px mb-m-0 px-16px px-m-0*/ style={{
-                //   // backgroundImage: `url(${product.photo})`,
-                //   // backgroundSize: "cover",
-                //   // backgroundPosition: "center",
-                //   // marginRight: "20px",
-                //   // // height: "170px",
-                //   // // width: "182px",
-                //   // left: "-4px",
-                //   // top: "-3px",
-                //   borderRadius: "8px",
-                // }}
-              >
-                <div className="ratio-4-3 w-100">
-                  <img
-                    className="items__image"
-                    src={"" + product.photo}
-                    alt=""
-                  ></img>
-                </div>
-              </div>
+<div className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0">
+  <div className="ratio-4-3 w-100">
+    <img
+      className="items__image"
+      src={`https://static.my.ge/myauto/photos/${product.photo}/thumbs/${product.car_id}_1.jpg?v=${product.photo_ver}`}
+      alt=""
+    />
+  </div>
+</div>
+
+
 
               <div
                 className="info pl-m-14px d-flex flex-column justify-content-between w-100 h-m-150px" /*pl-m-14px*/
@@ -1023,84 +1107,66 @@ function Products() {
         </div>
       ))}
 
-      <div className="bg-white border-radius-md-10 h-56px h-md-40px d-flex align-items-center justify-content-center mt-16px">
+
+<Pagination
+/>
+
+      {/* <div className="bg-white border-radius-md-10 h-56px h-md-40px d-flex align-items-center justify-content-center mt-16px">
         <ul className="pagination d-flex align-items-center list-unstyled">
+
           <li>
-            {/* <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="13.414"
-                height="8.829"
-                viewBox="0 0 13.414 8.829"
-              >
-                <g transform="translate(1 1.414)">
-                  <path
-                    d="M12,12,9,9l3-3"
-                    transform="translate(-1 -6)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <path
-                    d="M12,12,9,9l3-3"
-                    transform="translate(-6 -6)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                  ></path>
-                  <line
-                    y2="6"
-                    transform="translate(0)"
-                    style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px'}}
-                  ></line>
-                </g>
-              </svg>
-            </span> */}
+          
+          <span 
+          className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 1 ? "active pointer-events-none" : ""}`}
+    onClick={() => handlePageClick(1)}>
+    1
+  </span>
           </li>
           <li>
-            {/* <span className="d-flex p-12px cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="5.414"
-                height="8.829"
-                viewBox="0 0 5.414 8.829"
-              >
-                <path
-                  d="M12,12,9,9l3-3"
-                  transform="translate(-8 -4.586)"
-                  style={{fill: 'none', stroke: 'rgb(253, 65, 0)', strokeLinecap: 'round', strokeWidth: '2px', strokeLinejoin: 'round',}}
-                ></path>
-              </svg>
-            </span> */}
+          <span
+    className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 2 ? "active" : ""}`}
+    onClick={() => handlePageClick(2)}
+  >
+    2
+  </span>
           </li>
           <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer active pointer-events-none">
-              1
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
-              2
-            </span>
-          </li>
-          <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
+            <span 
+    className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 3 ? "active" : ""}`}
+    onClick={() => handlePageClick(3)}
+            >
               3
             </span>
           </li>
           <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
+            <span 
+                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 4 ? "active" : ""}`}
+                onClick={() => handlePageClick(4)}
+            >
               4
             </span>
           </li>
           <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
+            <span 
+                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 5 ? "active" : ""}`}
+                onClick={() => handlePageClick(5)}
+            >
               5
             </span>
           </li>
           <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
+            <span 
+                className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 6 ? "active" : ""}`}
+                onClick={() => handlePageClick(6)}
+            >
               6
             </span>
           </li>
           <li>
-            <span className="actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ">
+            <span 
+               className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${currentPage === 7 ? "active" : ""}`}
+               onClick={() => handlePageClick(7)} 
+            >
               7
             </span>
           </li>
@@ -1149,7 +1215,7 @@ function Products() {
             </span>
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
