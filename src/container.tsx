@@ -23,9 +23,11 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
   const [currency, setCurrency] = useState("$");
   const [productCount, setProductCount] = useState(0);
   const [activeButton, setActiveButton] = useState<string | null>(null);
-  const [selectedManufacturer, setSelectedManufacturer] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [dealType, setDealType] = useState("1");
+  const [selectedManufacturer, setSelectedManufacturer] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
+  
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
     fetchManufacturersAndDisplay();
@@ -209,8 +211,10 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
         </button>
       </div>
       <div>
-        <p className="deal">გარიგების ტიპი</p>
-        <select className="dealType">
+        <p className="deal">გარიგების ტიპი </p>
+        <select className="dealType" 
+        value={dealType} 
+        onChange={(e) => setDealType(e.target.value)}>
           <option value="1">იყიდება</option>
           <option value="0">ქირავდება</option>
         </select>
@@ -218,7 +222,8 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
       <div>
         <p className="manu">მწარმოებელი</p>
         <select
-          className="manufacturer"
+          className="manufacturer" 
+          value={selectedManufacturer}
           onChange={(e) => handleManufacturerChange(e.target.value)}
         >
           <option value="all">ყველა მწარმოებელი</option>
