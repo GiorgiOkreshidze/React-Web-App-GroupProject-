@@ -15,8 +15,8 @@
     order: 1;
     flex-grow: 0;
     margin-left: 24px;
-    margin-top: -5px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    margin-top: 10px;
     cursor: pointer;
   }
   .category{
@@ -36,8 +36,8 @@
     order: 1;
     flex-grow: 0;
     margin-left: 24px;
-    margin-top: -5px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    margin-top: 10px;
     cursor: pointer;
 }
 .dealType{
@@ -57,8 +57,8 @@
     order: 1;
     flex-grow: 0;
     margin-left: 24px;
-    margin-top: -5px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    margin-top: 10px;
     cursor: pointer;
 }
 .deal{
