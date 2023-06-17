@@ -45,12 +45,14 @@ function Products() {
   const [products, setProducts] = useState<Item[]>([]);
   const [like, setLike] = useState<string | null>(null);
   const [productCount, setProductCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+
+
+
+
+
   const [pageCount, setPageCount]=useState(0);
- 
-
-
-
+  const [currentPage, setCurrentPage] = useState<number>(1); // Initial page is set to 1, you can change it if needed
+  const [itemsPerPage, setItemsPerPage] = useState<number>(15); // Number of items to display per page
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
@@ -205,6 +207,8 @@ function Products() {
       });
 
       setProducts(filteredCars);
+      setProductCount(filteredCars.length); // Update the product count
+      setCurrentPage(1); // Reset to the first page
     }
   };
 
@@ -236,6 +240,7 @@ function Products() {
     }
 
     setProducts(sortedCars);
+    setCurrentPage(1); // Reset to the first page
   };
 
   const getTimePassed = (product: Item) => {
@@ -261,6 +266,40 @@ function Products() {
     ></path>;
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  
+
+  const getPageNumbers = () => {
+    const totalPages = Math.ceil(productCount / itemsPerPage);
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <li key={i}>
+        <span
+          className={`actived-flex p-12px text-gray-400 opacity-50 font-size-18 font-size-md-14 font-medium cursor-pointer ${
+            currentPage === i ? 'active pointer-events-none' : ''
+          }`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </span>
+      </li>
+      );
+    }
+
+    return pageNumbers;
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  
   function ProductModelName({ product }: { product: Item }) {
     const [modelName, setModelName] = useState<string | undefined>(undefined);
 
@@ -374,6 +413,9 @@ function Products() {
         </div>
       </div>
 
+{/* <ul>
+        {currentItems.map((product, index) => (
+          <li key={index}>{ */}
       {products.map((product) => (
         <div className="product px-16px px-md-0 position-relative">
           <div className="rounded mb-10px bg-white" /*mb-10px*/>
@@ -1108,6 +1150,7 @@ function Products() {
       ))}
 
 
+
 <Pagination
 />
 
@@ -1216,6 +1259,21 @@ function Products() {
           </li>
         </ul>
       </div> */}
+
+
+      
+
+      <div>
+      <ul>
+        {currentItems.map((product, index) => (
+          <li key={index}>{
+            /* Render item */
+            }</li>
+        ))}
+      </ul>
+    </div>
+
+
     </div>
   );
 }
