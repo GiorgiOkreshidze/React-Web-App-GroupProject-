@@ -22,7 +22,7 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
   const [products, setProducts] = useState<Item[]>([]);
   const [currency, setCurrency] = useState("$");
   const [productCount, setProductCount] = useState(0);
-  const [activeButton, setActiveButton] = useState<string | null>(null);
+  const [activeButton, setActiveButton] = useState("carIcon");
   const [dealType, setDealType] = useState("1");
   const [selectedManufacturer, setSelectedManufacturer] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
