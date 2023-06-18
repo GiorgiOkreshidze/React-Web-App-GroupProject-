@@ -60,6 +60,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
 
  const [searchParams, setSearchParams] = useState<string>(""); // Define the type of searchParams based on your specific requirements
  const [sortParams, setsortParams] = useState<string>("");// Define the type of sortParams based on your specific requirements
+ 
+ //თუ ეს true არის გამოაქვს ფეიჯები ფეთჩის გარეშე, თუ false არის გამოაქვს გაერთიანებული ლისტი რომელიც შეგვიძლია დავსორტოთ და გავფილტროთ. ასე საიტი სწრაფად იტვირთება.
  const [isInitial, setisInitial] = useState<boolean>(true);
  const [moveToDefault, setmoveToDefault] = useState<boolean>(false);
  const [moveToSorted, setmoveToSorted] = useState<boolean>(true);
@@ -94,16 +96,22 @@ fetchDefaultProductsAndDisplay();
   
 
   async function fetchSortedProductsAndDisplay() {
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const slicedItems = allItems.slice(startIndex, endIndex);
+    const filteredItems = allItems.filter(filterFunction);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const slicedItems = filteredItems.slice(startIndex, endIndex);
 
-  setProducts(slicedItems);
-  setProductCount(allItems.length);
-  setPageCount(Math.ceil(allItems.length / itemsPerPage));
-  setFilteredProducts(slicedItems);
+    setProducts(slicedItems);
+    setProductCount(filteredItems.length);
+    setPageCount(Math.ceil(filteredItems.length / itemsPerPage));
+    setFilteredProducts(slicedItems);
 }
  
+function filterFunction(item: Item) {
+  //ცალ-ცალკე დააიმპლემენტირეთ სერჩინგ და სორტინგ ფუნქციები, ამ ფუნქციაში გამოიძახეთ item-ზე და დააreturnეთ
+  //ამასთან isInitial რომაა ცვლადი მაგას false გადაეცით რომ შეცვლილი აითემები გამოიტანოს
+}
+
   function fetchDefaultProductsAndDisplay() {
     fetchPageData(currentPage)
       .then((page) => {
