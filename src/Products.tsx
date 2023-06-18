@@ -64,8 +64,8 @@ const locationTypeMapping: LocationTypeMappinng = {
   59: "მარნეული",
   81: "თეთრიწყარო",
   71: "ფოთის 'გეზ'-ი",
-  113: "კავკასიის ავტომარკეტი"
-}
+  113: "კავკასიის ავტომარკეტი",
+};
 
 const Products: React.FC<currencyProp> = ({ currency }) => {
   const [models, setModels] = useState<Model[]>([]);
@@ -609,8 +609,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                         </g>
                       </svg>
                       &nbsp;
-                       {/* {product.location_id} ადგილი */}
-                       {locationTypeMapping[product.location_id]}
+                      {/* {product.location_id} ადგილი */}
+                      {locationTypeMapping[product.location_id]}
                     </div>
                   </div>
                 </div>
