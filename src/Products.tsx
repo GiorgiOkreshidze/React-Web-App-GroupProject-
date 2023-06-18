@@ -503,7 +503,7 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
               <div className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0">
                 <div className="ratio-4-3 w-100">
                   <img
-                    className="items__image"
+                    className="items__image rounded"
                     src={`https://static.my.ge/myauto/photos/${product.photo}/thumbs/${product.car_id}_1.jpg?v=${product.photo_ver}`}
                     alt=""
                   />
