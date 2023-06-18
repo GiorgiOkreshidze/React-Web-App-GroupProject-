@@ -29,6 +29,11 @@ interface GearTypeMapping {
 interface currencyProp {
   currency: string;
 }
+
+interface LocationTypeMappinng {
+  [key: number]: string;
+}
+
 const fuelTypeMapping: FuelTypeMapping = {
   2: "ბენზინი",
   3: "დიზელი",
@@ -42,6 +47,25 @@ const gearTypeMapping: GearTypeMapping = {
   3: "ტიპტრონიკი",
   4: "ვარიატორი",
 };
+
+const locationTypeMapping: LocationTypeMappinng = {
+  1: "საქართველო",
+  2: "თბილისი",
+  3: "ქუთაისი",
+  4: "ბათუმი",
+  7: "ფოთი",
+  13: "გორი",
+  15: "რუსთავი",
+  16: "მცხეთა",
+  23: "გზაში საქ.-სკენ",
+  30: "რუსთავის ავტობაზრობა",
+  36: "ზესტაფონი",
+  38: "ბორჯომი",
+  59: "მარნეული",
+  81: "თეთრიწყარო",
+  71: "ფოთის 'გეზ'-ი",
+  113: "კავკასიის ავტომარკეტი"
+}
 
 const Products: React.FC<currencyProp> = ({ currency }) => {
   const [models, setModels] = useState<Model[]>([]);
@@ -584,7 +608,9 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                           ></path>
                         </g>
                       </svg>
-                      &nbsp; {product.location_id} ადგილი
+                      &nbsp;
+                       {/* {product.location_id} ადგილი */}
+                       {locationTypeMapping[product.location_id]}
                     </div>
                   </div>
                 </div>
