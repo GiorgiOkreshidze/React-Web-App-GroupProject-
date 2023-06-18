@@ -39,6 +39,8 @@ const fuelTypeMapping: FuelTypeMapping = {
   3: "დიზელი",
   6: "ჰიბრიდი",
   7: "ელქტრო",
+  8: "ბუნებრივი გაზი",
+  9: "თხევადი გაზი"
 };
 
 const gearTypeMapping: GearTypeMapping = {
