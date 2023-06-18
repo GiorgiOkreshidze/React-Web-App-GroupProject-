@@ -14,7 +14,7 @@ import {
   Item,
   Page,
   fetchPageData,
-  fetchAllItems
+  fetchAllItems,
 } from "./dataService";
 import "./App.css";
 // დავამატე საწვავის ინფო და გადაცემათა კოლოფის ინფო.
@@ -58,14 +58,13 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
   const [filteredProducts, setFilteredProducts] = useState<Item[]>([]);
   const [allItems, setAllItems] = useState<Item[]>([]); // State variable for all items
 
- const [searchParams, setSearchParams] = useState<string>(""); // Define the type of searchParams based on your specific requirements
- const [sortParams, setsortParams] = useState<string>("");// Define the type of sortParams based on your specific requirements
- 
- //თუ ეს true არის გამოაქვს ფეიჯები ფეთჩის გარეშე, თუ false არის გამოაქვს გაერთიანებული ლისტი რომელიც შეგვიძლია დავსორტოთ და გავფილტროთ. ასე საიტი სწრაფად იტვირთება.
- const [isInitial, setisInitial] = useState<boolean>(true);
- const [moveToDefault, setmoveToDefault] = useState<boolean>(false);
- const [moveToSorted, setmoveToSorted] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<string>(""); // Define the type of searchParams based on your specific requirements
+  const [sortParams, setsortParams] = useState<string>(""); // Define the type of sortParams based on your specific requirements
 
+  //თუ ეს true არის გამოაქვს ფეიჯები ფეთჩის გარეშე, თუ false არის გამოაქვს გაერთიანებული ლისტი რომელიც შეგვიძლია დავსორტოთ და გავფილტროთ. ასე საიტი სწრაფად იტვირთება.
+  const [isInitial, setisInitial] = useState<boolean>(true);
+  const [moveToDefault, setmoveToDefault] = useState<boolean>(false);
+  const [moveToSorted, setmoveToSorted] = useState<boolean>(true);
 
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
@@ -78,22 +77,21 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
     fetchAllItemsAndDisplay(); // Fetch all items and update the state only once
   }); // Empty dependency array to run this effect only once
 
-
-
-
   function fetchProductsAndDisplay() {
     if (isInitial) {
-      if(moveToDefault){setCurrentPage(1);}
-      setmoveToSorted(true)
-fetchDefaultProductsAndDisplay();
+      if (moveToDefault) {
+        setCurrentPage(1);
+      }
+      setmoveToSorted(true);
+      fetchDefaultProductsAndDisplay();
     } else {
-      if(moveToSorted){setCurrentPage(1)}
-      setmoveToDefault(true)
-  fetchSortedProductsAndDisplay();
+      if (moveToSorted) {
+        setCurrentPage(1);
+      }
+      setmoveToDefault(true);
+      fetchSortedProductsAndDisplay();
     }
-  
   }
-  
 
   async function fetchSortedProductsAndDisplay() {
     const filteredItems = allItems.filter(filterFunction);
@@ -105,12 +103,12 @@ fetchDefaultProductsAndDisplay();
     setProductCount(filteredItems.length);
     setPageCount(Math.ceil(filteredItems.length / itemsPerPage));
     setFilteredProducts(slicedItems);
-}
- 
-function filterFunction(item: Item) {
-  //ცალ-ცალკე დააიმპლემენტირეთ სერჩინგ და სორტინგ ფუნქციები, ამ ფუნქციაში გამოიძახეთ item-ზე და დააreturnეთ
-  //ამასთან isInitial რომაა ცვლადი მაგას false გადაეცით რომ შეცვლილი აითემები გამოიტანოს
-}
+  }
+
+  function filterFunction(item: Item) {
+    //ცალ-ცალკე დააიმპლემენტირეთ სერჩინგ და სორტინგ ფუნქციები, ამ ფუნქციაში გამოიძახეთ item-ზე და დააreturnეთ
+    //ამასთან isInitial რომაა ცვლადი მაგას false გადაეცით რომ შეცვლილი აითემები გამოიტანოს
+  }
 
   function fetchDefaultProductsAndDisplay() {
     fetchPageData(currentPage)
@@ -119,13 +117,13 @@ function filterFunction(item: Item) {
         setProducts(items);
         setProductCount(meta.total); // Update the product count using the total value from the meta
         setPageCount(meta.last_page);
-        setFilteredProducts(items); 
+        setFilteredProducts(items);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }
-  
+
   function fetchAllItemsAndDisplay() {
     fetchAllItems()
       .then((items) => {
@@ -329,7 +327,7 @@ function filterFunction(item: Item) {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-  
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
@@ -424,7 +422,7 @@ function filterFunction(item: Item) {
             <option value="5.1">გარბენი კლებადი</option>
             <option value="6.1">გარბენი ზრდადი</option>
           </select>
-        </div>   
+        </div>
       </div>
 
       {products.map((product) => (
@@ -436,39 +434,63 @@ function filterFunction(item: Item) {
             >
               <div className="d-flex d-m-none justify-content-between align-items-center py-12px px-16px">
                 <div className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap">
-                  რუსთავი
+                  ადგილი
                 </div>
-                <div className="font-size-12 text-green-250 d-flex align-items-center">
-                  <span className="d-flex mr-4px">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="7.258"
-                      height="5.927"
-                      viewBox="0 0 7.258 5.927"
-                    >
-                      <g transform="translate(0.131 0.127)">
-                        <g transform="translate(-227 -865)">
-                          <g transform="translate(0 808)">
-                            <g transform="translate(219 48)">
-                              <path
-                                d="M9,12.286,10.667,14,14,10"
-                                style={{
-                                  fill: "none",
-                                  stroke: "rgb(2, 204, 89)",
-                                  strokeLinecap: "round",
-                                  strokeLinejoin: "round",
-                                  strokeWidth: "1.6px",
-                                  fillRule: "evenodd",
-                                }}
-                              ></path>
+                {product.customs_passed === true ? (
+                  <div className="font-size-12 text-green-250 d-flex align-items-center">
+                    <span className="d-flex mr-4px">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="7.258"
+                        height="5.927"
+                        viewBox="0 0 7.258 5.927"
+                      >
+                        <g transform="translate(0.131 0.127)">
+                          <g transform="translate(-227 -865)">
+                            <g transform="translate(0 808)">
+                              <g transform="translate(219 48)">
+                                <path
+                                  d="M9,12.286,10.667,14,14,10"
+                                  style={{
+                                    fill: "none",
+                                    stroke: "rgb(2, 204, 89)",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    strokeWidth: "1.6px",
+                                    fillRule: "evenodd",
+                                  }}
+                                ></path>
+                              </g>
                             </g>
                           </g>
                         </g>
-                      </g>
-                    </svg>
-                  </span>
-                  განბაჟებული
-                </div>
+                      </svg>
+                    </span>
+                    განბაჟებული
+                  </div>
+                ) : (
+                  <div className="font-size-12 text-red-800 text-nowrap">
+                    განბაჟება&nbsp;&nbsp;
+                    <div className="d-inline-flex align-items-center icon-red-800 icon-w-8px">
+                      2,812
+                      <span className="d-flex ml-8px">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10px"
+                          height="11px"
+                          viewBox="0 0 10 11"
+                        >
+                          <path
+                            id="GEL"
+                            d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
+                            transform="translate(-305 29)"
+                            fill="#272a37"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="photo flex-shrink-0 w-m-200px mb-12px mb-m-0 px-16px px-m-0">
@@ -489,10 +511,7 @@ function filterFunction(item: Item) {
                 >
                   <div className="d-flex align-items-center">
                     <h2 className="d-flex font-medium text-gray-800 font-size-14">
-                      <span
-                        className="text-gray-800"
-
-                      >
+                      <span className="text-gray-800">
                         {
                           getManufacturerById(manufacturers, product.man_id)
                             ?.man_name
@@ -500,57 +519,73 @@ function filterFunction(item: Item) {
                         {getModelById(models, product.model_id)?.model_name}
                         &nbsp;&nbsp;
                       </span>
-                      <span
-                        className="ml-8px d-flex text-gray-500 font-medium text-nowrap"
-
-                      >
+                      <span className="ml-8px d-flex text-gray-500 font-medium text-nowrap">
                         {product.prod_year}&nbsp;წ
                       </span>
                     </h2>
                   </div>
 
-                  <div
-                    className="d-none d-m-flex align-items-center mt-m-8px mt-lg-0"
-
-                  >
-                    <div
-                      className="ml-lg-16px mr-24px"
-                    >
-                      <div className="font-size-12 text-green-250 d-flex align-items-center">
-                        <span className="d-flex mr-4px">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="7.258"
-                            height="5.927"
-                            viewBox="0 0 7.258 5.927"
-                          >
-                            <g transform="translate(0.131 0.127)">
-                              <g transform="translate(-227 -865)">
-                                <g transform="translate(0 808)">
-                                  <g transform="translate(219 48)">
-                                    <path
-                                      d="M9,12.286,10.667,14,14,10"
-                                      style={{
-                                        fill: "none",
-                                        stroke: "rgb(2, 204, 89)",
-                                        strokeLinecap: "round",
-                                        strokeLinejoin: "round",
-                                        strokeWidth: "1.6px",
-                                        fillRule: "evenodd",
-                                      }}
-                                    ></path>
+                  <div className="d-none d-m-flex align-items-center mt-m-8px mt-lg-0">
+                    <div className="ml-lg-16px mr-24px">
+                      {product.customs_passed === true ? (
+                        <div className="font-size-12 text-green-250 d-flex align-items-center">
+                          <span className="d-flex mr-4px">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="7.258"
+                              height="5.927"
+                              viewBox="0 0 7.258 5.927"
+                            >
+                              <g transform="translate(0.131 0.127)">
+                                <g transform="translate(-227 -865)">
+                                  <g transform="translate(0 808)">
+                                    <g transform="translate(219 48)">
+                                      <path
+                                        d="M9,12.286,10.667,14,14,10"
+                                        style={{
+                                          fill: "none",
+                                          stroke: "rgb(2, 204, 89)",
+                                          strokeLinecap: "round",
+                                          strokeLinejoin: "round",
+                                          strokeWidth: "1.6px",
+                                          fillRule: "evenodd",
+                                        }}
+                                      ></path>
+                                    </g>
                                   </g>
                                 </g>
                               </g>
-                            </g>
-                          </svg>
-                        </span>
-                        განბაჟებული
-                      </div>
+                            </svg>
+                          </span>
+                          განბაჟებული
+                        </div>
+                      ) : (
+                        <div className="font-size-12 text-green-250 d-flex align-items-center">
+                          <div className="font-size-12 text-red-800 text-nowrap">
+                            განბაჟება&nbsp;&nbsp;
+                            <div className="d-inline-flex align-items-center icon-red-800 icon-w-8px">
+                              2,812
+                              <span className="d-flex ml-8px">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="10px"
+                                  height="11px"
+                                  viewBox="0 0 10 11"
+                                >
+                                  <path
+                                    id="GEL"
+                                    d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
+                                    transform="translate(-305 29)"
+                                    fill="#272a37"
+                                  ></path>
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div
-                      className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap"
-                    >
+                    <div className="d-flex align-items-center font-size-12 text-gray-500 text-nowrap">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
@@ -600,9 +635,7 @@ function filterFunction(item: Item) {
                       <div
                         className="w-50 px-8px px-md-12px py-10px mb-10px " /*px-8px px-md-12px py-10px mb-10px*/
                       >
-                        <div
-                          className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-                        >
+                        <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800">
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
                           >
@@ -629,9 +662,7 @@ function filterFunction(item: Item) {
                       <div
                         className="w-50 px-8px px-md-12px py-10px mb-10px " /*px-8px px-md-12px py-10px mb-10px*/
                       >
-                        <div
-                          className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-                        >
+                        <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800">
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
                           >
@@ -677,10 +708,7 @@ function filterFunction(item: Item) {
                       <div
                         className="w-50 px-8px px-md-12px py-10px " /*px-8px px-md-12px py-10px */
                       >
-                        <div
-                          className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-
-                        >
+                        <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800">
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
                           >
@@ -736,10 +764,7 @@ function filterFunction(item: Item) {
                       <div
                         className="w-50 px-8px px-md-12px py-10px " /*px-8px px-md-12px py-10px*/
                       >
-                        <div
-                          className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800"
-
-                        >
+                        <div className="d-flex align-item-center font-size-12 font-size-md-13 text-gray-800">
                           <span
                             className="d-flex mr-8px mr-md-12px" /*mr-8px mr-md-12px*/
                           >
@@ -802,10 +827,7 @@ function filterFunction(item: Item) {
                             <span className="d-flex ml-2" /*ml-8px*/></span>
                           </div>
                         </div>
-                        <div
-                          className="d-flex"
-
-                        >
+                        <div className="d-flex">
                           {currency === "none" ? (
                             <>
                               {/* დოლარის ნიშანი */}
@@ -892,28 +914,18 @@ function filterFunction(item: Item) {
                   </div>
                 </div>
 
-                <div
-                  className="d-flex justify-content-between align-items-center border-top border-solid-1 border-solid-m-0 py-12px px-16px p-m-0 border-gray-100"
- 
-                >
+                <div className="d-flex justify-content-between align-items-center border-top border-solid-1 border-solid-m-0 py-12px px-16px p-m-0 border-gray-100">
                   <div className="d-flex align-items-center">
                     <span
                       className="bg-orange d-flex align-items-center justify-content-center rounded font-bold font-size-10 text-white text-uppercase
                             h-20px px-10px mr-16px text-nowrap"
-
                     >
                       VIP
                     </span>
                     &nbsp;
-                    <div
-                      className="d-flex align-items-center font-size-12 text-gray-500"
-
-                    >
+                    <div className="d-flex align-items-center font-size-12 text-gray-500">
                       {product.views}&nbsp;ნახვა&nbsp;&nbsp;
-                      <span
-                        className="d-inline-flex w-2px h-2px round-circle bg-gray-500 mx-10px "
-
-                      ></span>
+                      <span className="d-inline-flex w-2px h-2px round-circle bg-gray-500 mx-10px "></span>
                       &nbsp;
                       {getTimePassed(product)}
                     </div>
@@ -1008,7 +1020,6 @@ function filterFunction(item: Item) {
       ))}
 
       <Pagination />
-
 
       <div>
         <ul>
