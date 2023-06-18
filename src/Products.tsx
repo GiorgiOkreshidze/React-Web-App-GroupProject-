@@ -470,25 +470,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                   </div>
                 ) : (
                   <div className="font-size-12 text-red-800 text-nowrap">
-                    განბაჟება&nbsp;&nbsp;
-                    <div className="d-inline-flex align-items-center icon-red-800 icon-w-8px">
-                      2,812
-                      <span className="d-flex ml-8px">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="10px"
-                          height="11px"
-                          viewBox="0 0 10 11"
-                        >
-                          <path
-                            id="GEL"
-                            d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
-                            transform="translate(-305 29)"
-                            fill="#272a37"
-                          ></path>
-                        </svg>
-                      </span>
-                    </div>
+                    განუბაჟებელი&nbsp;&nbsp;
+                    <div className="d-inline-flex align-items-center icon-red-800 icon-w-8px"></div>
                   </div>
                 )}
               </div>
@@ -562,25 +545,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                       ) : (
                         <div className="font-size-12 text-green-250 d-flex align-items-center">
                           <div className="font-size-12 text-red-800 text-nowrap">
-                            განბაჟება&nbsp;&nbsp;
-                            <div className="d-inline-flex align-items-center icon-red-800 icon-w-8px">
-                              2,812
-                              <span className="d-flex ml-8px">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="10px"
-                                  height="11px"
-                                  viewBox="0 0 10 11"
-                                >
-                                  <path
-                                    id="GEL"
-                                    d="M313.914-18v-1.689h-3.663a2.938,2.938,0,0,1-1.643-.46,3,3,0,0,1-1.089-1.3,4.608,4.608,0,0,1-.384-1.94,5,5,0,0,1,.343-1.987,2.543,2.543,0,0,1,1.112-1.225v3.372h.894v-3.64a2.492,2.492,0,0,1,.48-.044,2.936,2.936,0,0,1,.5.044v3.64h.894V-26.6a2.469,2.469,0,0,1,1.134,1.24,5.547,5.547,0,0,1,.343,2.132H315a6.022,6.022,0,0,0-.439-2.324,4.874,4.874,0,0,0-1.263-1.8,4.534,4.534,0,0,0-1.939-1.019V-29h-.894v.472l-.236-.007q-.081-.007-.236-.007-.347,0-.51.015V-29h-.894v.631a4.67,4.67,0,0,0-1.891.982,4.823,4.823,0,0,0-1.256,1.671A4.872,4.872,0,0,0,305-23.67a5.7,5.7,0,0,0,.229,1.61,4.62,4.62,0,0,0,.672,1.4,3.294,3.294,0,0,0,1.056.968v.058h-1.411V-18Z"
-                                    transform="translate(-305 29)"
-                                    fill="#272a37"
-                                  ></path>
-                                </svg>
-                              </span>
-                            </div>
+                            განუბაჟებელი&nbsp;&nbsp;
+                            <div className="d-inline-flex align-items-center icon-red-800 icon-w-8px"></div>
                           </div>
                         </div>
                       )}
@@ -831,7 +797,9 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                           {currency === "none" ? (
                             <>
                               {/* დოლარის ნიშანი */}
-                              <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800">
+                              <span
+                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle bg-gray-350 text-gray-800 icon-gray-800" /*cursor-pointer*/
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="9px"
@@ -850,7 +818,9 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                                 </svg>
                               </span>
                               {/*უფერული ლარის ნიშანი */}
-                              <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
+                              <span
+                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle bg-transparent text-gray-800-20 icon-gray-800-20" /*cursor-pointer*/
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="10px"
@@ -869,7 +839,9 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                           ) : (
                             <>
                               {/*უფერული დოლარის ნიშანი */}
-                              <span className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-transparent text-gray-800-20 icon-gray-800-20">
+                              <span
+                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle bg-transparent text-gray-800-20 icon-gray-800-20" /*cursor-pointer*/
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="9px"
@@ -889,8 +861,8 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                               </span>{" "}
                               {/* ლარის ნიშანი */}
                               <span
-                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle cursor-pointer bg-gray-350 text-gray-800 icon-gray-800"
-                                /*w-24px h-24px*/
+                                className="d-flex align-items-center justify-content-center w-24px h-24px rounded-circle bg-gray-350 text-gray-800 icon-gray-800"
+                                /*cursor-pointer*/
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
