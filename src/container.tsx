@@ -3,37 +3,113 @@ import {
   fetchModels,
   fetchManufacturers,
   fetchCategories,
-  fetchData,
+ SearchParameters,
   Manufacturer,
   Model,
   Category,
   Item,
+  fetchParametrizedPageData,
+  getManufacturerById,
+  getManufacturerByName,
+  getModelById,
+  getModelByName,
+  getCategoryById,
+  getCategoryByName
 } from "./dataService";
 import "./container.css";
+import {} from "./Products";
+import { notEqual } from "assert";
+
+interface ContainerProps {
+  onclick: any;
+  currSearchParameters: SearchParameters;
+  setSearchParameters: (params: SearchParameters) => void;
+}
 
 interface onClickProp {
   onclick: any;
 }
 
-const Container: React.FC<onClickProp> = ({ onclick }) => {
-  const [models, setModels] = useState<Model[]>([]);
-  const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [products, setProducts] = useState<Item[]>([]);
-  const [currency, setCurrency] = useState("$");
-  const [productCount, setProductCount] = useState(0);
-  const [activeButton, setActiveButton] = useState("carIcon");
-  const [dealType, setDealType] = useState("1");
-  const [selectedManufacturer, setSelectedManufacturer] = useState("all");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+const Container: React.FC<ContainerProps> = ({ onclick, currSearchParameters, setSearchParameters }) => {
 
+
+
+  const [dealType, setDealType] = useState("all");
+  const[currency,setCurrency] = useState("$");
+const[productCount,setProductCount] = useState(0);
+const[activeButton,setActiveButton] = useState("");
+const[activeButtonID,setActiveButtonID]= useState(-1);
+const [selectedManufacturer, setSelectedManufacturer] = useState("all");
+const [selectedManufacturerID, setSelectedManufacturerID] = useState("all");
+const [selectedCategory, setSelectedCategory] = useState("all");
+const [selectedCategoryID, setSelectedCategoryID] = useState("all");
+const [models, setModels] = useState<Model[]>([]);
+const [minPrice, setMinPrice] = useState<number>();
+const [maxPrice, setMaxPrice] = useState<number>();
+const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
+const [categories, setCategories] = useState<Category[]>([]);
+const [products, setProducts] = useState<Item[]>([]);
+const [selectedCategoryIdList,setSelectedCategoryIdList] = useState<string[]>([]);
+
+
+  const searchParams: SearchParameters = {
+    ForRent: dealType !=="all" ? Number(dealType) : undefined,
+    Mans: selectedManufacturerID !== "all" ? selectedManufacturerID : undefined,
+    Cats: selectedCategoryID !== "all" ? selectedCategoryID : undefined,
+    PriceFrom: minPrice !== 0 ? minPrice : undefined,
+    PriceTo: maxPrice !== 0 ? maxPrice : undefined,
+  };
+
+  function arraysEqual(a: any[], b: any[]) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+
+  const handleSearch = () => {
+    setSearchParameters(searchParams);
+   };
+  
+  
+  function getSearchParams(){return searchParams;}
   
   useEffect(() => {
     fetchManufacturerModelsAndDisplay();
     fetchManufacturersAndDisplay();
     fetchCategoriesAndDisplay();
-    fetchProductsAndDisplay();
+    // fetchProductsAndDisplay();
   }, [selectedManufacturer, selectedCategory]);
+
+  useEffect(() => {
+    const filteredCategories = filterCategoryByTypeID(Number(selectedCategoryID));
+    const categoryIds = filteredCategories.map(category => String(category.category_id));
+    setSelectedCategoryIdList(categoryIds);
+  }, [selectedCategoryID]);
+  
+
+  function filterCategoryByTypeID(typeID:number){
+    return categories.filter(category => category.category_type === typeID);
+  }
+  
+  
+  // function fetchProductsAndDisplay() {
+
+
+  //   fetchParametrizedPageData(searchParams,currentPage)
+  //     .then((page) => {
+  //       setProducts(page.data.items);
+  //       setProductCount(page.data.meta.total);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }
+
+
+
+  // rest of the Container component implementation
 
   function fetchManufacturerModelsAndDisplay() {
     const manufacturerId = "10"; // Example manufacturer ID
@@ -67,37 +143,26 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
       });
   }
 
-  function fetchProductsAndDisplay() {
-    const searchParams = {
-      manufacturer: selectedManufacturer,
-      category: selectedCategory,
-    }; // Add any necessary search parameters
-    fetchData(searchParams)
-      .then((products) => {
-        setProducts(products);
-        setProductCount(products.length); // Update the product count
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  function getCatIDByName(name:string){
+    if(name==="carIcon"){return 0}
+    if(name==="tracktorIcon"){return 1}
+    else{return 2}
   }
-  // const toggleCurrency = () => {
-  //   if (currency === '$') {
-  //     setCurrency('₾');
-  //   } else {
-  //     setCurrency('$');
-  //   }
-  // };
+
   const handleButtonClick = (buttonName: string) => {
-    setActiveButton(buttonName);
+    if(activeButton===buttonName){setActiveButton(""); setActiveButtonID(-1)}
+    else{setActiveButton(buttonName);setActiveButtonID(getCatIDByName(buttonName))}
+    
   };
 
-  const handleManufacturerChange = (manufacturerId: string) => {
-    setSelectedManufacturer(manufacturerId);
+  const handleManufacturerChange = (manufacturer: Manufacturer) => {
+    setSelectedManufacturer(manufacturer.man_name);
+    setSelectedManufacturerID(manufacturer.man_id);
   };
 
-  const handleCategoryChange = (categoryId: string) => {
-    setSelectedCategory(categoryId);
+  const handleCategoryChange = (category: Category) => {
+    setSelectedCategory(category.title);
+    setSelectedCategoryID(String(category.category_id));
   };
 
   return (
@@ -215,29 +280,55 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
         <select className="dealType" 
         value={dealType} 
         onChange={(e) => setDealType(e.target.value)}>
-          <option value="1">იყიდება</option>
-          <option value="0">ქირავდება</option>
+          <option value="all">ყველა</option>
+          <option value="0">იყიდება</option>
+          <option value="1">ქირავდება</option>
         </select>
       </div>
       <div>
-        <p className="manu">მწარმოებელი</p>
+      <p className="deal">მწარმოებელი </p>
+
         <select
-          className="manufacturer" 
-          value={selectedManufacturer}
-          onChange={(e) => handleManufacturerChange(e.target.value)}
-        >
-          <option value="all">ყველა მწარმოებელი</option>
-          {manufacturers.map((manufacturer) => (
-            <option key={manufacturer.man_id}>{manufacturer.man_name}</option>
-          ))}
-        </select>
+  className="manufacturer"
+  value={selectedManufacturer}
+  onChange={(e) => {
+    const manufacturer = getManufacturerByName(manufacturers, e.target.value);
+    if (manufacturer) {
+      handleManufacturerChange(manufacturer);
+    }
+    else{setSelectedManufacturerID("all");
+  setSelectedManufacturer("all")}
+  }}
+>
+  <option value="all">ყველა მწარმოებელი</option>
+  {manufacturers.map((manufacturer) => (
+    <option key={manufacturer.man_id}>{manufacturer.man_name}</option>
+  ))}
+</select>
+
       </div>
       <div>
         <p className="cate">კატეგორია</p>
         <select
           className="category"
           value={selectedCategory}
-          onChange={(e) => handleCategoryChange(e.target.value)}
+          // onChange={(e) => handleCategoryChange(e.target.value)}
+           onChange={(e) => {
+            const category = getCategoryByName(categories,e.target.value);
+            if(category){
+              handleCategoryChange(category);
+            }
+            else{setSelectedCategory("all");
+          setSelectedCategoryID("all")}
+            
+           }}
+
+          // onChange={(e) => {
+          //   const manufacturer = getManufacturerByName(manufacturers, e.target.value);
+          //   if (manufacturer) {
+          //     handleManufacturerChange(manufacturer);
+          //   }
+          // }}
         >
           <option value="all">ყველა კატეგორია</option>
           {categories.map((category) => (
@@ -284,16 +375,37 @@ const Container: React.FC<onClickProp> = ({ onclick }) => {
           </div>
         </div>
         <div className="price-inputs">
-          <input type="text" className="min-price" placeholder="დან" />
-          <span>-</span>
-          <input type="text" className="max-price" placeholder="მდე" />
-        </div>
+  <input
+    type="text"
+    className="min-price"
+    placeholder="დან"
+    onChange={(event) => setMinPrice(Number(event.target.value))}
+  />
+  <span>-</span>
+  <input
+    type="text"
+    className="max-price"
+    placeholder="მდე"
+    onChange={(event) => setMaxPrice(Number(event.target.value))}
+  />
+</div>
+
       </div>
       <div className="search">
-        <button className="search-btn" onClick={fetchProductsAndDisplay}>
-          ძებნა {productCount}
+        <button className="search-btn" onClick={handleSearch}>
+          ძებნა
         </button>
       </div>
+      {/* <div>cats {searchParams.Cats}</div>
+      <div>forRent {searchParams.ForRent}</div>
+      <div>Mans {searchParams.Mans}</div>
+      <div>Page {searchParams.Page}</div>
+      <div>Period {searchParams.Period}</div>
+      <div>PriceFrom {searchParams.PriceFrom}</div>
+      <div>PriceTo {searchParams.PriceTo}</div>
+      <div>CategoryType {searchParams.category_List}</div>
+      <div>SortOrder {searchParams.SortOrder}</div> */}
+      
     </div>
   );
 };

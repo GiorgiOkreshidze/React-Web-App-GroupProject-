@@ -196,44 +196,54 @@ import { useState } from "react";
     return models.find((model) => model.model_id === modelId);
   };
 
+  export const getModelByName = (models: Model[], modelName: string): Model | undefined => {
+    return models.find((model) => model.model_name === modelName);
+  };
+
 
   export const getManufacturerById = (manufacturers: Manufacturer[], manufacturerlId: number): Manufacturer | undefined => {
     return manufacturers.find((manufacturer) => manufacturer.man_id === String(manufacturerlId));
   };
 
+  export const getManufacturerByName = (manufacturers: Manufacturer[], manufacturerlName: string): Manufacturer | undefined => {
+    return manufacturers.find((manufacturer) => manufacturer.man_name === manufacturerlName);
+  };
+
+
   export const getCategoryById = (categories: Category[], categoryId: number): Category | undefined => {
     return categories.find((category) => category.category_id === categoryId);
   };
+
+  export const getCategoryByName = (categories: Category[], categoryName: string): Category | undefined => {
+    return categories.find((category) => category.title === categoryName);
+  };
+
   
-export async function fetchAllItems(): Promise<Item[]> {
-  const allItems: Item[] = [];
-  let currentPage = 1;
-  let totalPages = 1;
 
-  while (currentPage <= totalPages) {
-    try {
-      const page = await fetchPageData(currentPage);
-      const { items, meta } = page.data;
-
-      allItems.push(...items);
-      totalPages = meta.last_page;
-
-      currentPage++;
-    } catch (error) {
-      console.error("Error: cannot fetch all the data", error);
-      break;
-    }
+  export interface SearchParameters {
+    ForRent?: number;
+    Mans?: string;
+    Cats?: string;
+    PriceFrom?: number;
+    PriceTo?: number;
+    Period?: string;
+    SortOrder?: number;
+    Page?: number;
   }
 
-  return allItems;
-}
 
   
-
-  
-
-  export const fetchPageData = (page: number = 1): Promise<Page> => {
-    const url = `https://api2.myauto.ge/ka/products/?Page=${page}`;
+  export const fetchParametrizedPageData = (
+    searchParameters: SearchParameters = {},
+    page: number
+  ): Promise<Page> => {
+    // Create a new object that only includes defined search parameters
+    const definedSearchParams = Object.fromEntries(
+      Object.entries(searchParameters).filter(([key, value]) => value !== undefined)
+    );
+    const queryParams = new URLSearchParams(definedSearchParams as any);
+    const url = `https://api2.myauto.ge/ka/products/?Page=${page}&${queryParams.toString()}`;
+    console.log(url);
   
     return fetch(url)
       .then((response) => {
@@ -246,6 +256,8 @@ export async function fetchAllItems(): Promise<Item[]> {
         return data as Page;
       });
   };
+  
+  
 
 export const fetchManufacturers = (): Promise<Manufacturer[]> => {
   return fetch('https://static.my.ge/myauto/js/mans.json')
@@ -306,135 +318,135 @@ export const fetchCategories = (): Promise<Category[]> => {
     });
 };
 
-export const fetchData = (searchParams: any): Promise<Item[]> => {
-  const dataEndpoint = 'https://api2.myauto.ge/ka/products/';
-  const queryParams = new URLSearchParams(searchParams);
-  const url = `${dataEndpoint}?${queryParams.toString()}`;
+// export const fetchData = (searchParams: any): Promise<Item[]> => {
+//   const dataEndpoint = 'https://api2.myauto.ge/ka/products/';
+//   const queryParams = new URLSearchParams(searchParams);
+//   const url = `${dataEndpoint}?${queryParams.toString()}`;
 
-  return fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      const items = data.data.items;
+//   return fetch(url)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       const items = data.data.items;
 
-      return items.map((item: any) => {
-        const photo = `https://static.my.ge/myauto/photos/${item.photo}/thumbs/${item.car_id}_1.jpg?v=${item.photo_ver}`;
+//       return items.map((item: any) => {
+//         const photo = `https://static.my.ge/myauto/photos/${item.photo}/thumbs/${item.car_id}_1.jpg?v=${item.photo_ver}`;
 
-        return {
-          car_id: item.car_id,
-          status_id: item.status_id,
-          user_id: item.user_id,
-          dealer_user_id: item.dealer_user_id,
-          paid_add: item.paid_add,
-          photo: photo,
-          pic_number: item.pic_number,
-          prod_year: item.prod_year,
-          prod_month: item.prod_month,
-          man_id: item.man_id,
-          car_model: item.car_model,
-          price: item.price,
-          price_usd: item.price_usd,
-          first_deposit: item.first_deposit,
-          price_value: item.price_value,
-          fuel_type_id: item.fuel_type_id,
-          gear_type_id: item.gear_type_id,
-          drive_type_id: item.drive_type_id,
-          door_type_id: item.door_type_id,
-          color_id: item.color_id,
-          saloon_color_id: item.saloon_color_id,
-          cylinders: item.cylinders,
-          car_run: item.car_run,
-          car_run_km: item.car_run_km,
-          car_run_dim: item.car_run_dim,
-          engine_volume: item.engine_volume,
-          airbags: item.airbags,
-          abs: item.abs,
-          esd: item.esd,
-          el_windows: item.el_windows,
-          conditioner: item.conditioner,
-          leather: item.leather,
-          disks: item.disks,
-          nav_system: item.nav_system,
-          central_lock: item.central_lock,
-          hatch: item.hatch,
-          right_wheel: item.right_wheel,
-          alarm: item.alarm,
-          board_comp: item.board_comp,
-          hydraulics: item.hydraulics,
-          chair_warming: item.chair_warming,
-          climat_control: item.climat_control,
-          obstacle_indicator: item.obstacle_indicator,
-          customs_passed: item.customs_passed,
-          client_name: item.client_name,
-          client_phone: item.client_phone,
-          model_id: item.model_id,
-          location_id: item.location_id,
-          parent_loc_id: item.parent_loc_id,
-          tech_inspection: item.tech_inspection,
-          checked_for_duplicates: item.checked_for_duplicates,
-          order_number: item.order_number,
-          stickers: item.stickers,
-          changable: item.changable,
-          auction: item.auction,
-          has_turbo: item.has_turbo,
-          for_rent: item.for_rent,
-          rent_daily: item.rent_daily,
-          rent_purchase: item.rent_purchase,
-          rent_insured: item.rent_insured,
-          rent_driver: item.rent_driver,
-          currency_id: item.currency_id,
-          vehicle_type: item.vehicle_type,
-          category_id: item.category_id,
-          vin: item.vin,
-          user_type: item.user_type,
-          prom_color: item.prom_color,
-          special_persons: item.special_persons,
-          back_camera: item.back_camera,
-          car_desc: item.car_desc,
-          order_date: item.order_date,
-          video_url: item.video_url,
-          hp: item.hp,
-          hours_used: item.hours_used,
-          photo_ver: item.photo_ver,
-          checked: item.checked,
-          lang_type_id: item.lang_type_id,
-          el_starter: item.el_starter,
-          start_stop: item.start_stop,
-          trunk: item.trunk,
-          windshield: item.windshield,
-          inspected_in_greenway: item.inspected_in_greenway,
-          license_number: item.license_number,
-          words_checked: item.words_checked,
-          is_payd: item.is_payd,
-          condition_type_id: item.condition_type_id,
-          primary_damage_type: item.primary_damage_type,
-          secondary_damage_type: item.secondary_damage_type,
-          auction_has_key: item.auction_has_key,
-          is_auction: item.is_auction,
-          saloon_material_id: item.saloon_material_id,
-          map_lat: item.map_lat,
-          map_long: item.map_long,
-          zoom: item.zoom,
-          predicted_price: item.predicted_price,
-          hdd: item.hdd,
-          map_title: item.map_title,
-          has_catalyst: item.has_catalyst,
-          tmp: item.tmp,
-          views: item.views,
-          dealerId: item.dealerId,
-          has_logo: item.has_logo,
-          logo_ver: item.logo_ver,
-          active_ads: item.active_ads,
-          dealer_title: item.dealer_title,
-          has_predicted_price: item.has_predicted_price,
-          pred_first_breakpoint: item.pred_first_breakpoint,
-          pred_second_breakpoint: item.pred_second_breakpoint,
-          pred_min_price: item.pred_min_price,
-          pred_max_price: item.pred_max_price,
-          comfort_features: item.comfort_features,
-        };
-      });
-    });
-};
+//         return {
+//           car_id: item.car_id,
+//           status_id: item.status_id,
+//           user_id: item.user_id,
+//           dealer_user_id: item.dealer_user_id,
+//           paid_add: item.paid_add,
+//           photo: photo,
+//           pic_number: item.pic_number,
+//           prod_year: item.prod_year,
+//           prod_month: item.prod_month,
+//           man_id: item.man_id,
+//           car_model: item.car_model,
+//           price: item.price,
+//           price_usd: item.price_usd,
+//           first_deposit: item.first_deposit,
+//           price_value: item.price_value,
+//           fuel_type_id: item.fuel_type_id,
+//           gear_type_id: item.gear_type_id,
+//           drive_type_id: item.drive_type_id,
+//           door_type_id: item.door_type_id,
+//           color_id: item.color_id,
+//           saloon_color_id: item.saloon_color_id,
+//           cylinders: item.cylinders,
+//           car_run: item.car_run,
+//           car_run_km: item.car_run_km,
+//           car_run_dim: item.car_run_dim,
+//           engine_volume: item.engine_volume,
+//           airbags: item.airbags,
+//           abs: item.abs,
+//           esd: item.esd,
+//           el_windows: item.el_windows,
+//           conditioner: item.conditioner,
+//           leather: item.leather,
+//           disks: item.disks,
+//           nav_system: item.nav_system,
+//           central_lock: item.central_lock,
+//           hatch: item.hatch,
+//           right_wheel: item.right_wheel,
+//           alarm: item.alarm,
+//           board_comp: item.board_comp,
+//           hydraulics: item.hydraulics,
+//           chair_warming: item.chair_warming,
+//           climat_control: item.climat_control,
+//           obstacle_indicator: item.obstacle_indicator,
+//           customs_passed: item.customs_passed,
+//           client_name: item.client_name,
+//           client_phone: item.client_phone,
+//           model_id: item.model_id,
+//           location_id: item.location_id,
+//           parent_loc_id: item.parent_loc_id,
+//           tech_inspection: item.tech_inspection,
+//           checked_for_duplicates: item.checked_for_duplicates,
+//           order_number: item.order_number,
+//           stickers: item.stickers,
+//           changable: item.changable,
+//           auction: item.auction,
+//           has_turbo: item.has_turbo,
+//           for_rent: item.for_rent,
+//           rent_daily: item.rent_daily,
+//           rent_purchase: item.rent_purchase,
+//           rent_insured: item.rent_insured,
+//           rent_driver: item.rent_driver,
+//           currency_id: item.currency_id,
+//           vehicle_type: item.vehicle_type,
+//           category_id: item.category_id,
+//           vin: item.vin,
+//           user_type: item.user_type,
+//           prom_color: item.prom_color,
+//           special_persons: item.special_persons,
+//           back_camera: item.back_camera,
+//           car_desc: item.car_desc,
+//           order_date: item.order_date,
+//           video_url: item.video_url,
+//           hp: item.hp,
+//           hours_used: item.hours_used,
+//           photo_ver: item.photo_ver,
+//           checked: item.checked,
+//           lang_type_id: item.lang_type_id,
+//           el_starter: item.el_starter,
+//           start_stop: item.start_stop,
+//           trunk: item.trunk,
+//           windshield: item.windshield,
+//           inspected_in_greenway: item.inspected_in_greenway,
+//           license_number: item.license_number,
+//           words_checked: item.words_checked,
+//           is_payd: item.is_payd,
+//           condition_type_id: item.condition_type_id,
+//           primary_damage_type: item.primary_damage_type,
+//           secondary_damage_type: item.secondary_damage_type,
+//           auction_has_key: item.auction_has_key,
+//           is_auction: item.is_auction,
+//           saloon_material_id: item.saloon_material_id,
+//           map_lat: item.map_lat,
+//           map_long: item.map_long,
+//           zoom: item.zoom,
+//           predicted_price: item.predicted_price,
+//           hdd: item.hdd,
+//           map_title: item.map_title,
+//           has_catalyst: item.has_catalyst,
+//           tmp: item.tmp,
+//           views: item.views,
+//           dealerId: item.dealerId,
+//           has_logo: item.has_logo,
+//           logo_ver: item.logo_ver,
+//           active_ads: item.active_ads,
+//           dealer_title: item.dealer_title,
+//           has_predicted_price: item.has_predicted_price,
+//           pred_first_breakpoint: item.pred_first_breakpoint,
+//           pred_second_breakpoint: item.pred_second_breakpoint,
+//           pred_min_price: item.pred_min_price,
+//           pred_max_price: item.pred_max_price,
+//           comfort_features: item.comfort_features,
+//         };
+//       });
+//     });
+// };
 
 
 

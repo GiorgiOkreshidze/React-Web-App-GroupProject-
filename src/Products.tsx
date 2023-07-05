@@ -7,16 +7,33 @@ import {
   fetchModels,
   fetchManufacturers,
   fetchCategories,
-  fetchData,
+
   Manufacturer,
   Model,
   Category,
   Item,
   Page,
-  fetchPageData,
-  fetchAllItems,
+  fetchParametrizedPageData,
+  SearchParameters
 } from "./dataService";
 import "./App.css";
+import {}  from "./container";
+
+// let currSearchParameters: SearchParameters = {};
+
+
+// export async function initializeSearchParams() {
+//   searchParameters = await getSearchParams();
+// }
+
+// export function setSearchParameters(input: SearchParameters) {
+//   currSearchParameters = input;
+// }
+
+// Call the initialization function
+// initializeSearchParams();
+
+
 // დავამატე საწვავის ინფო და გადაცემათა კოლოფის ინფო.
 interface FuelTypeMapping {
   [key: number]: string;
@@ -69,92 +86,80 @@ const locationTypeMapping: LocationTypeMappinng = {
   113: "კავკასიის ავტომარკეტი",
 };
 
-const Products: React.FC<currencyProp> = ({ currency }) => {
-  const [models, setModels] = useState<Model[]>([]);
+
+
+
+interface ProductsProps{
+  currency: string;
+  currSearchParameters: SearchParameters;
+  setSearchParameters: (params: SearchParameters) => void;
+}
+const Products: React.FC<ProductsProps> = ({ currency, currSearchParameters, setSearchParameters }) => {
+  // const [currSearchParameters, setSearchParameters] = useState<SearchParameters>({});
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Item[]>([]);
-  const [like, setLike] = useState<string | null>(null);
   const [likes, setLikes] = useState<any>([]);
   const [liked, setLiked] = useState<Record<number, boolean>>({}); // object state for liked or not
   const [productCount, setProductCount] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState<number>(1); // Initial page is set to 1, you can change it if needed
   const [itemsPerPage, setItemsPerPage] = useState<number>(15); // Number of items to display per page
   const [filteredProducts, setFilteredProducts] = useState<Item[]>([]);
-  const [allItems, setAllItems] = useState<Item[]>([]); // State variable for all items
+  const [manIdList,setManIdList] = useState<number[]>([]);
+  const [models, setModels] = useState<Model[]>([]);
 
-  const [searchParams, setSearchParams] = useState<string>(""); // Define the type of searchParams based on your specific requirements
-  const [sortParams, setsortParams] = useState<string>(""); // Define the type of sortParams based on your specific requirements
+  function setManIDandReturnModel(manID:number,modelID:number){
+    if(manIdList.includes(manID)){}
+    else{ setManIdList([...manIdList, manID]);}
+    return (getModelById(models,modelID))
 
-  //თუ ეს true არის გამოაქვს ფეიჯები ფეთჩის გარეშე, თუ false არის გამოაქვს გაერთიანებული ლისტი რომელიც შეგვიძლია დავსორტოთ და გავფილტროთ. ასე საიტი სწრაფად იტვირთება.
-  const [isInitial, setisInitial] = useState<boolean>(true);
-  const [moveToDefault, setmoveToDefault] = useState<boolean>(false);
-  const [moveToSorted, setmoveToSorted] = useState<boolean>(true);
+  }
+
+
 
   useEffect(() => {
-    fetchManufacturerModelsAndDisplay();
-    fetchManufacturersAndDisplay();
-    fetchCategoriesAndDisplay();
-    fetchProductsAndDisplay();
-  }, [currentPage]);
-
-  useEffect(() => {
-    fetchAllItemsAndDisplay(); // Fetch all items and update the state only once
-  }); // Empty dependency array to run this effect only once
-
-  function fetchProductsAndDisplay() {
-    if (isInitial) {
-      if (moveToDefault) {
-        setCurrentPage(1);
-      }
-      setmoveToSorted(true);
-      fetchDefaultProductsAndDisplay();
-    } else {
-      if (moveToSorted) {
-        setCurrentPage(1);
-      }
-      setmoveToDefault(true);
-      fetchSortedProductsAndDisplay();
-    }
-  }
-
-  async function fetchSortedProductsAndDisplay() {
-    const filteredItems = allItems.filter(filterFunction);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const slicedItems = filteredItems.slice(startIndex, endIndex);
-
-    setProducts(slicedItems);
-    setProductCount(filteredItems.length);
-    setPageCount(Math.ceil(filteredItems.length / itemsPerPage));
-    setFilteredProducts(slicedItems);
-  }
-
-  function filterFunction(item: Item) {
-    //ცალ-ცალკე დააიმპლემენტირეთ სერჩინგ და სორტინგ ფუნქციები, ამ ფუნქციაში გამოიძახეთ item-ზე და დააreturnეთ
-    //ამასთან isInitial რომაა ცვლადი მაგას false გადაეცით რომ შეცვლილი აითემები გამოიტანოს
-  }
-
-  function fetchDefaultProductsAndDisplay() {
-    fetchPageData(currentPage)
-      .then((page) => {
-        const { items, meta } = page.data;
-        setProducts(items);
-        setProductCount(meta.total); // Update the product count using the total value from the meta
-        setPageCount(meta.last_page);
-        setFilteredProducts(items);
+    // Create an array of promises for each fetchModels call
+    const promises = manIdList.map((ID) => fetchModels(String(ID)));
+  
+    // Wait for all promises to resolve
+    Promise.all(promises)
+      .then((results) => {
+        // Flatten the results array and update the models state variable
+        setModels(results.flat());
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
+  }, [manIdList]);
+  
+    
+    async function fetchManufacturerModels(manufacturerID: string) {
+      fetchModels(manufacturerID)
+        .then((mod) => {
+          setModels((currentModels) => [...currentModels, ...mod]);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    
 
-  function fetchAllItemsAndDisplay() {
-    fetchAllItems()
-      .then((items) => {
-        setAllItems(items);
-        setProductCount(items.length); // Update the product count with the length of all items
+  useEffect(() => {
+    fetchManufacturersAndDisplay();
+    fetchCategoriesAndDisplay();
+    fetchProductsAndDisplay();
+  }, [currentPage,currSearchParameters]);
+
+  function fetchProductsAndDisplay() {
+
+
+    fetchParametrizedPageData(currSearchParameters,currentPage)
+      .then((page) => {
+        setProducts(page.data.items);
+        setProductCount(page.data.meta.total);
+        setPageCount(page.data.meta.last_page);
+        setFilteredProducts(page.data.items);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -240,17 +245,15 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
     // Perform any other actions or data fetching based on the clicked page number
   };
 
-  function fetchManufacturerModelsAndDisplay() {
-    const manufacturerId = "10"; // Example manufacturer ID
+  // async function getModels(man_id: number): Promise<Model[]> {
+  //   const models = await fetchManufacturerModels(String(man_id));
+  //   return models;
+  // }
+  
 
-    fetchModels(manufacturerId)
-      .then((models) => {
-        setModels(models);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+
+
+
 
   function fetchManufacturersAndDisplay() {
     fetchManufacturers()
@@ -396,6 +399,9 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
     );
   }
 
+
+  
+
   return (
     <div className="search-content">
       <div className="d-flex justify-content-between align-items-center my-12px mt-md-0 mb-md-16px px-16px px-md-0">
@@ -524,8 +530,13 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
                         {
                           getManufacturerById(manufacturers, product.man_id)
                             ?.man_name
+                            
                         }
-                        {getModelById(models, product.model_id)?.model_name}
+                        {" "}
+
+{
+setManIDandReturnModel(product.man_id,product.model_id)?.model_name
+  }
                         &nbsp;&nbsp;
                       </span>
                       <span className="ml-8px d-flex text-gray-500 font-medium text-nowrap">
@@ -916,12 +927,12 @@ const Products: React.FC<currencyProp> = ({ currency }) => {
 
                 <div className="d-flex justify-content-between align-items-center border-top border-solid-1 border-solid-m-0 py-12px px-16px p-m-0 border-gray-100">
                   <div className="d-flex align-items-center">
-                    <span
+                    {/* <span
                       className="bg-orange d-flex align-items-center justify-content-center rounded font-bold font-size-10 text-white text-uppercase
                             h-20px px-10px mr-16px text-nowrap"
                     >
                       VIP
-                    </span>
+                    </span> */}
                     &nbsp;
                     <div className="d-flex align-items-center font-size-12 text-gray-500">
                       {product.views}&nbsp;ნახვა&nbsp;&nbsp;

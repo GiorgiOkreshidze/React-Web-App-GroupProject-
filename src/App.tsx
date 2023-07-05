@@ -3,8 +3,7 @@ import {
   fetchModels,
   fetchManufacturers,
   fetchCategories,
-  fetchData,
-  fetchPageData,
+  fetchParametrizedPageData,
   Manufacturer,
   Model,
   Category,
@@ -14,6 +13,7 @@ import {
   Endpoint,
   CarsData,
   Meta,
+  SearchParameters
 } from "./dataService";
 import "./App.css";
 import Container from "./container";
@@ -36,14 +36,14 @@ function App() {
   }, []);
 
   function fetchPageAndDisplay() {
-    const page = 2; // Change the page number as needed
-    fetchPageData(page)
-      .then((fetchedPage) => {
-        setPage(fetchedPage);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // const page = 2; // Change the page number as needed
+    // fetchPageData(page)
+    //   .then((fetchedPage) => {
+    //     setPage(fetchedPage);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   }
 
   function fetchManufacturerModelsAndDisplay() {
@@ -79,14 +79,14 @@ function App() {
   }
 
   function fetchProductsAndDisplay() {
-    const searchParams = {}; // Add any necessary search parameters
-    fetchData(searchParams)
-      .then((products) => {
-        setProducts(products);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // const searchParams = {}; // Add any necessary search parameters
+    // fetchData(searchParams)
+    //   .then((products) => {
+    //     setProducts(products);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   }
 
   const filterCarsByHours = (event: React.MouseEvent<HTMLSelectElement>) => {
@@ -143,6 +143,7 @@ function App() {
 
   const toggleVisibility = () =>
     setCurrency((value) => (value === "none" ? "block" : "none"));
+    const [currSearchParameters, setSearchParameters] = useState<SearchParameters>({});
 
   return (
     <div id="app">
@@ -186,8 +187,8 @@ function App() {
             </div>
 
             <div className="d-flex justify-content-between">
-              <Container onclick={toggleVisibility} />
-              <Products currency={currency} />
+              <Container onclick={toggleVisibility} currSearchParameters={currSearchParameters} setSearchParameters={setSearchParameters} />
+              <Products currency={currency} currSearchParameters={currSearchParameters} setSearchParameters={setSearchParameters} />
             </div>
           </div>
         </div>
