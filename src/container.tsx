@@ -58,6 +58,7 @@ const [selectedCategoryIdList,setSelectedCategoryIdList] = useState<string[]>([]
     Cats: selectedCategoryID !== "all" ? selectedCategoryID : undefined,
     PriceFrom: minPrice !== 0 ? minPrice : undefined,
     PriceTo: maxPrice !== 0 ? maxPrice : undefined,
+  
   };
 
   function arraysEqual(a: any[], b: any[]) {

@@ -89,11 +89,20 @@ const locationTypeMapping: LocationTypeMappinng = {
 
 
 
-interface ProductsProps{
+// interface ProductsProps{
+//   currency: string;
+//   currSearchParameters: SearchParameters;
+//   setSearchParameters: (params: SearchParameters) => void;
+// }
+
+interface ProductsProps {
   currency: string;
   currSearchParameters: SearchParameters;
-  setSearchParameters: (params: SearchParameters) => void;
+  setSearchParameters: React.Dispatch<
+    React.SetStateAction<SearchParameters>
+  >;
 }
+
 const Products: React.FC<ProductsProps> = ({ currency, currSearchParameters, setSearchParameters }) => {
   // const [currSearchParameters, setSearchParameters] = useState<SearchParameters>({});
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -404,6 +413,7 @@ const Products: React.FC<ProductsProps> = ({ currency, currSearchParameters, set
 
   return (
     <div className="search-content">
+   
       <div className="d-flex justify-content-between align-items-center my-12px mt-md-0 mb-md-16px px-16px px-md-0">
         <span className="d-flex font-size-12 font-size-md-14 font-size-m-16 text-gray-800 text-nowrap">
           {productCount} განცხადება
@@ -435,7 +445,13 @@ const Products: React.FC<ProductsProps> = ({ currency, currSearchParameters, set
 
           <select
             className="d-flex align-items-center position-relative ml-4px ml-md-8px undefined"
-            onClick={sortCars}
+            onChange={(event) => {
+              setSearchParameters((currentSearchParams) => ({
+                ...currentSearchParams,
+                SortOrder: Number(event.target.value),
+              }));
+              // fetchProductsAndDisplay();
+            }}
             style={{
               padding: "8px 8px 8px 12px",
               gap: "4px",
@@ -447,12 +463,12 @@ const Products: React.FC<ProductsProps> = ({ currency, currSearchParameters, set
               borderRadius: "8px",
             }}
           >
-            <option value="1.1">თარიღი კლებადი</option>
-            <option value="2.1">თარიღი ზრდადი</option>
-            <option value="3.1">ფასი კლებადი</option>
-            <option value="4.1">ფასი ზრდადი</option>
-            <option value="5.1">გარბენი კლებადი</option>
-            <option value="6.1">გარბენი ზრდადი</option>
+            <option value="1">თარიღი კლებადი</option>
+            <option value="2">თარიღი ზრდადი</option>
+            <option value="3">ფასი კლებადი</option>
+            <option value="4">ფასი ზრდადი</option>
+            <option value="5">გარბენი კლებადი</option>
+            <option value="6">გარბენი ზრდადი</option>
           </select>
         </div>
       </div>
